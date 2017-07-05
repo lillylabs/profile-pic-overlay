@@ -4,10 +4,6 @@ export const state = () => ({
   subtitle: 'Nam lacinia placerat justo, nec placerat leo condimentum vitae.',
   prompt: 'Aliquam lacus tellus, volutpat eu iaculis quis, faucibus id ex. Curabitur vitae mi velit',
   about: 'Nam lacinia placerat justo, nec placerat leo condimentum vitae. Nam sodales ac tellus sed pulvinar. Praesent vestibulum quam elit, nec dictum ante blandit sit amet. Fusce eget metus volutpat mi luctus dapibus. Vestibulum ut ipsum accumsan, ullamcorper quam ac, eleifend nulla. Aliquam lacus tellus, volutpat eu iaculis quis, faucibus id ex. Curabitur vitae mi velit. Curabitur placerat erat id vulputate mollis. Suspendisse quis erat a purus aliquam blandit. Mauris mollis felis at dignissim cursus. Cras venenatis tristique metus.',
-  photo: {
-    src: '/images/avatar.jpeg',
-    title: 'profile'
-  },
   buttons: {
     upload: {
       default: 'Select photo',
@@ -18,10 +14,15 @@ export const state = () => ({
       icon: 'fa-download'
     }
   },
-  filters: [
-    '/images/filter-01.png',
-    '/images/filter-02.png'
-  ],
+  filters: [{
+    image: '/images/avatar.jpeg',
+    overlay: '/images/filter-01.png',
+    fileName: 'Campaign1'
+  }, {
+    image: '/images/avatar.jpeg',
+    overlay: '/images/filter-02.png',
+    fileName: 'Campaign2'
+  }],
   nav: {
     left: [{
       label: 'About',

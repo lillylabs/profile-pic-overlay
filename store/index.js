@@ -1,16 +1,32 @@
+import { filter as FilterService } from '~assets/services/image.service';
+
 export const state = () => ({
-  image: {
-    dataUrl: null,
-    status: null
-  }
+  uploadedImage: {
+    src: null,
+    status: null,
+    error: null
+  },
+  filteredImage: {},
+  filteredImageStatus: {}
 });
 
 export const mutations = {
   imageStatus(state, status) {
-    state.image.status = status;
+    state.uploadedImage.status = status;
   },
   imageDataUrl(state, dataUrl) {
-    state.image.dataUrl = dataUrl;
+    state.uploadedImage.src = dataUrl;
+  },
+  uploadError(state, error) {
+    state.uploadedImage.status = 'ERROR';
+    state.uploadedImage.error = error;
+  },
+  filteredImageStatus(state, { id, status }) {
+    state.filteredImageStatus = { ...state.filteredImageStatus, [id]: status };
+    console.log(state.filteredImageStatus);
+  },
+  filteredImage(state, { id, src }) {
+    state.filteredImage = { ...state.filteredImage, [id]: src };
   }
 
 };
@@ -21,11 +37,18 @@ export const actions = {
     commit('imageStatus', 'IN_PROGRESS');
 
     fReader.onload = () => {
-      console.log('actions onLoad');
-      commit('imageStatus', 'DONE');
       commit('imageDataUrl', fReader.result);
+      commit('imageStatus', 'DONE');
     };
 
     fReader.readAsDataURL(file);
+  },
+  filterImage({ commit }, { id, image, filter }) {
+    commit('filteredImageStatus', { id, status: 'IN_PROGRESS' });
+    console.log(image);
+    FilterService(image, filter).then(filteredImage => {
+      commit('filteredImage', { id, src: filteredImage });
+      commit('filteredImageStatus', { id, status: 'DONE' });
+    });
   }
 };
