@@ -1,7 +1,7 @@
 <template>
   <form>
-    <input type="file" accept="image/*" name="file" id="file" @change="filesChange($event.target.files)" :disabled="loading"></input>
-    <label for="file" id="button" :class="['button', 'is-primary', 'is-medium', loading ? 'is-loading' : '']" :disabled="loading">
+    <input type="file" name="file" id="file" @change="filesChange($event.target.files)" :disabled="loading"></input>
+    <label for="file" accept="image/*" id="button" :class="['button', 'is-primary', 'is-medium', loading ? 'is-loading' : '']" :disabled="loading">
       <span>{{ button.default }}</span>
     </label>
   </form>
@@ -28,16 +28,15 @@ export default {
       var file = files ? files[0] : null;
 
       if (!file) {
-        console.log('No file');
+        this.$store.commit('uploadError', new Error('No file'));
         return;
       }
 
       if (!file.type.match('image.*')) {
-        console.log('File is not an image');
+        this.$store.commit('uploadError', new Error('File is not an image'));
         return;
       }
 
-      console.log(file);
       this.$store.dispatch('uploadFile', file);
     }
   }

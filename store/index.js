@@ -1,7 +1,8 @@
 export const state = () => ({
   uploadedImage: {
-    dataUrl: null,
-    status: null
+    src: null,
+    status: null,
+    error: null
   }
 });
 
@@ -10,7 +11,11 @@ export const mutations = {
     state.uploadedImage.status = status;
   },
   imageDataUrl(state, dataUrl) {
-    state.uploadedImage.dataUrl = dataUrl;
+    state.uploadedImage.src = dataUrl;
+  },
+  uploadError(state, error) {
+    state.uploadedImage.status = 'ERROR';
+    state.uploadedImage.error = error;
   }
 
 };
@@ -21,7 +26,6 @@ export const actions = {
     commit('imageStatus', 'IN_PROGRESS');
 
     fReader.onload = () => {
-      console.log('actions onLoad');
       commit('imageStatus', 'DONE');
       commit('imageDataUrl', fReader.result);
     };

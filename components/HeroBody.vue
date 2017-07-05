@@ -6,7 +6,7 @@
         <upload-image :button="$store.state.content.buttons.upload"></upload-image>
       </div>
       <div class="column is-one-quarter" v-for="filter in $store.state.content.filters">
-        <filter-image :button="$store.state.content.buttons.download" :filter="filter" :image="$store.state.content.photo"></filter-image>
+        <filter-image :button="$store.state.content.buttons.download" :filter="filter" :image="$store.state.content.photo.src"></filter-image>
       </div>
     </div>
   </div>

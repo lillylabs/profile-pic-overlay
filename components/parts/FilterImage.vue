@@ -1,10 +1,10 @@
 <template>
   <div class="photo">
     <div class="image is-square">
-      <img v-if="!$store.state.uploadedImage.dataUrl" :src="image.src"></img>
-      <img v-if="$store.state.uploadedImage.dataUrl" :src="$store.state.uploadedImage.dataUrl"></img>
+      <img :src="image"></img>
+      <img :src="filteredImage"></img>
     </div>
-    <a class="button is-static " :download="image.title">
+    <a class="button is-static " download="bla">
       <span>{{ button.default }}&nbsp;</span>
       <span class=" icon ">
         <i :class="['fa', button.icon]"></i>
@@ -15,17 +15,34 @@
 
 <script>
 
+import { filter } from '~assets/services/image.service';
+
 export default {
-  props: ['button', 'filter', 'image'],
+  props: ['button', 'filter'],
   data() {
     return {
+      mounted: false,
       filteredImage: null
     };
   },
-  watch: {
-    photo() {
-
+  computed: {
+    image: function () {
+      return this.$store.state.uploadedImage.src || this.$store.state.content.photo.src;
     }
+  },
+  watch: {
+    image: function (val) {
+      filter(val, this.filter)
+        .then(src => {
+          this.filteredImage = src;
+        });
+    }
+  },
+  mounted() {
+    filter(this.image, this.filter)
+      .then(src => {
+        this.filteredImage = src;
+      });
   }
 };
 
@@ -38,15 +55,5 @@ export default {
 
 .button {
   margin-top: 1rem;
-}
-
-.image.is-square canvas {
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
 }
 </style>
