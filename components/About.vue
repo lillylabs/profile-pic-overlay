@@ -1,10 +1,8 @@
 <template>
-  <div class="about">
+  <div class="container">
     <a name="about"></a>
-    <div class="container">
-      <div class="content">
-        {{ $store.state.about }}
-      </div>
+    <div class="content">
+      {{ $store.state.about }}
     </div>
   </div>
 </template>

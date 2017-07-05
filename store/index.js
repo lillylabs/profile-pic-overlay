@@ -17,7 +17,8 @@ const store = () => new Vuex.Store({
         new: 'Change photo'
       },
       download: {
-        default: 'Download'
+        default: 'Download',
+        icon: 'fa-download'
       }
     },
     filters: [

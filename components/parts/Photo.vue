@@ -1,13 +1,13 @@
 <template>
   <div class="photo">
     <div class="image is-square">
-      <img :src="$store.state.photo.src"></img>
-      <canvas width=" 1000 " height="1000 " :data-filter="filter " data-image="$store.state.photo.src "></canvas>
+      <img :src="photo.src"></img>
+      <canvas width="1000" height="1000" :data-filter="filter " data-image="photo.src"></canvas>
     </div>
-    <a class="button is-static " :download="$store.state.photo.title ">
-      <span>{{ $store.state.buttons.download.default }}&nbsp;</span>
+    <a class="button is-static " :download="photo.title">
+      <span>{{ button.default }}&nbsp;</span>
       <span class=" icon ">
-        <i class="fa fa-download "></i>
+        <i :class="['fa', button.icon]"></i>
       </span>
     </a>
   </div>
@@ -16,13 +16,14 @@
 <script>
 
 export default {
-  props: ['filter'],
+  props: ['button', 'filter', 'photo'],
   data: function () {
     return {
 
     }
   }
 }
+
 </script>
 
 <style scoped>
