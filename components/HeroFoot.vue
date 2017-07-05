@@ -9,18 +9,18 @@
 </template>
 
 <script>
-import Navigation from '~components/parts/Navigation.vue'
+import Navigation from '~components/parts/Navigation.vue';
 
 export default {
   components: {
     Navigation
   },
-  data: function () {
+  data() {
     return {
 
-    }
+    };
   }
-}
+};
 </script>
 
 <style scoped>

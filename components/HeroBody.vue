@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import Intro from '~components/parts/Intro.vue'
-import Photo from '~components/parts/Photo.vue'
-import UploadPhoto from '~components/parts/UploadPhoto.vue'
+import Intro from '~components/parts/Intro.vue';
+import Photo from '~components/parts/Photo.vue';
+import UploadPhoto from '~components/parts/UploadPhoto.vue';
 
 export default {
   components: {
@@ -23,12 +23,12 @@ export default {
     Photo,
     UploadPhoto
   },
-  data: function () {
+  data() {
     return {
 
-    }
+    };
   }
-}
+};
 </script>
 
 <style scoped>

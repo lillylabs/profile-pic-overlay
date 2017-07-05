@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import About from '~components/About.vue'
-import HeroBody from '~components/HeroBody.vue'
-import HeroFoot from '~components/HeroFoot.vue'
+import About from '~components/About.vue';
+import HeroBody from '~components/HeroBody.vue';
+import HeroFoot from '~components/HeroFoot.vue';
 
 export default {
   components: {
@@ -28,7 +28,8 @@ export default {
     HeroBody,
     HeroFoot
   }
-}
+};
+
 </script>
 
 <style scoped>

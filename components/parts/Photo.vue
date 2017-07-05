@@ -17,12 +17,12 @@
 
 export default {
   props: ['button', 'filter', 'photo'],
-  data: function () {
+  data() {
     return {
 
-    }
+    };
   }
-}
+};
 
 </script>
 

@@ -13,10 +13,10 @@
 
 export default {
   props: ['items'],
-  data: function () {
+  data() {
     return {
 
-    }
+    };
   }
-}
+};
 </script>

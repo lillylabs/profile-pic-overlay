@@ -44,4 +44,4 @@ export const state = () => ({
       iconOnly: true
     }]
   }
-})
+});

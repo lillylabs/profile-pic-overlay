@@ -14,12 +14,12 @@
 
 export default {
   props: ['title', 'subtitle', 'content'],
-  data: function () {
+  data() {
     return {
 
-    }
+    };
   }
-}
+};
 
 </script>
 

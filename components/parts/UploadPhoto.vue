@@ -11,12 +11,12 @@
 
 export default {
   props: ['button'],
-  data: function () {
+  data() {
     return {
 
-    }
+    };
   }
-}
+};
 
 </script>
 
