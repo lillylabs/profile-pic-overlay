@@ -2,11 +2,11 @@
   <div class="container">
     <div class="columns">
       <div class="column is-one-third">
-        <intro :title="$store.state.title" :subtitle="$store.state.subtitle" :content="$store.state.prompt"></intro>
-        <upload-photo :button="$store.state.buttons.upload"></upload-photo>
+        <intro :title="$store.state.content.title" :subtitle="$store.state.content.subtitle" :content="$store.state.content.prompt"></intro>
+        <upload-photo :button="$store.state.content.buttons.upload"></upload-photo>
       </div>
-      <div class="column is-one-quarter" v-for="filter in $store.state.filters">
-        <photo :button="$store.state.buttons.download" :filter="filter" :photo="$store.state.photo"></photo>
+      <div class="column is-one-quarter" v-for="filter in $store.state.content.filters">
+        <photo :button="$store.state.content.buttons.download" :filter="filter" :photo="$store.state.content.photo"></photo>
       </div>
     </div>
   </div>

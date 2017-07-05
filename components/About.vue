@@ -2,7 +2,7 @@
   <div class="container">
     <a name="about"></a>
     <div class="content">
-      {{ $store.state.about }}
+      {{ $store.state.content.about }}
     </div>
   </div>
 </template>
