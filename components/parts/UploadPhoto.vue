@@ -1,9 +1,10 @@
 <template>
   <form>
-    <input type="file" name="file" id="file" class="inputfile"></input>
-    <label for="file" id="button" class="button is-primary is-medium">
+    <input type="file" accept="image/*" name="file" id="file" @change="filesChange($event.target.files)"></input>
+    <label for="file" id="button" class="button is-primary is-medium ">
       <span>{{ button.default }}</span>
     </label>
+    <img v-if="$store.state.image.dataUrl" :src="$store.state.image.dataUrl"></img>
   </form>
 </template>
 
@@ -13,15 +14,35 @@ export default {
   props: ['button'],
   data() {
     return {
-
+      uploadedFile: null
     };
+  },
+  methods: {
+
+    filesChange(files) {
+      // handle file changes
+      var file = files ? files[0] : null;
+
+      if (!file) {
+        console.log('No file');
+        return;
+      }
+
+      if (!file.type.match('image.*')) {
+        console.log('File is not an image');
+        return;
+      }
+
+      console.log(file);
+      this.$store.dispatch('uploadFile', file);
+    }
   }
 };
 
 </script>
 
 <style scoped>
-.inputfile {
+input {
   width: 0.1px;
   height: 0.1px;
   opacity: 0;
@@ -30,7 +51,7 @@ export default {
   z-index: -1;
 }
 
-.inputfile:focus+label {
+input:focus+label {
   outline: 1px dotted #000;
   outline: -webkit-focus-ring-color auto 5px;
 }
