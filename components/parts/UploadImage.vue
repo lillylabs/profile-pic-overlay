@@ -4,7 +4,6 @@
     <label for="file" id="button" class="button is-primary is-medium ">
       <span>{{ button.default }}</span>
     </label>
-    <img v-if="$store.state.image.dataUrl" :src="$store.state.image.dataUrl"></img>
   </form>
 </template>
 

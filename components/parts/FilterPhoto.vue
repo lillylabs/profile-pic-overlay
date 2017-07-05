@@ -1,7 +1,8 @@
 <template>
   <div class="photo">
     <div class="image is-square">
-      <img :src="photo.src"></img>
+      <img v-if="!$store.state.image.dataUrl" :src="photo.src"></img>
+      <img v-if="$store.state.image.dataUrl" :src="$store.state.image.dataUrl"></img>
       <canvas width="1000" height="1000" :data-filter="filter " data-image="photo.src"></canvas>
     </div>
     <a class="button is-static " :download="photo.title">
