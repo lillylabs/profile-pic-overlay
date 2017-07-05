@@ -2,12 +2,12 @@
   <div class="photo">
     <div class="image is-square">
       <img :src="image"></img>
-      <img :src="filteredImage"></img>
+      <img v-show="filteredImage" :src="filteredImage " :class="[ loading ? 'is-loading' : ''] " :disabled="loading "></img>
     </div>
-    <a class="button is-static " download="bla">
+    <a class="button is-static " download="bla ">
       <span>{{ button.default }}&nbsp;</span>
       <span class=" icon ">
-        <i :class="['fa', button.icon]"></i>
+        <i :class="[ 'fa', button.icon] "></i>
       </span>
     </a>
   </div>
@@ -15,34 +15,26 @@
 
 <script>
 
-import { filter } from '~assets/services/image.service';
-
 export default {
-  props: ['button', 'filter'],
-  data() {
-    return {
-      mounted: false,
-      filteredImage: null
-    };
-  },
+  props: ['button', 'filter', 'id'],
   computed: {
     image: function () {
-      return this.$store.state.uploadedImage.src || this.$store.state.content.photo.src;
+      return this.$store.state.uploadedImage.src || this.filter.image;
+    },
+    loading: function () {
+      return this.$store.state.filteredImageStatus[this.id] === 'IN_PROGRESS';
+    },
+    filteredImage: function () {
+      return this.$store.state.filteredImage[this.id];
     }
   },
   watch: {
     image: function (val) {
-      filter(val, this.filter)
-        .then(src => {
-          this.filteredImage = src;
-        });
+      this.$store.dispatch('filterImage', { id: this.id, image: val, filter: this.filter.overlay });
     }
   },
   mounted() {
-    filter(this.image, this.filter)
-      .then(src => {
-        this.filteredImage = src;
-      });
+    this.$store.dispatch('filterImage', { id: this.id, image: this.image, filter: this.filter.overlay });
   }
 };
 

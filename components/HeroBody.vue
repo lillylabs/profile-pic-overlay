@@ -5,8 +5,8 @@
         <intro :title="$store.state.content.title" :subtitle="$store.state.content.subtitle" :content="$store.state.content.prompt"></intro>
         <upload-image :button="$store.state.content.buttons.upload"></upload-image>
       </div>
-      <div class="column is-one-quarter" v-for="filter in $store.state.content.filters">
-        <filter-image :button="$store.state.content.buttons.download" :filter="filter" :image="$store.state.content.photo.src"></filter-image>
+      <div class="column is-one-quarter" v-for="(filter, index) in $store.state.content.filters" :key="index">
+        <filter-image :button="$store.state.content.buttons.download" :id="index" :filter="filter"></filter-image>
       </div>
     </div>
   </div>
