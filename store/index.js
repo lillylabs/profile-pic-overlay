@@ -10,7 +10,6 @@ export const mutations = {
     state.image.status = status;
   },
   imageDataUrl(state, dataUrl) {
-    console.log('mutations imageDataUrl');
     state.image.dataUrl = dataUrl;
   }
 
@@ -23,6 +22,7 @@ export const actions = {
 
     fReader.onload = () => {
       console.log('actions onLoad');
+      commit('imageStatus', 'DONE');
       commit('imageDataUrl', fReader.result);
     };
 

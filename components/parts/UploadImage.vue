@@ -1,7 +1,7 @@
 <template>
   <form>
-    <input type="file" accept="image/*" name="file" id="file" @change="filesChange($event.target.files)"></input>
-    <label for="file" id="button" class="button is-primary is-medium ">
+    <input type="file" accept="image/*" name="file" id="file" @change="filesChange($event.target.files)" :disabled="loading"></input>
+    <label for="file" id="button" :class="['button', 'is-primary', 'is-medium', loading ? 'is-loading' : '']" :disabled="loading">
       <span>{{ button.default }}</span>
     </label>
   </form>
@@ -15,6 +15,11 @@ export default {
     return {
       uploadedFile: null
     };
+  },
+  computed: {
+    loading() {
+      return this.$store.state.image.status === 'IN_PROGRESS';
+    }
   },
   methods: {
 
