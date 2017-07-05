@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     loading() {
-      return this.$store.state.image.status === 'IN_PROGRESS';
+      return this.$store.state.uploadedImage.status === 'IN_PROGRESS';
     }
   },
   methods: {

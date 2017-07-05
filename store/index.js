@@ -1,5 +1,5 @@
 export const state = () => ({
-  image: {
+  uploadedImage: {
     dataUrl: null,
     status: null
   }
@@ -7,10 +7,10 @@ export const state = () => ({
 
 export const mutations = {
   imageStatus(state, status) {
-    state.image.status = status;
+    state.uploadedImage.status = status;
   },
   imageDataUrl(state, dataUrl) {
-    state.image.dataUrl = dataUrl;
+    state.uploadedImage.dataUrl = dataUrl;
   }
 
 };

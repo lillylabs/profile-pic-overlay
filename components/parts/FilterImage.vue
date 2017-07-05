@@ -1,11 +1,10 @@
 <template>
   <div class="photo">
     <div class="image is-square">
-      <img v-if="!$store.state.image.dataUrl" :src="photo.src"></img>
-      <img v-if="$store.state.image.dataUrl" :src="$store.state.image.dataUrl"></img>
-      <canvas width="1000" height="1000" :data-filter="filter " data-image="photo.src"></canvas>
+      <img v-if="!$store.state.uploadedImage.dataUrl" :src="image.src"></img>
+      <img v-if="$store.state.uploadedImage.dataUrl" :src="$store.state.uploadedImage.dataUrl"></img>
     </div>
-    <a class="button is-static " :download="photo.title">
+    <a class="button is-static " :download="image.title">
       <span>{{ button.default }}&nbsp;</span>
       <span class=" icon ">
         <i :class="['fa', button.icon]"></i>
@@ -17,11 +16,16 @@
 <script>
 
 export default {
-  props: ['button', 'filter', 'photo'],
+  props: ['button', 'filter', 'image'],
   data() {
     return {
-
+      filteredImage: null
     };
+  },
+  watch: {
+    photo() {
+
+    }
   }
 };
 
