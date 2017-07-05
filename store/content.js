@@ -16,10 +16,12 @@ export const state = () => ({
   },
   filters: [{
     image: '/images/avatar.jpeg',
-    overlay: '/images/filter-01.png'
+    overlay: '/images/filter-01.png',
+    fileName: 'Campaign1'
   }, {
     image: '/images/avatar.jpeg',
-    overlay: '/images/filter-02.png'
+    overlay: '/images/filter-02.png',
+    fileName: 'Campaign2'
   }],
   nav: {
     left: [{

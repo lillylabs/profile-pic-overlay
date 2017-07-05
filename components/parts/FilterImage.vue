@@ -2,9 +2,9 @@
   <div class="photo">
     <div class="image is-square">
       <img :src="image"></img>
-      <img v-show="filteredImage" :src="filteredImage " :class="[ loading ? 'is-loading' : ''] " :disabled="loading "></img>
+      <img v-show="filteredImage" :src="filteredImage "></img>
     </div>
-    <a class="button is-static " download="bla ">
+    <a class="button" :download="filter.fileName" :href="filteredImage" :disabled="loading">
       <span>{{ button.default }}&nbsp;</span>
       <span class=" icon ">
         <i :class="[ 'fa', button.icon] "></i>
