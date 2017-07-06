@@ -1,5 +1,8 @@
 ---
-title: '#Campaign'
+title: {
+  text: '#Campaign',
+  image: '/images/logo.png'
+}
 subtitle: 'Nam lacinia placerat justo, nec placerat leo condimentum vitae.'
 prompt: 'Aliquam lacus tellus, volutpat eu iaculis quis, faucibus id ex. Curabitur vitae mi velit'
 buttons:
