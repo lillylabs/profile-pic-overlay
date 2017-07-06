@@ -2,7 +2,7 @@
   <div>
     <header>
       <h1 v-if="title.image" class="title">
-        <img class="logo" :src="title.image" :title="title.text"></img>
+        <img class="logo" :style="'margin-left:' + title.ajust" :src="title.image" :title="title.text"></img>
       </h1>
       <h1 v-else class="title">
         {{ title.text || title }}
@@ -43,6 +43,7 @@ export default {
 }
 
 .logo {
-  max-height: 50px;
+  max-width: 100%;
+  max-height: 100px;
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="photo">
     <div class="image is-square">
-      <img :src="image"></img>
+      <!--<img :src="image"></img>-->
       <img v-show="filteredImage" :src="filteredImage "></img>
     </div>
     <a class="button" :download="filter.fileName" :href="filteredImage" :disabled="loading">

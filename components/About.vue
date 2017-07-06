@@ -17,3 +17,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.content {
+  max-width: 45em;
+}
+</style>
