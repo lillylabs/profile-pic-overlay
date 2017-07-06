@@ -1,6 +1,6 @@
 import { filter as FilterService } from '~assets/services/image.service';
 // Switch on env variable
-const content = JSON.parse(require('../static/content/test.md'));
+const content = JSON.parse(require('../static/content/' + process.env.contentFile));
 // console.log(content);
 
 export const state = () => ({
