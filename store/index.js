@@ -1,4 +1,7 @@
 import { filter as FilterService } from '~assets/services/image.service';
+// Switch on env variable
+const content = JSON.parse(require('../static/content/' + process.env.contentFile));
+// console.log(content);
 
 export const state = () => ({
   uploadedImage: {
@@ -7,7 +10,8 @@ export const state = () => ({
     error: null
   },
   filteredImage: {},
-  filteredImageStatus: {}
+  filteredImageStatus: {},
+  content: { ...content.attributes, about: content.body }
 });
 
 export const mutations = {

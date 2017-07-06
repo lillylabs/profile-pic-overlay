@@ -7,8 +7,7 @@
   "dependencies": {
     "bulma": "^0.4.2",
     "font-awesome": "^4.7.0",
-    "nuxt": "latest",
-    "vue-no-ssr": "^0.1.2"
+    "nuxt": "latest"
   },
   "scripts": {
     "dev": "nuxt",
@@ -27,6 +26,8 @@
     "eslint-plugin-html": "^2.0.0",
     "eslint-plugin-promise": "^3.4.1",
     "eslint-plugin-standard": "^2.0.1",
+    "front-matter-loader": "^0.2.0",
+    "raw-loader": "^0.5.1",
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6"
   }
