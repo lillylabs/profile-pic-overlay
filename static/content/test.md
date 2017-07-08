@@ -7,18 +7,17 @@ subtitle: 'Nam lacinia placerat justo, nec placerat leo condimentum vitae.'
 prompt: 'Aliquam lacus tellus, volutpat eu iaculis quis, faucibus id ex. Curabitur vitae mi velit'
 buttons:
   upload:
-    default: 'Select photo'
+    default: 'Upload photo'
     new: 'Change photo'
   download:
     default: 'Download'
     icon: 'fa-download'
+avatars: 
+  man: '/images/man.jpg'
+  woman: '/images/woman.jpg'
 filters:
-  - image: '/images/avatar.jpeg'
-    overlay: '/images/filter-01.png'
-    fileName: 'Campaign1'
-  - image: '/images/avatar.jpeg'
-    overlay: '/images/filter-02.png'
-    fileName: 'Campaign2'
+  man: '/images/filter-01.png'
+  woman: '/images/filter-01.png'
 nav:
   left:
     - label: 'About'

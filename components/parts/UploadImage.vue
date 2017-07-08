@@ -1,7 +1,7 @@
 <template>
   <form>
     <input type="file" name="file" id="file" @change="filesChange($event.target.files)" :disabled="loading"></input>
-    <label for="file" accept="image/*" id="button" :class="['button', 'is-primary', 'is-medium', loading ? 'is-loading' : '']" :disabled="loading">
+    <label v-on:click="select" for="file" accept="image/*" id="button" :class="['button', 'is-primary', 'is-medium', loading ? 'is-loading' : '']" :disabled="loading">
       <span>{{ button.default }}</span>
     </label>
   </form>
@@ -10,10 +10,11 @@
 <script>
 
 export default {
-  props: ['button'],
+  props: ['button', 'filterKey', 'avatar'],
   data() {
     return {
-      uploadedFile: null
+      uploadedFile: null,
+      test: this.filterKey
     };
   },
   computed: {
@@ -22,8 +23,10 @@ export default {
     }
   },
   methods: {
-
-    filesChange(files) {
+    select: function () {
+      this.$store.commit('selectedFilter', this.filterKey);
+    },
+    filesChange: function (files) {
       // handle file changes
       var file = files ? files[0] : null;
 
@@ -36,15 +39,21 @@ export default {
         this.$store.commit('uploadError', new Error('File is not an image'));
         return;
       }
-
       this.$store.dispatch('uploadFile', file);
     }
+  },
+  mounted() {
+    console.log('MOUNTED', this.filterKey);
   }
 };
 
 </script>
 
 <style scoped>
+form {
+  text-align: center;
+}
+
 input {
   width: 0.1px;
   height: 0.1px;

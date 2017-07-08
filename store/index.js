@@ -4,17 +4,27 @@ const content = JSON.parse(require('../static/content/' + process.env.contentFil
 // console.log(content);
 
 export const state = () => ({
+  selectedFilter: null,
   uploadedImage: {
     src: null,
     status: null,
     error: null
   },
-  filteredImage: {},
-  filteredImageStatus: {},
+  filteredImages: {
+    status: null,
+    error: null,
+    man: null,
+    woman: null,
+    uploaded: null
+  },
   content: { ...content.attributes, about: content.body }
 });
 
 export const mutations = {
+  selectedFilter(state, key) {
+    console.log('selected', key);
+    state.selectedFilter = key;
+  },
   imageStatus(state, status) {
     state.uploadedImage.status = status;
   },
@@ -25,34 +35,41 @@ export const mutations = {
     state.uploadedImage.status = 'ERROR';
     state.uploadedImage.error = error;
   },
-  filteredImageStatus(state, { id, status }) {
-    state.filteredImageStatus = { ...state.filteredImageStatus, [id]: status };
-    console.log(state.filteredImageStatus);
+  filteredImagesStatus(state, status) {
+    state.filteredImages.status = status;
   },
   filteredImage(state, { id, src }) {
-    state.filteredImage = { ...state.filteredImage, [id]: src };
+    state.filteredImages[id] = src;
   }
 
 };
 
 export const actions = {
-  uploadFile({ commit }, file) {
+  uploadFile({ commit, dispatch }, file) {
     const fReader = new FileReader();
     commit('imageStatus', 'IN_PROGRESS');
 
     fReader.onload = () => {
       commit('imageDataUrl', fReader.result);
       commit('imageStatus', 'DONE');
+      dispatch('filterUploadedImage');
     };
 
     fReader.readAsDataURL(file);
   },
+  filterUploadedImage({ dispatch, state }) {
+    dispatch('filterImage', {
+      id: 'uploaded',
+      image: state.uploadedImage.src,
+      filter: state.content.filters[state.selectedFilter] || state.content.filters.woman
+    });
+  },
   filterImage({ commit }, { id, image, filter }) {
-    commit('filteredImageStatus', { id, status: 'IN_PROGRESS' });
-    console.log(image);
+    console.log(filter);
+    commit('filteredImagesStatus', { id, status: 'IN_PROGRESS' });
     FilterService(image, filter).then(filteredImage => {
       commit('filteredImage', { id, src: filteredImage });
-      commit('filteredImageStatus', { id, status: 'DONE' });
+      commit('filteredImagesStatus', { id, status: 'DONE' });
     });
   }
 };
