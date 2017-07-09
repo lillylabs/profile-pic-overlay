@@ -21,6 +21,7 @@ function filter(orginalImageSrc, overlayImageSrc) {
   const ctx = canvas.getContext('2d');
 
   return new Promise(resolve => {
+    console.log(orginalImageSrc);
     loadImage(orginalImageSrc)
       .then(image => {
         ctx.drawImage(image, 0, 0, canvas.width, canvas.height);

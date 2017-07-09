@@ -17,7 +17,7 @@ avatars:
   woman: '/images/woman.jpg'
 filters:
   man: '/images/filter-01.png'
-  woman: '/images/filter-01.png'
+  woman: '/images/filter-02.png'
 nav:
   left:
     - label: 'About'

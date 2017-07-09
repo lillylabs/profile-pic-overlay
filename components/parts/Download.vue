@@ -1,18 +1,16 @@
 <template>
-  <div class="share">
-    <a class="button" :download="fileName" :href="dataUrl">
-      <span>{{ button.default }}&nbsp;</span>
-      <span class=" icon ">
-        <i :class="[ 'fa', button.icon] "></i>
-      </span>
-    </a>
-  </div>
+  <a class="button is-medium" :download="fileName" :href="image">
+    <span>{{ button.default }}&nbsp;</span>
+    <span class=" icon ">
+      <i :class="[ 'fa', button.icon] "></i>
+    </span>
+  </a>
 </template>
 
 <script>
 
 export default {
-  props: ['button', 'dataUrl', 'fileName']
+  props: ['button', 'image', 'fileName']
 };
 
 </script>

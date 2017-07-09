@@ -4,7 +4,7 @@ const content = JSON.parse(require('../static/content/' + process.env.contentFil
 // console.log(content);
 
 export const state = () => ({
-  selectedFilter: null,
+  selectedOverlay: 'woman',
   uploadedImage: {
     src: null,
     status: null,
@@ -21,9 +21,8 @@ export const state = () => ({
 });
 
 export const mutations = {
-  selectedFilter(state, key) {
-    console.log('selected', key);
-    state.selectedFilter = key;
+  selectedOverlay(state, key) {
+    state.selectedOverlay = key;
   },
   imageStatus(state, status) {
     state.uploadedImage.status = status;
@@ -52,22 +51,13 @@ export const actions = {
     fReader.onload = () => {
       commit('imageDataUrl', fReader.result);
       commit('imageStatus', 'DONE');
-      dispatch('filterUploadedImage');
     };
 
     fReader.readAsDataURL(file);
   },
-  filterUploadedImage({ dispatch, state }) {
-    dispatch('filterImage', {
-      id: 'uploaded',
-      image: state.uploadedImage.src,
-      filter: state.content.filters[state.selectedFilter] || state.content.filters.woman
-    });
-  },
-  filterImage({ commit }, { id, image, filter }) {
-    console.log(filter);
+  filterImage({ commit }, { id, image, overlay }) {
     commit('filteredImagesStatus', { id, status: 'IN_PROGRESS' });
-    FilterService(image, filter).then(filteredImage => {
+    FilterService(image, overlay).then(filteredImage => {
       commit('filteredImage', { id, src: filteredImage });
       commit('filteredImagesStatus', { id, status: 'DONE' });
     });

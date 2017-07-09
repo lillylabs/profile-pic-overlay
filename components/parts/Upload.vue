@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     select: function () {
-      this.$store.commit('selectedFilter', this.filterKey);
+      this.$store.commit('selectedOverlay', this.filterKey);
     },
     filesChange: function (files) {
       // handle file changes
@@ -40,10 +40,8 @@ export default {
         return;
       }
       this.$store.dispatch('uploadFile', file);
+      this.$router.push('share');
     }
-  },
-  mounted() {
-    console.log('MOUNTED', this.filterKey);
   }
 };
 
