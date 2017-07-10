@@ -2,9 +2,6 @@
   <div class="container">
     <div class="columns">
       <div class="column">
-  
-      </div>
-      <div class="column">
         <photo :image="image" :title="'Title'"></photo>
         <download :button="download" :image="image" :fileName="'Test'"></download>
       </div>
