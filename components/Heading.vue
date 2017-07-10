@@ -1,7 +1,7 @@
 <template>
   <header>
     <h1 v-if="title.image" class="title">
-      <img class="logo" :style="'margin-left:' + title.ajust" :src="title.image" :title="title.text"></img>
+      <img class="logo" :src="title.image" :title="title.text"></img>
     </h1>
     <h1 v-else class="title">
       {{ title.text || title }}
@@ -36,8 +36,7 @@ header {
   font-weight: bold;
 }
 
-.title:not(.is-spaced)+.subtitle {
-  margin-top: -0.75rem;
+.subtitle {
   margin-bottom: 0.5rem;
 }
 
@@ -47,6 +46,8 @@ header {
 
 .logo {
   max-width: 100%;
-  max-height: 100px;
+  max-height: 150px;
+  margin-bottom: -1%;
+  margin-left: -2%;
 }
 </style>

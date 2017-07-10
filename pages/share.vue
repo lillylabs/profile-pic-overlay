@@ -3,7 +3,7 @@
     <div class="columns">
       <div class="column">
         <photo :image="image" :title="'Title'"></photo>
-        <download :button="download" :image="image" :fileName="'Test'"></download>
+        <download :button="download" :image="image"></download>
       </div>
     </div>
   </div>

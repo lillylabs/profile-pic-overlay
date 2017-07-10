@@ -1,11 +1,11 @@
 <template>
   <div class="container">
-    <div class="columns is-mobile">
-      <input type="file" name="file" id="file" @change="filesChange($event.target.files)"></input>
-      <div class="column" v-for="key in keys" :key="key">
-        <label for="file" v-on:click="selectOverlay(key)">
-          <photo :image="images[key].filtered" :title="'Title'"></photo>
-          <div class="button is-primary is-medium">{{ upload.default}}</div>
+    <div class="columns">
+      <input type="file" name="file" id="file" @change="filesChange($event.target.files) "></input>
+      <div class="column" v-for="key in keys" :key="key ">
+        <label for="file" v-on:click="selectOverlay(key) ">
+          <photo :image="images[key].filtered "></photo>
+          <div class="button is-primary is-medium ">{{ upload.default}}</div>
         </label>
       </div>
     </div>
@@ -87,10 +87,16 @@ input {
   width: 0;
 }
 
+.column:not(.is-narrow) {
+  max-width: 20rem;
+  margin: 0 auto;
+}
+
 @media screen and (min-width: 769px) {
   .column:not(.is-narrow) {
     max-width: 45vh;
     min-width: 20rem;
+    margin: 0 1rem;
   }
 }
 </style>

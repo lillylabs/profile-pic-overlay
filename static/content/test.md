@@ -12,12 +12,13 @@ buttons:
   download:
     default: 'Download'
     icon: 'fa-download'
+    fileName: 'Test'
 avatars: 
   man: '/images/man.jpg'
   woman: '/images/woman.jpg'
 filters:
-  man: '/images/filter-01.png'
-  woman: '/images/filter-02.png'
+  man: '/images/test/filter-01.png'
+  woman: '/images/test/filter-02.png'
 nav:
   left:
     - label: 'About'

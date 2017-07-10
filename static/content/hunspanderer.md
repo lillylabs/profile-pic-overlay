@@ -1,9 +1,7 @@
 ---
-title: {
-  text: '#HunSpanderer',
-  image: '/images/hunspanderer/hunspanderer.png',
-  ajust: '-10%'
-}
+title:
+  text: '#HunSpanderer'
+  image: '/images/hunspanderer/hunspanderer.png'
 subtitle: 'En kampanje mot subtil kjønnsdiskriminering.'
 prompt: 'Del ditt bilde med #HunSpanderer-filter på sosiale medier.'
 buttons:
@@ -13,13 +11,13 @@ buttons:
   download:
     default: 'Last ned'
     icon: 'fa-download'
+    fileName: 'HunSpanderer'
+avatars: 
+  man: '/images/man.jpg'
+  woman: '/images/woman.jpg'
 filters:
-  - image: '/images/hunspanderer/woman.jpg'
-    overlay: '/images/hunspanderer/filter-woman.png'
-    fileName: 'HunSpanderer-for-dame'
-  - image: '/images/hunspanderer/man.jpg'
-    overlay: '/images/hunspanderer/filter-man.png'
-    fileName: 'HunSpanderer-for-mann'
+  man: '/images/hunspanderer/filter-man.png'
+  woman: '/images/hunspanderer/filter-woman.png'
 nav:
   left:
     - label: 'Om kampanjen'

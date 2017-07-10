@@ -1,16 +1,16 @@
 module.exports = {
   env: {
-    contentFile: process.env.CONTENT_FILE || 'test.md'
+    contentFile: process.env.CONTENT_FILE || 'itshertreat.md'
   },
   /*
   ** Headers of the page
   */
   head: {
-    title: process.env.TITLE ||  'Filter',
+    title: process.env.TITLE || 'Filter',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.DESCRIPTION ||  'A filter app' }
+      { hid: 'description', name: 'description', content: process.env.DESCRIPTION || 'A filter app' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -19,7 +19,7 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#3B8070' },
+  loading: { color: '#00d1b2' },
   /*
   ** Include css not in components
   */
