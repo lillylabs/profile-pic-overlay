@@ -1,10 +1,8 @@
 <template>
-  <div class="container">
-    <div class="columns">
-      <div class="column">
-        <photo :image="image" :title="'Title'"></photo>
-        <download :button="download" :image="image"></download>
-      </div>
+  <div class="columns">
+    <div class="column">
+      <photo :image="image" :title="'Title'"></photo>
+      <download :button="download" :image="image"></download>
     </div>
   </div>
 </template>

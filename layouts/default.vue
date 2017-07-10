@@ -3,7 +3,7 @@
     <div class="hero is-fullheight">
   
       <main class="hero-body">
-        <div class="container">
+        <div class="container has-text-centered">
           <heading></heading>
           <nuxt></nuxt>
         </div>
@@ -38,8 +38,6 @@ export default {
 <style>
 .image+form .button,
 .image+.button {
-  width: 100%;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  margin-top: 1rem;
 }
 </style>

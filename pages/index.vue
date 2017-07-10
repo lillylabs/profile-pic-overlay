@@ -1,13 +1,16 @@
 <template>
-  <div class="container">
-    <div class="columns">
-      <input type="file" name="file" id="file" @change="filesChange($event.target.files) "></input>
-      <div class="column" v-for="key in keys" :key="key ">
-        <label for="file" v-on:click="selectOverlay(key) ">
-          <photo :image="images[key].filtered "></photo>
-          <div class="button is-primary is-medium ">{{ upload.default}}</div>
-        </label>
-      </div>
+  <div class="columns">
+    <input type="file" name="file" id="file" @change="filesChange($event.target.files) "></input>
+    <div class="column" v-for="key in keys" :key="key ">
+      <label for="file" v-on:click="selectOverlay(key) ">
+        <photo :image="images[key].filtered "></photo>
+        <div class="button">
+          <span>{{ button.default }}&nbsp;</span>
+          <span class=" icon ">
+            <i :class="[ 'fa', button.icon] "></i>
+          </span>
+        </div>
+      </label>
     </div>
   </div>
 </template>
@@ -29,7 +32,7 @@ export default {
   computed: {
     ...mapState({
       images: state => state.images,
-      upload: state => state.content.buttons.upload
+      button: state => state.content.buttons.upload
     })
   },
   methods: {

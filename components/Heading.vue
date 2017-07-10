@@ -28,10 +28,6 @@ export default {
 </script>
 
 <style scoped>
-header {
-  text-align: center;
-}
-
 .title {
   font-weight: bold;
 }
@@ -46,7 +42,7 @@ header {
 
 .logo {
   max-width: 100%;
-  max-height: 150px;
+  max-height: 120px;
   margin-bottom: -1%;
   margin-left: -2%;
 }

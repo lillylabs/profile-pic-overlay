@@ -8,6 +8,7 @@ buttons:
   upload:
     default: 'Velg bilde'
     new: 'Bytt bilde'
+    icon: 'fa-upload'
   download:
     default: 'Last ned'
     icon: 'fa-download'

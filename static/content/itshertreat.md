@@ -8,6 +8,7 @@ buttons:
   upload:
     default: 'Upload your photo'
     new: 'Change photo'
+    icon: 'fa-upload'
   download:
     default: 'Download'
     icon: 'fa-download'
