@@ -2,7 +2,13 @@
   <div class="columns">
     <div class="column">
       <photo :image="image" :title="'Title'"></photo>
-      <download :button="download" :image="image"></download>
+      <nuxt-link class="button" to="/">
+        <span class="icon is-small">
+          <i class="fa fa-chevron-left"></i>
+        </span>
+        <span>{{ upload.new }}</span>
+      </nuxt-link>
+      <download class="button" :button="download" :image="image"></download>
     </div>
   </div>
 </template>
@@ -22,8 +28,14 @@ export default {
   computed: {
     ...mapState({
       image: state => state.images.uploaded.filtered,
-      download: state => state.content.buttons.download
+      download: state => state.content.buttons.download,
+      upload: state => state.content.buttons.upload
     })
+  },
+  fetch({ store, redirect }) {
+    if (!store.state.images.uploaded.original) {
+      return redirect('/');
+    }
   }
 };
 </script>
