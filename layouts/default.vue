@@ -36,8 +36,5 @@ export default {
 </script>
 
 <style>
-.image+form .button,
-.image+.button {
-  margin-top: 1rem;
-}
+
 </style>
