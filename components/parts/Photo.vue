@@ -13,10 +13,5 @@ export default {
 </script>
 
 <style scoped>
-.image,
-img {
-  background: lightgray;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-}
+
 </style>
