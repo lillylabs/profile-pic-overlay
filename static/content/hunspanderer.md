@@ -6,7 +6,7 @@ subtitle: 'En kampanje mot subtil kjønnsdiskriminering.'
 prompt: 'Del ditt bilde med #HunSpanderer-filter på sosiale medier.'
 buttons:
   upload:
-    default: 'Velg bilde'
+    default: 'Last opp bilde'
     new: 'Bytt bilde'
     icon: 'fa-upload'
   download:
