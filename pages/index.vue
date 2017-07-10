@@ -1,6 +1,6 @@
 <template>
   <div class="columns">
-    <input type="file" name="file" id="file" @change="filesChange($event.target.files) "></input>
+    <input type="file" accept="image/*" name="file" id="file" @change="filesChange($event.target.files)"></input>
     <div class="column" v-for="key in keys" :key="key ">
       <label for="file" v-on:click="selectOverlay(key) ">
         <photo :image="images[key].filtered "></photo>
