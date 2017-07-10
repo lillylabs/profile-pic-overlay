@@ -4,62 +4,68 @@ const content = JSON.parse(require('../static/content/' + process.env.contentFil
 // console.log(content);
 
 export const state = () => ({
-  selectedOverlay: 'woman',
-  uploadedImage: {
-    src: null,
-    status: null,
-    error: null
-  },
-  filteredImages: {
-    status: null,
-    error: null,
-    man: null,
-    woman: null,
-    uploaded: null
+  images: {
+    man: {
+      original: content.attributes.avatars.man,
+      overlay: content.attributes.filters.man,
+      filtered: null,
+      status: null
+    },
+    woman: {
+      original: content.attributes.avatars.woman,
+      overlay: content.attributes.filters.woman,
+      filtered: null,
+      status: null
+    },
+    uploaded: {
+      original: null,
+      overlay: content.attributes.filters.woman,
+      filtered: null,
+      status: null
+    }
   },
   content: { ...content.attributes, about: content.body }
 });
 
 export const mutations = {
-  selectedOverlay(state, key) {
-    state.selectedOverlay = key;
+  imageOverlay(state, { key, overlay }) {
+    state.images[key].overlay = overlay;
   },
-  imageStatus(state, status) {
-    state.uploadedImage.status = status;
+  imageStatus(state, { key, status }) {
+    state.images[key].status = status;
   },
-  imageDataUrl(state, dataUrl) {
-    state.uploadedImage.src = dataUrl;
+  originalImage(state, { key, image }) {
+    state.images[key].original = image;
+  },
+  filteredImage(state, { key, image }) {
+    state.images[key].filtered = image;
   },
   uploadError(state, error) {
-    state.uploadedImage.status = 'ERROR';
-    state.uploadedImage.error = error;
-  },
-  filteredImagesStatus(state, status) {
-    state.filteredImages.status = status;
-  },
-  filteredImage(state, { id, src }) {
-    state.filteredImages[id] = src;
+    state.images.original.status = 'ERROR';
+    state.images.original.error = error;
   }
-
 };
 
 export const actions = {
-  uploadFile({ commit, dispatch }, file) {
+  uploadFile({ commit, state, dispatch }, file) {
+    const key = 'uploaded';
     const fReader = new FileReader();
-    commit('imageStatus', 'IN_PROGRESS');
+    commit('imageStatus', { key, status: 'LOADING' });
 
     fReader.onload = () => {
-      commit('imageDataUrl', fReader.result);
-      commit('imageStatus', 'DONE');
+      commit('originalImage', { key, image: fReader.result });
+      commit('imageStatus', { key, status: 'LOADED' });
     };
 
     fReader.readAsDataURL(file);
   },
-  filterImage({ commit }, { id, image, overlay }) {
-    commit('filteredImagesStatus', { id, status: 'IN_PROGRESS' });
+  filterImage({ commit, state }, key) {
+    commit('imageStatus', { key, status: 'FILTERING' });
+    const image = state.images[key].original;
+    const overlay = state.images[key].overlay;
     FilterService(image, overlay).then(filteredImage => {
-      commit('filteredImage', { id, src: filteredImage });
-      commit('filteredImagesStatus', { id, status: 'DONE' });
+      commit('filteredImage', { key, image: filteredImage });
+      commit('imageStatus', { key, status: 'FILTERED' });
     });
   }
 };

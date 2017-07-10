@@ -1,14 +1,12 @@
 <template>
   <div class="container">
     <div class="columns is-mobile">
-      <div class="column">
-        <photo :image="man" :title="'Title'"></photo>
-        <upload :button="upload" :filter-key="'man'"></upload>
-      </div>
-      <div class="column is-narrow"></div>
-      <div class="column">
-        <photo :image="woman" :title="'Title'"></photo>
-        <upload :button="upload" :filter-key="'woman'"></upload>
+      <input type="file" name="file" id="file" @change="filesChange($event.target.files)"></input>
+      <div class="column" v-for="key in keys" :key="key">
+        <label for="file" v-on:click="selectOverlay(key)">
+          <photo :image="images[key].filtered" :title="'Title'"></photo>
+          <div class="button is-primary is-medium">{{ upload.default}}</div>
+        </label>
       </div>
     </div>
   </div>
@@ -16,35 +14,62 @@
 
 <script>
 
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex';
 import Photo from '~components/parts/Photo.vue';
-import Upload from '~components/parts/Upload.vue';
 
 export default {
   components: {
-    Photo,
-    Upload
+    Photo
+  },
+  data() {
+    return {
+      keys: ['man', 'woman']
+    };
   },
   computed: {
     ...mapState({
-      man: state => state.filteredImages.man,
-      woman: state => state.filteredImages.woman,
+      images: state => state.images,
       upload: state => state.content.buttons.upload
     })
   },
   methods: {
     ...mapActions([
-      'filterImage'
-    ])
+      'filterImage',
+      'uploadFile'
+    ]),
+    ...mapMutations([
+      'uploadError'
+    ]),
+    selectOverlay: function (selectedKey) {
+      this.$store.commit('imageOverlay', { key: 'uploaded', overlay: this.images[selectedKey].overlay });
+    },
+    filesChange: function (files) {
+      // handle file changes
+      var file = files ? files[0] : null;
+
+      if (!file) {
+        this.uploadError(new Error('No file'));
+        return;
+      }
+
+      if (!file.type.match('image.*')) {
+        this.uploadError(new Error('File is not an image'));
+        return;
+      }
+      this.uploadFile(file);
+    }
+  },
+  watch: {
+    'images.uploaded.original': function (original) {
+      if (original) {
+        this.filterImage('uploaded');
+        this.$router.push('share');
+      }
+    }
   },
   mounted() {
-    for (var key of Object.keys(this.$store.state.content.avatars)) {
-      const payload = {
-        id: key,
-        image: this.$store.state.content.avatars[key],
-        overlay: this.$store.state.content.filters[key]
-      };
-      this.filterImage(payload);
+    for (var key of this.keys) {
+      this.filterImage(key);
     }
   }
 };
@@ -53,6 +78,13 @@ export default {
 <style scoped>
 .columns {
   justify-content: center;
+}
+
+input {
+  opacity: 0;
+  position: absolute;
+  height: 0;
+  width: 0;
 }
 
 @media screen and (min-width: 769px) {
