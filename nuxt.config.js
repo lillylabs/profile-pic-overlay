@@ -33,6 +33,9 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    vendor: [
+      'marked'
+    ],
     loaders: [
       {
         test: /\.(png|jpe?g|gif|svg)$/,
