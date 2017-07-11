@@ -48,6 +48,6 @@ nav:
 
 22\. – 26. august tar jentene regningen – og gutta blir med og tar praten om de forskjellene som fortsatt finnes, men som ikke er så enkle å se. 
 
-Er du kjønnsnøytral? [Ta testen som avslører](#) fordommer du ikke vet at du har. 
+Er du kjønnsnøytral? [Ta testen som avslører](http://tatesten.no/) fordommer du ikke vet at du har. 
 
-Les mer på [hunspanderer.no](www.hunspanderer.no)
+Les mer på [hunspanderer.no](http://www.hunspanderer.no)
