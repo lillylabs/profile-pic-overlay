@@ -6,6 +6,7 @@
   "private": true,
   "dependencies": {
     "bulma": "^0.4.2",
+    "clipboard": "^1.7.1",
     "font-awesome": "^4.7.0",
     "marked": "^0.3.6",
     "nuxt": "latest"

@@ -5,11 +5,12 @@
   opacity: 0;
 }
 
-.button {
-  margin-top: 1rem;
+.image {
+  margin-bottom: 1rem;
 }
 
-.button + .button {
+.button + .button,
+.button + span {
   margin-left: 0.25rem;
 }
 
