@@ -3,7 +3,7 @@ title:
   text: '#HunSpanderer'
   image: '/images/hunspanderer/hunspanderer.png'
 subtitle: 'En kampanje mot subtil kjønnsdiskriminering.'
-intro: 'Del ditt bilde med #HunSpanderer-filter på sosiale medier.'
+prompt: 'Del ditt bilde med #HunSpanderer-filter på sosiale medier.'
 share:
   title: 'Del bildet med dine venner!'
   suggestion: 

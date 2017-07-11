@@ -3,7 +3,16 @@ title:
   text: '#ItsHerTreat'
   image: '/images/itshertreat/itshertreat.png'
 subtitle: 'A campaign against gender discrimination.'
-prompt: 'Share your photo with #ItsHerTreat-filter on social media.  '
+prompt: 'Share your photo with #ItsHerTreat-filter on social media.'
+share:
+  title: 'Share your photo with your friends!'
+  suggestion: 
+    title: 'Suggested text' 
+    text: 'Join me in addressing unconscious gender bias. Together we change mindsets. #ItsHerTreat. Get your photo on http://itshertreatfilter.com'
+  copy: 
+    default: 'Copy'
+    done: 'Copied!'
+    icon: 'fa-clone'
 buttons:
   upload:
     default: 'Upload your photo'

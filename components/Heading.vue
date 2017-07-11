@@ -8,7 +8,7 @@
     </h1>
     <h2 v-if="subtitle" class="subtitle">{{ subtitle }}</h2>
     <div class="content">
-      {{ content }}
+      {{ prompt }}
     </div>
   </header>
 </template>
@@ -20,7 +20,7 @@ export default {
     return {
       title: this.$store.state.content.title,
       subtitle: this.$store.state.content.subtitle,
-      content: this.$store.state.content.intro
+      prompt: this.$store.state.content.prompt
     };
   }
 };
