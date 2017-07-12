@@ -39,6 +39,9 @@ module.exports = {
       'exif-js',
       'croppie'
     ],
+    externals: {
+      EXIF: 'exif-js'
+    },
     loaders: [
       {
         test: /\.(png|jpe?g|gif|svg)$/,

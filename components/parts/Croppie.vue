@@ -15,7 +15,6 @@ export default {
     var el = this.$el;
     this.croppie = new Croppie(el, {
       enableExif: true,
-      url: this.image,
       viewport: {
         width: this.$el.offsetWidth,
         height: this.$el.offsetWidth
@@ -24,6 +23,9 @@ export default {
         width: this.$el.offsetWidth,
         height: this.$el.offsetWidth
       }
+    });
+    this.croppie.bind({
+      url: this.image
     });
   }
 };
