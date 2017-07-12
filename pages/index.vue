@@ -65,7 +65,6 @@ export default {
   watch: {
     'images.uploaded.original': function (original) {
       if (original) {
-        this.filterImage('uploaded');
         this.$router.push('share');
       }
     }

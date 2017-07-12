@@ -1,7 +1,8 @@
 <template>
   <div class="columns">
     <div class="column">
-      <photo :image="image" :title="'Title'"></photo>
+      <photo :image="image.original" :title="'Title'"></photo>
+      <photo :image="image.filtered" :title="'Title'"></photo>
       <nuxt-link class="button" to="/">
         <span class="icon is-small">
           <i class="fa fa-chevron-left"></i>
@@ -38,7 +39,7 @@ export default {
   },
   computed: {
     ...mapState({
-      image: state => state.images.uploaded.filtered,
+      image: state => state.images.uploaded,
       download: state => state.content.buttons.download,
       upload: state => state.content.buttons.upload,
       share: state => state.content.share

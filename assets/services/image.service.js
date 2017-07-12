@@ -3,7 +3,7 @@ const DIMENTIONS = {
   WIDTH: 1600
 };
 
-function grayscale(pixels) {
+function grayscalePixels(pixels) {
   var d = pixels.data;
   for (var i = 0; i < d.length; i += 4) {
     var r = d[i];
@@ -27,7 +27,7 @@ function loadImage(src) {
   });
 }
 
-function filter(orginalImage, overlayImage) {
+function overlay(orginalImage, overlayImage) {
   const canvas = document.createElement('canvas');
   canvas.width = DIMENTIONS.WIDTH;
   canvas.height = DIMENTIONS.HEIGHT;
@@ -38,9 +38,6 @@ function filter(orginalImage, overlayImage) {
     loadImage(orginalImage)
       .then(image => {
         context.drawImage(image, 0, 0, canvas.width, canvas.height);
-        var coloredImage = context.getImageData(0, 0, canvas.width, canvas.height);
-        var grayImage = grayscale(coloredImage);
-        context.putImageData(grayImage, 0, 0);
         loadImage(overlayImage).then(image => {
           context.drawImage(image, 0, 0, canvas.width, canvas.height);
           resolve(canvas.toDataURL('image/jpeg'));
@@ -49,4 +46,22 @@ function filter(orginalImage, overlayImage) {
   });
 }
 
-export { filter };
+function grayscale(image) {
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
+
+  return new Promise(resolve => {
+    loadImage(image)
+      .then(image => {
+        canvas.width = image.width;
+        canvas.height = image.height;
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+        var coloredImage = context.getImageData(0, 0, canvas.width, canvas.height);
+        var grayImage = grayscalePixels(coloredImage);
+        context.putImageData(grayImage, 0, 0);
+        resolve(canvas.toDataURL('image/jpeg'));
+      });
+  });
+}
+
+export { overlay, grayscale };

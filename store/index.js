@@ -1,4 +1,4 @@
-import { filter as FilterService } from '~assets/services/image.service';
+import { overlay as Overlay, grayscale as Grayscale } from '~assets/services/image.service';
 // Switch on env variable
 const content = JSON.parse(require('../static/content/' + process.env.contentFile));
 // console.log(content);
@@ -48,13 +48,16 @@ export const mutations = {
 
 export const actions = {
   uploadFile({ commit, state, dispatch }, file) {
-    const key = 'uploaded';
     const fReader = new FileReader();
-    commit('imageStatus', { key, status: 'LOADING' });
+    commit('imageStatus', { key: 'uploaded', status: 'LOADING' });
 
     fReader.onload = () => {
-      commit('originalImage', { key, image: fReader.result });
-      commit('imageStatus', { key, status: 'LOADED' });
+      commit('imageStatus', { key: 'uploaded', status: 'LOADED' });
+      Grayscale(fReader.result).then(function (image) {
+        commit('imageStatus', { key: 'uploaded', status: 'GRAYSCALE' });
+        commit('originalImage', { key: 'uploaded', image: image });
+        dispatch('filterImage', 'uploaded');
+      });
     };
 
     fReader.readAsDataURL(file);
@@ -63,9 +66,11 @@ export const actions = {
     commit('imageStatus', { key, status: 'FILTERING' });
     const image = state.images[key].original;
     const overlay = state.images[key].overlay;
-    FilterService(image, overlay).then(filteredImage => {
-      commit('filteredImage', { key, image: filteredImage });
-      commit('imageStatus', { key, status: 'FILTERED' });
+    Grayscale(image).then(grayImage => {
+      Overlay(grayImage, overlay).then(filteredImage => {
+        commit('filteredImage', { key, image: filteredImage });
+        commit('imageStatus', { key, status: 'FILTERED' });
+      });
     });
   }
 };
