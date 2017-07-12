@@ -8,10 +8,7 @@
         </span>
         <span>{{ upload.new }}</span>
       </nuxt-link>
-      <button class="button" @click="generate">generate</button>
-      <span @click="showModal">
-        <download class="button" :button="download" :image="image.filtered"></download>
-      </span>
+      <button class="button" @click="generate">{{ download.default}}</button>
     </div>
     <div class="column">
       <img :src="image.filtered"></img>
@@ -23,18 +20,20 @@
 <script>
 
 import { mapState, mapActions, mapMutations } from 'vuex';
+import { overlay as Overlay } from '~assets/services/image.service';
 
 import Photo from '~components/parts/Photo.vue';
 import Croppie from '~components/parts/Croppie.vue';
 import CopyModal from '~components/parts/CopyModal.vue';
-import Download from '~components/parts/Download.vue';
+// import Download from '~components/parts/Download.vue';
+
+const Download = require('downloadjs');
 
 export default {
   components: {
     Photo,
     Croppie,
-    CopyModal,
-    Download
+    CopyModal
   },
   data() {
     return {
@@ -63,7 +62,11 @@ export default {
     generate: function () {
       this.$refs.croppie.getCroppedImage().then(base64 => {
         this.croppedImage({ key: 'uploaded', image: base64 });
-        this.filterImage('uploaded');
+        console.log(this.image.overlay);
+        Overlay(base64, this.image.overlay).then(image => {
+          this.modal = true;
+          Download(image, this.download.fileName, 'image/jpeg');
+        });
       });
     }
   },

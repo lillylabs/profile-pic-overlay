@@ -39,7 +39,6 @@ export const mutations = {
     state.images[key].original = image;
   },
   croppedImage(state, { key, image }) {
-    console.log('KEY', key, image);
     state.images[key].cropped = image;
   },
   filteredImage(state, { key, image }) {
