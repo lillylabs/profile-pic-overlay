@@ -12,7 +12,7 @@ export default {
   props: ['image', 'overlay'],
   methods: {
     getCroppedImage: function () {
-      return this.croppie.result('base64');
+      return this.croppie.result('base64', { width: 900, height: 900 });
     }
   },
   mounted() {

@@ -1,17 +1,19 @@
 <template>
   <div class="columns">
     <div class="column">
-      <croppie ref="croppie" :image="image.original" :overlay="image.overlay"></croppie>
+      <croppie ref="croppie" :image="image" :overlay="overlay"></croppie>
       <nuxt-link class="button" to="/">
         <span class="icon is-small">
           <i class="fa fa-chevron-left"></i>
         </span>
-        <span>{{ upload.new }}</span>
+        <span>&nbsp;{{ upload.new }}</span>
       </nuxt-link>
-      <button class="button" @click="generate">{{ download.default}}</button>
-    </div>
-    <div class="column">
-      <img :src="image.filtered"></img>
+      <button class="button" :class="{ 'is-static': downloading }" @click="downloadImage">
+        <span>{{ download.default }}&nbsp;</span>
+        <span class=" icon ">
+          <i :class="[ 'fa', download.icon] "></i>
+        </span>
+      </button>
     </div>
     <copy-modal :title="share.suggestion.title" :text="share.suggestion.text" :button="share.copy" :is-active.sync="modal"></copy-modal>
   </div>
@@ -19,13 +21,12 @@
 
 <script>
 
-import { mapState, mapActions, mapMutations } from 'vuex';
-import { overlay as Overlay } from '~assets/services/image.service';
+import { mapState } from 'vuex';
 
 import Photo from '~components/parts/Photo.vue';
 import Croppie from '~components/parts/Croppie.vue';
 import CopyModal from '~components/parts/CopyModal.vue';
-// import Download from '~components/parts/Download.vue';
+import Filter from '~assets/services/image.service';
 
 const Download = require('downloadjs');
 
@@ -38,40 +39,34 @@ export default {
   data() {
     return {
       modal: false,
-      copied: false
+      copied: false,
+      downloading: false
     };
   },
   computed: {
     ...mapState({
-      image: state => state.images.uploaded,
+      image: state => state.image,
+      overlay: state => state.overlay,
+      uploading: state => state.uploading,
       download: state => state.content.buttons.download,
       upload: state => state.content.buttons.upload,
       share: state => state.content.share
     })
   },
   methods: {
-    ...mapMutations([
-      'croppedImage'
-    ]),
-    ...mapActions([
-      'filterImage'
-    ]),
-    showModal: function () {
+    downloadImage: function () {
       this.modal = true;
-    },
-    generate: function () {
+      this.downloading = true;
       this.$refs.croppie.getCroppedImage().then(base64 => {
-        this.croppedImage({ key: 'uploaded', image: base64 });
-        console.log(this.image.overlay);
-        Overlay(base64, this.image.overlay).then(image => {
-          this.modal = true;
+        Filter.overlay(base64, this.overlay).then(image => {
           Download(image, this.download.fileName, 'image/jpeg');
+          this.downloading = false;
         });
       });
     }
   },
   fetch({ store, redirect }) {
-    if (!store.state.images.uploaded.original) {
+    if (!store.state.image && !store.state.uploading) {
       return redirect('/');
     }
   }

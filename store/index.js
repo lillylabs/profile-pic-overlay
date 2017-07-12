@@ -1,79 +1,47 @@
-import { overlay as Overlay, grayscale as Grayscale } from '~assets/services/image.service';
+import Filter from '~assets/services/image.service';
 // Switch on env variable
 const content = JSON.parse(require('../static/content/' + process.env.contentFile));
 // console.log(content);
 
 export const state = () => ({
-  images: {
-    man: {
-      original: content.attributes.avatars.man,
-      overlay: content.attributes.filters.man,
-      filtered: null,
-      status: null
-    },
-    woman: {
-      original: content.attributes.avatars.woman,
-      overlay: content.attributes.filters.woman,
-      filtered: null,
-      status: null
-    },
-    uploaded: {
-      original: null,
-      cropped: null,
-      overlay: content.attributes.filters.woman,
-      filtered: null,
-      status: null
-    }
-  },
+  uploading: false,
+  image: null,
+  overlay: null,
+  error: [],
   content: { ...content.attributes, about: content.body }
 });
 
 export const mutations = {
-  imageOverlay(state, { key, overlay }) {
-    state.images[key].overlay = overlay;
+  startUpload(state) {
+    state.uploading = true;
   },
-  imageStatus(state, { key, status }) {
-    state.images[key].status = status;
+  endUpload(state) {
+    state.uploading = false;
   },
-  originalImage(state, { key, image }) {
-    state.images[key].original = image;
+  setImage(state, image) {
+    state.image = image;
   },
-  croppedImage(state, { key, image }) {
-    state.images[key].cropped = image;
+  setOverlay(state, overlay) {
+    state.overlay = overlay;
   },
-  filteredImage(state, { key, image }) {
-    state.images[key].filtered = image;
-  },
-  uploadError(state, error) {
-    state.images.original.status = 'ERROR';
-    state.images.original.error = error;
+  addError(state, error) {
+    state.error = [...state.error, error];
   }
 };
 
 export const actions = {
   uploadFile({ commit, state, dispatch }, file) {
     const fReader = new FileReader();
-    commit('imageStatus', { key: 'uploaded', status: 'LOADING' });
+    commit('startUpload');
+    commit('setImage', null);
 
     fReader.onload = () => {
-      commit('imageStatus', { key: 'uploaded', status: 'LOADED' });
-      Grayscale(fReader.result).then(function (image) {
-        commit('imageStatus', { key: 'uploaded', status: 'GRAYSCALE' });
-        commit('originalImage', { key: 'uploaded', image: image });
+      Filter.grayscale(fReader.result).then(grayscale => {
+        commit('setImage', grayscale);
+        commit('endUpload');
       });
     };
 
     fReader.readAsDataURL(file);
-  },
-  filterImage({ commit, state }, key) {
-    commit('imageStatus', { key, status: 'FILTERING' });
-    const image = state.images[key].cropped || state.images[key].original;
-    const overlay = state.images[key].overlay;
-    Grayscale(image).then(grayImage => {
-      Overlay(grayImage, overlay).then(filteredImage => {
-        commit('filteredImage', { key, image: filteredImage });
-        commit('imageStatus', { key, status: 'FILTERED' });
-      });
-    });
   }
 };

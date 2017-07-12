@@ -1,6 +1,6 @@
 const DIMENTIONS = {
-  HEIGHT: 1600,
-  WIDTH: 1600
+  HEIGHT: 900,
+  WIDTH: 900
 };
 
 function grayscalePixels(pixels) {
@@ -64,4 +64,4 @@ function grayscale(image) {
   });
 }
 
-export { overlay, grayscale };
+export default { overlay, grayscale };
