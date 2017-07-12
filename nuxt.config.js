@@ -24,7 +24,8 @@ module.exports = {
   ** Include css not in components
   */
   css: [
-    'assets/main.css',
+    { src: 'croppie/croppie.css' },
+    { src: 'assets/main.css' },
     // node.js module but we specify the pre-processor
     { src: 'bulma/bulma.sass', lang: 'sass' },
     { src: 'font-awesome/scss/font-awesome.scss', lang: 'sass' },
