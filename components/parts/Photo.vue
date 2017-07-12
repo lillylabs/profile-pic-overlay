@@ -1,17 +1,20 @@
 <template>
   <div class="image is-square">
-    <img v-show="image" :src="image" :title="title"></img>
+    <img class="grayscale" :src="image"></img>
+    <img :src="overlay"></img>
   </div>
 </template>
 
 <script>
 
 export default {
-  props: ['image', 'title']
+  props: ['image', 'overlay']
 };
 
 </script>
 
 <style scoped>
-
+.grayscale {
+  filter: grayscale(100%);
+}
 </style>

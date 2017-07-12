@@ -1,9 +1,9 @@
 <template>
   <div class="columns">
     <input type="file" accept="image/*" name="file" id="file" @change="filesChange($event.target.files)"></input>
-    <div class="column" v-for="key in keys" :key="key ">
+    <div class="column" v-for="(avatar, key) in avatars" :key="key ">
       <label for="file" v-on:click="selectOverlay(key) ">
-        <photo :image="images[key].filtered "></photo>
+        <photo :image="avatars[key]" :overlay="overlays[key]"></photo>
         <div class="button">
           <span>{{ button.default }}&nbsp;</span>
           <span class=" icon ">
@@ -24,14 +24,10 @@ export default {
   components: {
     Photo
   },
-  data() {
-    return {
-      keys: ['man', 'woman']
-    };
-  },
   computed: {
     ...mapState({
-      images: state => state.images,
+      avatars: state => state.content.avatars,
+      overlays: state => state.content.filters,
       button: state => state.content.buttons.upload
     })
   },
@@ -61,20 +57,15 @@ export default {
       }
       this.uploadFile(file);
     }
-  },
-  watch: {
-    'images.uploaded.original': function (original) {
-      if (original) {
-        this.filterImage('uploaded');
-        this.$router.push('share');
-      }
-    }
-  },
-  mounted() {
-    for (var key of this.keys) {
-      this.filterImage(key);
-    }
   }
+  // watch: {
+  //   'images.uploaded.original': function (original) {
+  //     if (original) {
+  //       this.filterImage('uploaded');
+  //       this.$router.push('share');
+  //     }
+  //   }
+  // }
 };
 </script>
 
