@@ -1,16 +1,19 @@
 <template>
   <div class="columns">
     <div class="column">
-      <photo :image="image" :title="'Title'"></photo>
+      <photo :image="image" :overlay="overlay"></photo>
       <nuxt-link class="button" to="/">
         <span class="icon is-small">
           <i class="fa fa-chevron-left"></i>
         </span>
-        <span>{{ upload.new }}</span>
+        <span>&nbsp;{{ upload.new }}</span>
       </nuxt-link>
-      <span @click="showModal">
-        <download class="button" :button="download" :image="image"></download>
-      </span>
+      <button class="button" :class="{ 'is-static': downloading }" @click="downloadImage">
+        <span>{{ download.default }}&nbsp;</span>
+        <span class=" icon ">
+          <i :class="[ 'fa', download.icon] "></i>
+        </span>
+      </button>
     </div>
     <copy-modal :title="share.suggestion.title" :text="share.suggestion.text" :button="share.copy" :is-active.sync="modal"></copy-modal>
   </div>
@@ -22,35 +25,47 @@ import { mapState } from 'vuex';
 
 import Photo from '~components/parts/Photo.vue';
 import CopyModal from '~components/parts/CopyModal.vue';
-import Download from '~components/parts/Download.vue';
+import Filter from '~assets/services/image.service';
+
+const Download = require('downloadjs');
 
 export default {
   components: {
     Photo,
-    CopyModal,
-    Download
+    CopyModal
   },
   data() {
     return {
       modal: false,
-      copied: false
+      copied: false,
+      downloading: false
     };
   },
   computed: {
     ...mapState({
-      image: state => state.images.uploaded.filtered,
+      image: state => state.image,
+      overlay: state => state.overlay,
+      uploading: state => state.uploading,
       download: state => state.content.buttons.download,
       upload: state => state.content.buttons.upload,
       share: state => state.content.share
     })
   },
   methods: {
-    showModal: function () {
+    filterImage: function () {
+      return Filter.overlay(this.image, this.overlay);
+    },
+    downloadImage: function () {
       this.modal = true;
+      this.downloading = true;
+      this.filterImage().then(filtredImage => {
+        Download(filtredImage, this.download.fileName, 'image/jpeg');
+        this.downloading = false;
+      });
     }
   },
   fetch({ store, redirect }) {
-    if (!store.state.images.uploaded.original) {
+    if (!store.state.image && !store.state.uploading) {
       return redirect('/');
     }
   }

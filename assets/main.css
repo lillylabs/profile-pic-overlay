@@ -9,11 +9,14 @@
   margin-bottom: 1rem;
 }
 
-.button + .button,
-.button + span {
+button.button {
+  line-height: 1.5;
+}
+
+.button + .button {
   margin-left: 0.25rem;
 }
 
-.image{
+.image {
   background: lightgray;
 }

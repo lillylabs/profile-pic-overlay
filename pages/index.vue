@@ -1,9 +1,9 @@
 <template>
   <div class="columns">
     <input type="file" accept="image/*" name="file" id="file" @change="filesChange($event.target.files)"></input>
-    <div class="column" v-for="key in keys" :key="key ">
+    <div class="column" v-for="(avatar, key) in avatars" :key="key ">
       <label for="file" v-on:click="selectOverlay(key) ">
-        <photo :image="images[key].filtered "></photo>
+        <photo :image="avatars[key]" :overlay="overlays[key]"></photo>
         <div class="button">
           <span>{{ button.default }}&nbsp;</span>
           <span class=" icon ">
@@ -26,53 +26,43 @@ export default {
   },
   data() {
     return {
-      keys: ['man', 'woman']
+
     };
   },
   computed: {
     ...mapState({
-      images: state => state.images,
+      avatars: state => state.content.avatars,
+      overlays: state => state.content.filters,
       button: state => state.content.buttons.upload
     })
   },
   methods: {
     ...mapActions([
-      'filterImage',
       'uploadFile'
     ]),
     ...mapMutations([
-      'uploadError'
+      'addError',
+      'setOverlay'
     ]),
     selectOverlay: function (selectedKey) {
-      this.$store.commit('imageOverlay', { key: 'uploaded', overlay: this.images[selectedKey].overlay });
+      this.fileDialogOpen = true;
+      this.setOverlay(this.overlays[selectedKey]);
     },
     filesChange: function (files) {
       // handle file changes
       var file = files ? files[0] : null;
 
       if (!file) {
-        this.uploadError(new Error('No file'));
+        this.addError(new Error('No file'));
         return;
       }
 
       if (!file.type.match('image.*')) {
-        this.uploadError(new Error('File is not an image'));
+        this.addError(new Error('File is not an image'));
         return;
       }
       this.uploadFile(file);
-    }
-  },
-  watch: {
-    'images.uploaded.original': function (original) {
-      if (original) {
-        this.filterImage('uploaded');
-        this.$router.push('share');
-      }
-    }
-  },
-  mounted() {
-    for (var key of this.keys) {
-      this.filterImage(key);
+      this.$router.push('share');
     }
   }
 };
