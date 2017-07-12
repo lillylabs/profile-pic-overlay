@@ -1,4 +1,4 @@
-import { filter as FilterService } from '~assets/services/image.service';
+import Filter from '~assets/services/image.service';
 // Switch on env variable
 const content = JSON.parse(require('../static/content/' + process.env.contentFile));
 // console.log(content);
@@ -53,8 +53,10 @@ export const actions = {
     commit('imageStatus', { key, status: 'LOADING' });
 
     fReader.onload = () => {
-      commit('originalImage', { key, image: fReader.result });
-      commit('imageStatus', { key, status: 'LOADED' });
+      Filter.grayscale(fReader.result).then(grayscale => {
+        commit('originalImage', { key, image: fReader.result });
+        commit('imageStatus', { key, status: 'LOADED' });
+      })
     };
 
     fReader.readAsDataURL(file);
