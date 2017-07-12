@@ -17,3 +17,9 @@
 .image{
   background: lightgray;
 }
+
+.croppie-container .cr-viewport {
+  border: none !important;
+  background-size: contain;
+  background-repeat: no-repeat; 
+}

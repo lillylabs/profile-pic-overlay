@@ -1,17 +1,20 @@
 <template>
   <div class="columns">
     <div class="column">
-      <croppie :image="image.original" :overlay="image.overlay" :cropped-image.sync="image.cropped"></croppie>
-      <img :src="image.cropped"></img>
+      <croppie ref="croppie" :image="image.original" :overlay="image.overlay"></croppie>
       <nuxt-link class="button" to="/">
         <span class="icon is-small">
           <i class="fa fa-chevron-left"></i>
         </span>
         <span>{{ upload.new }}</span>
       </nuxt-link>
+      <button class="button" @click="generate">generate</button>
       <span @click="showModal">
         <download class="button" :button="download" :image="image.filtered"></download>
       </span>
+    </div>
+    <div class="column">
+      <img :src="image.filtered"></img>
     </div>
     <copy-modal :title="share.suggestion.title" :text="share.suggestion.text" :button="share.copy" :is-active.sync="modal"></copy-modal>
   </div>
@@ -19,7 +22,7 @@
 
 <script>
 
-import { mapState } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex';
 
 import Photo from '~components/parts/Photo.vue';
 import Croppie from '~components/parts/Croppie.vue';
@@ -48,8 +51,20 @@ export default {
     })
   },
   methods: {
+    ...mapMutations([
+      'croppedImage'
+    ]),
+    ...mapActions([
+      'filterImage'
+    ]),
     showModal: function () {
       this.modal = true;
+    },
+    generate: function () {
+      this.$refs.croppie.getCroppedImage().then(base64 => {
+        this.croppedImage({ key: 'uploaded', image: base64 });
+        this.filterImage('uploaded');
+      });
     }
   },
   fetch({ store, redirect }) {

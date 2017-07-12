@@ -19,6 +19,7 @@ export const state = () => ({
     },
     uploaded: {
       original: null,
+      cropped: null,
       overlay: content.attributes.filters.woman,
       filtered: null,
       status: null
@@ -36,6 +37,10 @@ export const mutations = {
   },
   originalImage(state, { key, image }) {
     state.images[key].original = image;
+  },
+  croppedImage(state, { key, image }) {
+    console.log('KEY', key, image);
+    state.images[key].cropped = image;
   },
   filteredImage(state, { key, image }) {
     state.images[key].filtered = image;
@@ -56,7 +61,6 @@ export const actions = {
       Grayscale(fReader.result).then(function (image) {
         commit('imageStatus', { key: 'uploaded', status: 'GRAYSCALE' });
         commit('originalImage', { key: 'uploaded', image: image });
-        dispatch('filterImage', 'uploaded');
       });
     };
 
@@ -64,7 +68,7 @@ export const actions = {
   },
   filterImage({ commit, state }, key) {
     commit('imageStatus', { key, status: 'FILTERING' });
-    const image = state.images[key].original;
+    const image = state.images[key].cropped || state.images[key].original;
     const overlay = state.images[key].overlay;
     Grayscale(image).then(grayImage => {
       Overlay(grayImage, overlay).then(filteredImage => {

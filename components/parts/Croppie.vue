@@ -9,9 +9,13 @@ if (process.BROWSER_BUILD) {
 }
 
 export default {
-  props: ['image', 'overlay', 'croppedImage'],
+  props: ['image', 'overlay'],
+  methods: {
+    getCroppedImage: function () {
+      return this.croppie.result('base64');
+    }
+  },
   mounted() {
-    console.log('mounted', this.$el.offsetWidth);
     var el = this.$el;
     this.croppie = new Croppie(el, {
       enableExif: true,
@@ -27,6 +31,7 @@ export default {
     this.croppie.bind({
       url: this.image
     });
+    el.querySelector('.cr-viewport').style.backgroundImage = `url(${this.overlay})`;
   }
 };
 </script>
