@@ -33,6 +33,7 @@ export const actions = {
   uploadFile({ commit, state, dispatch }, file) {
     const fReader = new FileReader();
     commit('startUpload');
+    commit('setImage', null);
 
     fReader.onload = () => {
       Filter.grayscale(fReader.result).then(grayscale => {
