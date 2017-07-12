@@ -12,25 +12,7 @@
         <download class="button" :button="download" :image="image"></download>
       </span>
     </div>
-    <div @click="closeModal" :class="['modal', modal ? 'is-active': '']">
-      <div class="modal-background"></div>
-      <div class="modal-card">
-        <section class="modal-card-body">
-          <div class="content">
-            <h4>{{ share.suggestion.title }}</h4>
-            <p>{{ share.suggestion.text }}</p>
-            <textarea ref="textarea" v-model="share.suggestion.text"></textarea>
-          </div>
-          <button v-on:click.stop="copyText" :class="['button', copied ? 'is-static' : '']" data-clipboard-target="">
-            <span v-if="!copied" class="icon is-small">
-              <i :class="['fa', share.copy.icon]"></i>
-            </span>
-            <span>&nbsp;{{ copied ? share.copy.done : share.copy.default }}</span>
-          </button>
-        </section>
-      </div>
-      <button class="modal-close is-large"></button>
-    </div>
+    <copy-modal :title="share.suggestion.title" :text="share.suggestion.text" :button="share.copy" :is-active.sync="modal"></copy-modal>
   </div>
 </template>
 
@@ -39,11 +21,13 @@
 import { mapState } from 'vuex';
 
 import Photo from '~components/parts/Photo.vue';
+import CopyModal from '~components/parts/CopyModal.vue';
 import Download from '~components/parts/Download.vue';
 
 export default {
   components: {
     Photo,
+    CopyModal,
     Download
   },
   data() {
@@ -63,23 +47,6 @@ export default {
   methods: {
     showModal: function () {
       this.modal = true;
-      this.copied = false;
-    },
-    closeModal: function () {
-      this.modal = false;
-      this.copied = false;
-    },
-    copyText: function () {
-      console.log(this.$refs.textarea);
-      this.$refs.textarea.select();
-      try {
-        this.copied = document.execCommand('copy');
-        var msg = this.copied ? 'successful' : 'unsuccessful';
-        console.log('Copying text command was ' + msg);
-      } catch (err) {
-        console.log('Oops, unable to copy');
-      }
-      this.$refs.textarea.blur();
     }
   },
   fetch({ store, redirect }) {
@@ -101,13 +68,6 @@ export default {
 
 .content {
   margin-top: 1em;
-}
-
-textarea {
-  position: absolute;
-  opacity: 0;
-  height: 0;
-  width: 0;
 }
 
 @media screen and (min-width: 769px) {
