@@ -35,7 +35,9 @@ module.exports = {
   */
   build: {
     vendor: [
-      'marked'
+      'marked',
+      'exif-js',
+      'croppie'
     ],
     loaders: [
       {
