@@ -24,6 +24,11 @@ export default {
   components: {
     Photo
   },
+  data() {
+    return {
+
+    };
+  },
   computed: {
     ...mapState({
       avatars: state => state.content.avatars,
@@ -33,39 +38,33 @@ export default {
   },
   methods: {
     ...mapActions([
-      'filterImage',
       'uploadFile'
     ]),
     ...mapMutations([
-      'uploadError'
+      'addError',
+      'setOverlay'
     ]),
     selectOverlay: function (selectedKey) {
-      this.$store.commit('imageOverlay', { key: 'uploaded', overlay: this.images[selectedKey].overlay });
+      this.fileDialogOpen = true;
+      this.setOverlay(this.overlays[selectedKey]);
     },
     filesChange: function (files) {
       // handle file changes
       var file = files ? files[0] : null;
 
       if (!file) {
-        this.uploadError(new Error('No file'));
+        this.addError(new Error('No file'));
         return;
       }
 
       if (!file.type.match('image.*')) {
-        this.uploadError(new Error('File is not an image'));
+        this.addError(new Error('File is not an image'));
         return;
       }
       this.uploadFile(file);
+      this.$router.push('share');
     }
   }
-  // watch: {
-  //   'images.uploaded.original': function (original) {
-  //     if (original) {
-  //       this.filterImage('uploaded');
-  //       this.$router.push('share');
-  //     }
-  //   }
-  // }
 };
 </script>
 

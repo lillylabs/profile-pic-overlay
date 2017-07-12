@@ -34,7 +34,8 @@ module.exports = {
   */
   build: {
     vendor: [
-      'marked'
+      'marked',
+      'downloadjs'
     ],
     loaders: [
       {
