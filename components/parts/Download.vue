@@ -1,5 +1,5 @@
 <template>
-  <a :download="button.fileName" :href="image">
+  <a :download="button.fileName + '.jpeg'" :href="image">
     <span>{{ button.default }}&nbsp;</span>
     <span class=" icon ">
       <i :class="[ 'fa', button.icon] "></i>
