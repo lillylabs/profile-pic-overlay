@@ -1,7 +1,9 @@
 <template>
   <header>
     <h1 v-if="title.image" class="title">
-      <img class="logo" :src="title.image" :title="title.text"></img>
+      <nuxt-link to="/">
+        <img class="logo" :src="title.image" :title="title.text"></img>
+      </nuxt-link>
     </h1>
     <h1 v-else class="title">
       {{ title.text || title }}
