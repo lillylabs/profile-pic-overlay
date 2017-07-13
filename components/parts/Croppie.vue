@@ -17,7 +17,10 @@ export default {
     updateImage: function () {
       this.croppie.bind({
         url: this.image,
-        orientation: this.orientation
+        orientation: this.orientation,
+        zoom: 0
+      }).then(() => {
+        this.croppie.setZoom(0);
       });
     }
   },
@@ -25,6 +28,7 @@ export default {
     var el = this.$el;
     this.croppie = new Croppie(el, {
       enableOrientation: true,
+      enforceBoundary: true,
       viewport: {
         width: this.$el.offsetWidth,
         height: this.$el.offsetWidth
@@ -34,6 +38,7 @@ export default {
         height: this.$el.offsetWidth
       }
     });
+    // setTimeout(this.croppie.setZoom(10), 250);
     this.updateImage();
     el.querySelector('.cr-viewport').style.backgroundImage = `url(${this.overlay})`;
   }
