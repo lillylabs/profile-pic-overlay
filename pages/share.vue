@@ -1,7 +1,7 @@
 <template>
   <div class="columns">
     <div class="column">
-      <croppie ref="croppie" :image="image" :overlay="overlay"></croppie>
+      <croppie ref="croppie" v-if="image" :image="image" :overlay="overlay"></croppie>
       <nuxt-link class="button" to="/">
         <span class="icon is-small">
           <i class="fa fa-chevron-left"></i>
