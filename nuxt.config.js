@@ -37,6 +37,7 @@ module.exports = {
     vendor: [
       'marked',
       'croppie',
+      'exif-js',
       'downloadjs'
     ],
     externals: {
