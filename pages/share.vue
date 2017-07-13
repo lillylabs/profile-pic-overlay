@@ -1,7 +1,7 @@
 <template>
   <div class="columns">
     <div class="column">
-      <photo :image="image" :overlay="overlay"></photo>
+      <croppie ref="croppie" v-if="image" :image="image" :overlay="overlay" :orientation="orientation"></croppie>
       <nuxt-link class="button" to="/">
         <span class="icon is-small">
           <i class="fa fa-chevron-left"></i>
@@ -24,6 +24,7 @@
 import { mapState } from 'vuex';
 
 import Photo from '~components/parts/Photo.vue';
+import Croppie from '~components/parts/Croppie.vue';
 import CopyModal from '~components/parts/CopyModal.vue';
 import Filter from '~assets/services/image.service';
 
@@ -32,6 +33,7 @@ const Download = require('downloadjs');
 export default {
   components: {
     Photo,
+    Croppie,
     CopyModal
   },
   data() {
@@ -44,6 +46,7 @@ export default {
   computed: {
     ...mapState({
       image: state => state.image,
+      orientation: state => state.orientation,
       overlay: state => state.overlay,
       uploading: state => state.uploading,
       download: state => state.content.buttons.download,
@@ -52,16 +55,23 @@ export default {
     })
   },
   methods: {
-    filterImage: function () {
-      return Filter.overlay(this.image, this.overlay);
-    },
     downloadImage: function () {
       this.modal = true;
       this.downloading = true;
-      this.filterImage().then(filtredImage => {
-        Download(filtredImage, this.download.fileName, 'image/jpeg');
-        this.downloading = false;
+      this.$refs.croppie.getCroppedImage().then(base64 => {
+        Filter.overlay(base64, this.overlay).then(image => {
+          Download(image, this.download.fileName + '.jpeg', 'image/jpeg');
+          this.downloading = false;
+        });
       });
+    }
+  },
+  watch: {
+    image: function (val) {
+      console.log('mage', val);
+    },
+    orientation: function (val) {
+      console.log('orientation', val);
     }
   },
   fetch({ store, redirect }) {

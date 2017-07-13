@@ -5,6 +5,7 @@ const content = JSON.parse(require('../static/content/' + process.env.contentFil
 
 export const state = () => ({
   uploading: false,
+  orientation: 1,
   image: null,
   overlay: null,
   error: [],
@@ -17,6 +18,9 @@ export const mutations = {
   },
   endUpload(state) {
     state.uploading = false;
+  },
+  setOrientation(state, orientation) {
+    state.orientation = orientation;
   },
   setImage(state, image) {
     state.image = image;

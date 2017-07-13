@@ -7,7 +7,9 @@
   "dependencies": {
     "bulma": "^0.4.2",
     "clipboard": "^1.7.1",
+    "croppie": "^2.4.1",
     "downloadjs": "^1.4.7",
+    "exif-js": "^2.2.1",
     "font-awesome": "^4.7.0",
     "marked": "^0.3.6",
     "nuxt": "latest"
@@ -30,8 +32,9 @@
     "eslint-plugin-promise": "^3.4.1",
     "eslint-plugin-standard": "^2.0.1",
     "front-matter-loader": "^0.2.0",
-    "raw-loader": "^0.5.1",
+    "imports-loader": "^0.7.1",
     "node-sass": "^4.5.3",
+    "raw-loader": "^0.5.1",
     "sass-loader": "^6.0.6"
   }
 }
