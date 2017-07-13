@@ -60,7 +60,7 @@ export default {
       this.downloading = true;
       this.$refs.croppie.getCroppedImage().then(base64 => {
         Filter.overlay(base64, this.overlay).then(image => {
-          Download(image, this.download.fileName, 'image/jpeg');
+          Download(image, this.download.fileName + '.jpeg', 'image/jpeg');
           this.downloading = false;
         });
       });
