@@ -66,9 +66,7 @@ export default {
       const EXIF = require('exif-js');
       const that = this;
       EXIF.getData(file, function () {
-        // alert(EXIF.pretty(this));
-        // that.setOrientation(EXIF.getTag(this, 'Orientation'));
-        that.setOrientation(6);
+        that.setOrientation(EXIF.getTag(this, 'Orientation'));
       });
 
       this.uploadFile(file);
