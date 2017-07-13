@@ -36,7 +36,6 @@ module.exports = {
   build: {
     vendor: [
       'marked',
-      'exif-js',
       'croppie',
       'downloadjs'
     ],
