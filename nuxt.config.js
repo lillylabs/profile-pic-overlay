@@ -14,6 +14,9 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script: [
+      // { src: 'https://rawgit.com/jseidelin/exif-js/master/exif.js' }
     ]
   },
   /*
@@ -37,12 +40,8 @@ module.exports = {
     vendor: [
       'marked',
       'croppie',
-      'exif-js',
       'downloadjs'
     ],
-    externals: {
-      EXIF: 'exif-js'
-    },
     loaders: [
       {
         test: /\.(png|jpe?g|gif|svg)$/,

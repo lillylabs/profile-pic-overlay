@@ -5,7 +5,7 @@
 
 <script>
 if (process.BROWSER_BUILD) {
-  var Croppie = require('croppie');
+  var Croppie = require('imports-loader?EXIF=exif-js!croppie');
 }
 
 export default {
