@@ -42,7 +42,8 @@ export default {
     ]),
     ...mapMutations([
       'addError',
-      'setOverlay'
+      'setOverlay',
+      'setOrientation'
     ]),
     selectOverlay: function (selectedKey) {
       this.fileDialogOpen = true;
@@ -61,6 +62,14 @@ export default {
         this.addError(new Error('File is not an image'));
         return;
       }
+
+      const EXIF = require('exif-js');
+      const that = this;
+      EXIF.getData(file, function () {
+        alert(EXIF.pretty(this));
+        that.setOrientation(EXIF.getTag(this, 'Orientation'));
+      });
+
       this.uploadFile(file);
       this.$router.push('share');
     }

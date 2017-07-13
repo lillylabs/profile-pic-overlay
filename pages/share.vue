@@ -1,7 +1,7 @@
 <template>
   <div class="columns">
     <div class="column">
-      <croppie ref="croppie" v-if="image" :image="image" :overlay="overlay"></croppie>
+      <croppie ref="croppie" v-if="image" :image="image" :overlay="overlay" :orientation="orientation"></croppie>
       <nuxt-link class="button" to="/">
         <span class="icon is-small">
           <i class="fa fa-chevron-left"></i>
@@ -46,6 +46,7 @@ export default {
   computed: {
     ...mapState({
       image: state => state.image,
+      orientation: state => state.orientation,
       overlay: state => state.overlay,
       uploading: state => state.uploading,
       download: state => state.content.buttons.download,
@@ -63,6 +64,14 @@ export default {
           this.downloading = false;
         });
       });
+    }
+  },
+  watch: {
+    image: function (val) {
+      console.log('mage', val);
+    },
+    orientation: function (val) {
+      console.log('orientation', val);
     }
   },
   fetch({ store, redirect }) {

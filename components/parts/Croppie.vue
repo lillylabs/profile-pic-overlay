@@ -5,20 +5,26 @@
 
 <script>
 if (process.BROWSER_BUILD) {
-  var Croppie = require('imports-loader?EXIF=exif-js!croppie');
+  var Croppie = require('croppie');
 }
 
 export default {
-  props: ['image', 'overlay'],
+  props: ['image', 'overlay', 'orientation'],
   methods: {
     getCroppedImage: function () {
       return this.croppie.result('base64', { width: 900, height: 900 });
+    },
+    updateImage: function () {
+      this.croppie.bind({
+        url: this.image,
+        orientation: this.orientation
+      });
     }
   },
   mounted() {
     var el = this.$el;
     this.croppie = new Croppie(el, {
-      enableExif: true,
+      enableOrientation: true,
       viewport: {
         width: this.$el.offsetWidth,
         height: this.$el.offsetWidth
@@ -28,9 +34,7 @@ export default {
         height: this.$el.offsetWidth
       }
     });
-    this.croppie.bind({
-      url: this.image
-    });
+    this.updateImage();
     el.querySelector('.cr-viewport').style.backgroundImage = `url(${this.overlay})`;
   }
 };
