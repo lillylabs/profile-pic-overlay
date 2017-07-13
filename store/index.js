@@ -20,7 +20,6 @@ export const mutations = {
     state.uploading = false;
   },
   setOrientation(state, orientation) {
-    console.log('index', orientation);
     state.orientation = orientation;
   },
   setImage(state, image) {
