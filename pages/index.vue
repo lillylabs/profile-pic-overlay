@@ -45,7 +45,8 @@ export default {
     ...mapMutations([
       'addError',
       'setOverlay',
-      'setOrientation'
+      'setOrientation',
+      'setImage'
     ]),
     selectOverlay: function (selectedKey) {
       console.log('select overlay');
@@ -56,10 +57,13 @@ export default {
       this.setOverlay(this.overlays[selectedKey]);
       console.log('profile pic');
       /* globals FB */
-      FB.login(function () {
+      FB.login(() => {
         // Note: The call will only work if you accept the permission request
-        FB.api('/me/feed', 'post', { message: 'Hello, world!' });
-      }, { scope: 'publish_actions' });
+        FB.api('me/picture', 'get', { type: 'large' }, (result) => {
+          this.setImage(result.data.url);
+          this.$router.push('share');
+        });
+      });
     },
     filesChange: function (files) {
       // handle file changes
