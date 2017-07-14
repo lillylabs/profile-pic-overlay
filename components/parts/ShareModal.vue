@@ -26,7 +26,7 @@
                   </button>
                 </div>
                 <div class="level-item">
-                  <button class="button" @click="closeModal" :disabled="disabled">{{ option.share }}</button>
+                  <button class="button" @click="closeModal" :disabled="disabled">{{ option.cancel }}</button>
                 </div>
               </div>
             </nav>
