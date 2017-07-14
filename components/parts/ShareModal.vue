@@ -93,7 +93,6 @@ export default {
     },
     facebookPermissionsGranted(scope, authResponse) {
       var fd = new FormData();
-      console.log('AccessToken', authResponse.accessToken);
       fd.append('access_token', authResponse.accessToken);
       return axios.get('https://graph.facebook.com/me/permissions', {
         params: {
