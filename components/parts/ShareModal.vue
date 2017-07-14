@@ -71,7 +71,7 @@ export default {
           this.sharing = false;
           this.closeModal();
         })
-        .catch(function (error) {
+        .catch(error => {
           this.sharing = false;
           console.log(error);
         });
