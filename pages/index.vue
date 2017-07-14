@@ -2,7 +2,7 @@
   <div class="columns">
     <input type="file" accept="image/*" name="file" id="file" @change="filesChange($event.target.files)"></input>
     <div class="column" v-for="(avatar, key) in avatars" :key="key ">
-      <label for="file" v-on:click="selectOverlay(key) ">
+      <label for="file" v-on:click="selectOverlay(key)">
         <photo :image="avatars[key]" :overlay="overlays[key]"></photo>
         <div class="button">
           <span>{{ button.default }}&nbsp;</span>
@@ -11,6 +11,7 @@
           </span>
         </div>
       </label>
+      <button @click="useProfilePic(key)" class="button is-link is-small">{{ facebook.default }}</button>
     </div>
   </div>
 </template>
@@ -33,7 +34,8 @@ export default {
     ...mapState({
       avatars: state => state.content.avatars,
       overlays: state => state.content.filters,
-      button: state => state.content.buttons.upload
+      button: state => state.content.buttons.upload,
+      facebook: state => state.content.buttons.profile
     })
   },
   methods: {
@@ -43,11 +45,32 @@ export default {
     ...mapMutations([
       'addError',
       'setOverlay',
-      'setOrientation'
+      'setOrientation',
+      'setImage'
     ]),
     selectOverlay: function (selectedKey) {
+      console.log('select overlay');
       this.fileDialogOpen = true;
       this.setOverlay(this.overlays[selectedKey]);
+    },
+    getProfilePicture() {
+      FB.api('me/picture', 'get', { type: 'large' }, (result) => {
+        this.setImage(result.data.url);
+        this.$router.push('share');
+      });
+    },
+    useProfilePic: function (selectedKey) {
+      this.setOverlay(this.overlays[selectedKey]);
+      /* globals FB */
+      FB.getLoginStatus((response) => {
+        if (response.status === 'connected') {
+          this.getProfilePicture();
+        } else {
+          FB.login(() => {
+            this.getProfilePicture();
+          });
+        }
+      });
     },
     filesChange: function (files) {
       // handle file changes
@@ -86,6 +109,10 @@ input {
   position: absolute;
   height: 0;
   width: 0;
+}
+
+button {
+  margin-top: 0.25rem;
 }
 
 .column:not(.is-narrow) {
