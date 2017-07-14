@@ -9,11 +9,12 @@ share:
   options: 
     facebook:
       label: Facebook
+      share: Del på facebook
+      cancel: Avbryt
       icon: fa-facebook
   suggestion: 
     title: 'Forslag til deletekst' 
     text: 'Jeg er med på praten om ubevisste kjønnsstereotypier - sammen endrer vi holdninger. Last opp og del ditt bilde du også på http://hunspandererfilter.no. #HunSpanderer'
-    explaination: 'Bildet deles med teksten:'
   copy: 
     default: 'Kopier'
     done: 'Kopiert!'

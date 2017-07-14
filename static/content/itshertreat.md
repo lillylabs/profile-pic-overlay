@@ -6,7 +6,14 @@ subtitle: 'A campaign against gender discrimination.'
 prompt: 'Share your photo with #ItsHerTreat-filter on social media.'
 share:
   title: 'Share your photo with your friends!'
+  options: 
+    facebook:
+      label: Facebook
+      share: Share on Facebook
+      cancel: Cancel
+      icon: fa-facebook
   suggestion: 
+    suggestion: 
     title: 'Suggested text' 
     text: 'Join me in addressing unconscious gender bias. Together we change mindsets. #ItsHerTreat. Get your photo on http://itshertreatfilter.com'
   copy: 
@@ -18,8 +25,10 @@ buttons:
     default: 'Upload your photo'
     new: 'Change photo'
     icon: 'fa-upload'
+  profile:
+    default: 'or use your Facebook profile picture'
   download:
-    default: 'Download'
+    default: 'Download the image'
     icon: 'fa-download'
     fileName: 'ItsHerTreat'
 avatars: 

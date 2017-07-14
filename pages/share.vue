@@ -10,10 +10,10 @@
       <h2 class="title is-5">{{ share.title}}</h2>
       <div>
         <button class="button is-info" v-for="(option, key) in share.options" :key="key" @click="openModal(key)">
-          <span>{{ option.label }}&nbsp;</span>
           <span class="icon is-small">
             <i :class="[ 'fa', option.icon] "></i>
           </span>
+          <span>{{ option.label }}</span>
         </button>
       </div>
       <div class="content">

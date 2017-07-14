@@ -18,10 +18,15 @@
             <nav class="level">
               <div class="level-left">
                 <div class="level-item">
-                  <button class="button is-info" @click="share" :class="{ 'is-loading': disabled }">Del på Facebook</button>
+                  <button class="button is-info" @click="share" :class="{ 'is-loading': disabled }">
+                    <span class="icon is-small">
+                      <i :class="[ 'fa', option.icon] "></i>
+                    </span>
+                    <span>{{ option.share }}</span>
+                  </button>
                 </div>
                 <div class="level-item">
-                  <button class="button" @click="closeModal" :disabled="disabled">Avbryt</button>
+                  <button class="button" @click="closeModal" :disabled="disabled">{{ option.share }}</button>
                 </div>
               </div>
             </nav>
