@@ -33,10 +33,8 @@ buttons:
     fileName: 'ItsHerTreat'
 avatars: 
   man: '/images/man.jpg'
-  woman: '/images/woman.jpg'
 filters:
   man: '/images/itshertreat/filter.png'
-  woman: '/images/itshertreat/filter.png'
 nav:
   left:
     - label: 'About the campaign'
