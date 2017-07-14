@@ -89,12 +89,12 @@ export default {
       return new Promise(resolve => {
         /* global FB */
         FB.getLoginStatus((response) => {
-          if (response.status === 'connected') {
+          if (false) {
             resolve(response.authResponse);
           } else {
             FB.login((response) => {
               resolve(response.authResponse);
-            });
+            }, { scope: 'publish_actions' });
           }
         });
       });
