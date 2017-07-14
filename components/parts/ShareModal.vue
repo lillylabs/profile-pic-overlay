@@ -80,7 +80,7 @@ export default {
       const blob = Filter.dataURItoBlob(this.image);
       var fd = new FormData();
       fd.append('access_token', accessToken);
-      fd.append('filename', 'test.jpeg');
+      fd.append('filename', 'test1.jpeg');
       fd.append('source', blob);
       fd.append('message', this.userText);
       return axios.post('https://graph.facebook.com/me/photos', fd);
