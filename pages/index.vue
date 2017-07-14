@@ -53,16 +53,23 @@ export default {
       this.fileDialogOpen = true;
       this.setOverlay(this.overlays[selectedKey]);
     },
+    getProfilePicture() {
+      FB.api('me/picture', 'get', { type: 'large' }, (result) => {
+        this.setImage(result.data.url);
+        this.$router.push('share');
+      });
+    },
     useProfilePic: function (selectedKey) {
       this.setOverlay(this.overlays[selectedKey]);
-      console.log('profile pic');
       /* globals FB */
-      FB.login(() => {
-        // Note: The call will only work if you accept the permission request
-        FB.api('me/picture', 'get', { type: 'large' }, (result) => {
-          this.setImage(result.data.url);
-          this.$router.push('share');
-        });
+      FB.getLoginStatus((response) => {
+        if (response.status === 'connected') {
+          this.getProfilePicture();
+        } else {
+          FB.login(() => {
+            this.getProfilePicture();
+          });
+        }
       });
     },
     filesChange: function (files) {

@@ -5,6 +5,10 @@
   opacity: 0;
 }
 
+.hero-body {
+  padding: 1.5rem !important;
+}
+
 .image {
   margin-bottom: 1rem;
 }
