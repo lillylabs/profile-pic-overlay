@@ -18,6 +18,8 @@ buttons:
     default: 'Last opp bilde'
     new: 'Bytt bilde'
     icon: 'fa-upload'
+  profile:
+    default: 'eller bruk profilbilde fra Facebook'
   download:
     default: 'Last ned'
     icon: 'fa-download'

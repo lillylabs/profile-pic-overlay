@@ -2,7 +2,7 @@
   <div class="columns">
     <input type="file" accept="image/*" name="file" id="file" @change="filesChange($event.target.files)"></input>
     <div class="column" v-for="(avatar, key) in avatars" :key="key ">
-      <label for="file" v-on:click="selectOverlay(key) ">
+      <label for="file" v-on:click="selectOverlay(key)">
         <photo :image="avatars[key]" :overlay="overlays[key]"></photo>
         <div class="button">
           <span>{{ button.default }}&nbsp;</span>
@@ -11,6 +11,7 @@
           </span>
         </div>
       </label>
+      <button @click="useProfilePic(key)" class="button is-link is-small">{{ facebook.default }}</button>
     </div>
   </div>
 </template>
@@ -33,7 +34,8 @@ export default {
     ...mapState({
       avatars: state => state.content.avatars,
       overlays: state => state.content.filters,
-      button: state => state.content.buttons.upload
+      button: state => state.content.buttons.upload,
+      facebook: state => state.content.buttons.profile
     })
   },
   methods: {
@@ -46,8 +48,18 @@ export default {
       'setOrientation'
     ]),
     selectOverlay: function (selectedKey) {
+      console.log('select overlay');
       this.fileDialogOpen = true;
       this.setOverlay(this.overlays[selectedKey]);
+    },
+    useProfilePic: function (selectedKey) {
+      this.setOverlay(this.overlays[selectedKey]);
+      console.log('profile pic');
+      /* globals FB */
+      FB.login(function () {
+        // Note: The call will only work if you accept the permission request
+        FB.api('/me/feed', 'post', { message: 'Hello, world!' });
+      }, { scope: 'publish_actions' });
     },
     filesChange: function (files) {
       // handle file changes
@@ -86,6 +98,10 @@ input {
   position: absolute;
   height: 0;
   width: 0;
+}
+
+button {
+  margin-top: 0.25rem;
 }
 
 .column:not(.is-narrow) {

@@ -1,6 +1,7 @@
 module.exports = {
   env: {
-    contentFile: process.env.CONTENT_FILE || 'hunspanderer.md'
+    contentFile: process.env.CONTENT_FILE || 'hunspanderer.md',
+    facebookAppId: process.env.FACEBOOK_APP_ID || '154425301784525',
   },
   /*
   ** Headers of the page
@@ -14,9 +15,6 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ],
-    script: [
-      // { src: 'https://rawgit.com/jseidelin/exif-js/master/exif.js' }
     ]
   },
   /*
@@ -32,6 +30,9 @@ module.exports = {
     // node.js module but we specify the pre-processor
     { src: 'bulma/bulma.sass', lang: 'sass' },
     { src: 'font-awesome/scss/font-awesome.scss', lang: 'sass' },
+  ],
+  plugins: [
+    { src: '~plugins/facebook.js', ssr: false }
   ],
   /*
   ** Build configuration
