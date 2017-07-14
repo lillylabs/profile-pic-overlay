@@ -2,18 +2,25 @@
   <div class="columns">
     <div class="column">
       <croppie ref="croppie" v-if="image" :image="image" :overlay="overlay" :orientation="orientation"></croppie>
-      <nuxt-link class="button" to="/">
-        <span class="icon is-small">
-          <i class="fa fa-chevron-left"></i>
-        </span>
-        <span>&nbsp;{{ upload.new }}</span>
+      <nuxt-link class="button is-small is-link" to="/">
+        {{ upload.new }}
       </nuxt-link>
-      <button class="button" :class="{ 'is-static': downloading }" @click="downloadImage">
-        <span>{{ download.default }}&nbsp;</span>
-        <span class=" icon ">
-          <i :class="[ 'fa', download.icon] "></i>
-        </span>
-      </button>
+    </div>
+    <div class="column">
+      <h2 class="title is-5">{{ share.title}}</h2>
+      <div>
+        <button class="button is-info" :class="{ 'is-loading': sharing }" v-for="(button, key) in share.buttons" :key="key" @click="shareImage(key)">
+          <span>{{ button.label }}&nbsp;</span>
+          <span class="icon is-small">
+            <i :class="[ 'fa', button.icon] "></i>
+          </span>
+        </button>
+      </div>
+      <div class="content">
+        <button class="button is-small is-link" :class="{ 'is-static': downloading }" @click="downloadImage">
+          <span>{{ download.default }}</span>
+        </button>
+      </div>
     </div>
     <copy-modal :title="share.suggestion.title" :text="share.suggestion.text" :button="share.copy" :is-active.sync="modal"></copy-modal>
   </div>
@@ -27,6 +34,7 @@ import Photo from '~components/parts/Photo.vue';
 import Croppie from '~components/parts/Croppie.vue';
 import CopyModal from '~components/parts/CopyModal.vue';
 import Filter from '~assets/services/image.service';
+import axios from 'axios';
 
 const Download = require('downloadjs');
 
@@ -40,7 +48,8 @@ export default {
     return {
       modal: false,
       copied: false,
-      downloading: false
+      downloading: false,
+      sharing: false
     };
   },
   computed: {
@@ -55,14 +64,57 @@ export default {
     })
   },
   methods: {
-    downloadImage: function () {
+    uploadToFacebook(accessToken) {
+      return this.filterCroppedImage().then(image => {
+        const blob = Filter.dataURItoBlob(image);
+        var fd = new FormData();
+        fd.append('access_token', accessToken);
+        fd.append('filename', 'test.jpeg');
+        fd.append('source', blob);
+        fd.append('message', this.share.suggestion.text);
+        return axios.post('https://graph.facebook.com/me/photos', fd);
+      });
+    },
+    loginFacebook() {
+      return new Promise(resolve => {
+        /* global FB */
+        FB.getLoginStatus((response) => {
+          if (response.status === 'connected') {
+            resolve(response.authResponse);
+          } else {
+            FB.login((response) => {
+              resolve(response.authResponse);
+            });
+          }
+        });
+      });
+    },
+    shareImage(key) {
+      this.sharing = true;
+      this.loginFacebook()
+        .then(authResponse => {
+          return this.uploadToFacebook(authResponse.accessToken);
+        })
+        .then(response => {
+          this.sharing = false;
+          console.log(response);
+        });
+    },
+    filterCroppedImage() {
+      return new Promise(resolve => {
+        this.$refs.croppie.getCroppedImage().then(base64 => {
+          Filter.overlay(base64, this.overlay).then(image => {
+            resolve(image);
+          });
+        });
+      });
+    },
+    downloadImage() {
       this.modal = true;
       this.downloading = true;
-      this.$refs.croppie.getCroppedImage().then(base64 => {
-        Filter.overlay(base64, this.overlay).then(image => {
-          Download(image, this.download.fileName + '.jpeg', 'image/jpeg');
-          this.downloading = false;
-        });
+      this.filterCroppedImage().then(image => {
+        Download(image, this.download.fileName + '.jpeg', 'image/jpeg');
+        this.downloading = false;
       });
     }
   },
@@ -85,6 +137,7 @@ export default {
 <style scoped>
 .columns {
   justify-content: center;
+  align-items: center;
 }
 
 .column:last-child {
@@ -96,6 +149,9 @@ export default {
 }
 
 @media screen and (min-width: 769px) {
+  .title {
+    margin-top: -4em;
+  }
   .column {
     max-width: 45vh;
     min-width: 20rem;

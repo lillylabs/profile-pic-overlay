@@ -42,7 +42,8 @@ module.exports = {
       'marked',
       'croppie',
       'exif-js',
-      'downloadjs'
+      'downloadjs',
+      'axios'
     ],
     loaders: [
       {
