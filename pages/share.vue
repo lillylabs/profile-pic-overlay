@@ -9,10 +9,10 @@
     <div class="column">
       <h2 class="title is-5">{{ share.title}}</h2>
       <div>
-        <button class="button is-info" :class="{ 'is-loading': sharing }" v-for="(button, key) in share.buttons" :key="key" @click="shareImage(key)">
-          <span>{{ button.label }}&nbsp;</span>
+        <button class="button is-info" v-for="(option, key) in share.options" :key="key" @click="openModal(key)">
+          <span>{{ option.label }}&nbsp;</span>
           <span class="icon is-small">
-            <i :class="[ 'fa', button.icon] "></i>
+            <i :class="[ 'fa', option.icon] "></i>
           </span>
         </button>
       </div>
@@ -22,7 +22,8 @@
         </button>
       </div>
     </div>
-    <copy-modal :title="share.suggestion.title" :text="share.suggestion.text" :button="share.copy" :is-active.sync="modal"></copy-modal>
+    <copy-modal :title="share.suggestion.title" :text="share.suggestion.text" :button="share.copy" :is-active.sync="modal.copy"></copy-modal>
+    <share-modal v-for="(option, key) in share.options" :key="key" :option="option" :image="filteredImage" :text="share.suggestion.text" :is-active.sync="modal.facebook" @share="console.log('test')"></share-modal>
   </div>
 </template>
 
@@ -33,8 +34,8 @@ import { mapState } from 'vuex';
 import Photo from '~components/parts/Photo.vue';
 import Croppie from '~components/parts/Croppie.vue';
 import CopyModal from '~components/parts/CopyModal.vue';
+import ShareModal from '~components/parts/ShareModal.vue';
 import Filter from '~assets/services/image.service';
-import axios from 'axios';
 
 const Download = require('downloadjs');
 
@@ -42,14 +43,18 @@ export default {
   components: {
     Photo,
     Croppie,
-    CopyModal
+    CopyModal,
+    ShareModal
   },
   data() {
     return {
-      modal: false,
+      modal: {
+        copy: false,
+        facebook: false
+      },
+      filteredImage: null,
       copied: false,
-      downloading: false,
-      sharing: false
+      downloading: false
     };
   },
   computed: {
@@ -64,58 +69,27 @@ export default {
     })
   },
   methods: {
-    uploadToFacebook(accessToken) {
-      return this.filterCroppedImage().then(image => {
-        const blob = Filter.dataURItoBlob(image);
-        var fd = new FormData();
-        fd.append('access_token', accessToken);
-        fd.append('filename', 'test.jpeg');
-        fd.append('source', blob);
-        fd.append('message', this.share.suggestion.text);
-        return axios.post('https://graph.facebook.com/me/photos', fd);
-      });
-    },
-    loginFacebook() {
-      return new Promise(resolve => {
-        /* global FB */
-        FB.getLoginStatus((response) => {
-          if (response.status === 'connected') {
-            resolve(response.authResponse);
-          } else {
-            FB.login((response) => {
-              resolve(response.authResponse);
-            });
-          }
-        });
-      });
-    },
-    shareImage(key) {
-      this.sharing = true;
-      this.loginFacebook()
-        .then(authResponse => {
-          return this.uploadToFacebook(authResponse.accessToken);
-        })
-        .then(response => {
-          this.sharing = false;
-          console.log(response);
-        });
-    },
     filterCroppedImage() {
       return new Promise(resolve => {
         this.$refs.croppie.getCroppedImage().then(base64 => {
           Filter.overlay(base64, this.overlay).then(image => {
+            this.filteredImage = image;
             resolve(image);
           });
         });
       });
     },
     downloadImage() {
-      this.modal = true;
+      this.modal.copy = true;
       this.downloading = true;
       this.filterCroppedImage().then(image => {
         Download(image, this.download.fileName + '.jpeg', 'image/jpeg');
         this.downloading = false;
       });
+    },
+    openModal(key) {
+      this.filterCroppedImage();
+      this.modal[key] = true;
     }
   },
   watch: {

@@ -6,13 +6,14 @@ subtitle: 'En kampanje mot subtil kjønnsdiskriminering.'
 prompt: 'Del ditt bilde med #HunSpanderer-filter på sosiale medier.'
 share:
   title: 'Del bildet med dine venner!'
-  buttons: 
+  options: 
     facebook:
       label: Facebook
       icon: fa-facebook
   suggestion: 
     title: 'Forslag til deletekst' 
     text: 'Jeg er med på praten om ubevisste kjønnsstereotypier - sammen endrer vi holdninger. Last opp og del ditt bilde du også på http://hunspandererfilter.no. #HunSpanderer'
+    explaination: 'Bildet deles med teksten:'
   copy: 
     default: 'Kopier'
     done: 'Kopiert!'
