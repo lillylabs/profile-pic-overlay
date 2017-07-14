@@ -70,6 +70,10 @@ export default {
         .then(response => {
           this.sharing = false;
           this.closeModal();
+        })
+        .catch(function (error) {
+          this.sharing = false;
+          console.log(error);
         });
     },
     uploadToFacebook(accessToken) {
