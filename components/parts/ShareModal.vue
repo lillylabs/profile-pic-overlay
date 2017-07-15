@@ -150,8 +150,13 @@ export default {
 </script>
 
 <style scoped>
-.image {
-  margin-bottom: 0;
+.media {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+textarea {
+  min-height: 128px;
 }
 </style>
 
