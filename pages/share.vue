@@ -82,7 +82,6 @@ export default {
       });
     },
     openModal(key) {
-      console.log(key);
       this.filterCroppedImage();
       this.$set(this.modal, key, true);
     }
