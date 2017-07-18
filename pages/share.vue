@@ -24,8 +24,8 @@
     </div>
     <copy-modal :suggestion="share.suggestion" :is-active.sync="modal.copy"></copy-modal>
     <facebook-modal :option="share.options['facebook']" :image="filteredImage" :text="share.suggestion.text" :is-active.sync="modal.facebook"></facebook-modal>
-    <share-modal :option="share.options['twitter']" :image="filteredImage" :suggestion="share.suggestion" :save="share.save" :isDesktop="isDesktop" :is-active.sync="modal.twitter"></share-modal>
-    <share-modal :option="share.options['instagram']" :image="filteredImage" :suggestion="share.suggestion" :save="share.save" :isDesktop="isDesktop" :is-active.sync="modal.instagram"></share-modal>
+    <share-modal :option="share.options['twitter']" :image="filteredImage" :suggestion="share.suggestion" :save="share.save" :hasFilesystem="hasFilesystem" :is-active.sync="modal.twitter"></share-modal>
+    <share-modal :option="share.options['instagram']" :image="filteredImage" :suggestion="share.suggestion" :save="share.save" :hasFilesystem="hasFilesystem" :is-active.sync="modal.instagram"></share-modal>
   </div>
 </template>
 
@@ -61,7 +61,7 @@ export default {
       filteredImage: null,
       copied: false,
       downloading: false,
-      isDesktop: false
+      hasFilesystem: false
     };
   },
   computed: {
@@ -73,12 +73,8 @@ export default {
       upload: state => state.content.buttons.upload,
       share: state => state.content.share
     }),
-    options() {
-      var options = ['facebook', 'twitter'];
-      if (!this.isDesktop) {
-        options.push('instagram');
-      }
-      return options;
+    options: function () {
+      return this.hasFilesystem ? ['facebook', 'twitter'] : ['facebook', 'twitter', 'instagram'];
     }
   },
   methods: {
@@ -114,9 +110,9 @@ export default {
   mounted: function () {
     /* globals Modernizr */
     if (Modernizr.filesystem) {
-      this.isDesktop = true;
+      this.hasFilesystem = true;
     } else {
-      this.isDesktop = false;
+      this.hasFilesystem = false;
     }
   }
 };
