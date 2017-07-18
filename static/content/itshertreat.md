@@ -15,7 +15,11 @@ share:
       label: Twitter
       title: Share on Twitter
       icon: fa-twitter
+<<<<<<< HEAD
       instructions: Upload the downloaded image and paste in the suggested text.
+=======
+      instructions: Upload image and paste text
+>>>>>>> 91932e0acda4ef991a02f3dc24fc0da313adee83
       url: 
         web: http://twitter.com 
         app: twitter://
@@ -23,7 +27,11 @@ share:
       label: Instagram
       title: Share on Instagram
       icon: fa-instagram
+<<<<<<< HEAD
       instructions: Upload the downloaded image and paste in the suggested text.
+=======
+      instructions: Upload image and paste text
+>>>>>>> 91932e0acda4ef991a02f3dc24fc0da313adee83
       url:
         web: http://instagram.com
         app: instagram://

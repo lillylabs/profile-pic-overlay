@@ -14,7 +14,11 @@
                   </span>
                   <span>&nbsp;{{ save.title }}</span>
                 </button>
+<<<<<<< HEAD
                 <span v-show="downloaded" class="button is-static is-small">
+=======
+                <span v-show="downloaded" class="tag is-success">
+>>>>>>> 91932e0acda4ef991a02f3dc24fc0da313adee83
                   <span class="icon is-small">
                     <i class="fa fa-check"></i>
                   </span>
