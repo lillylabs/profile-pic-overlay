@@ -4,19 +4,19 @@
     <div class="modal-card">
       <section class="modal-card-body">
         <div class="content">
-          <h4>{{ title }}</h4>
-          <p>{{ text }}</p>
-          <textarea ref="textarea" v-model="text"></textarea>
+          <h4>{{ suggestion.title }}</h4>
+          <p>{{ suggestion.text }}</p>
+          <textarea ref="textarea" v-model="suggestion.text"></textarea>
         </div>
         <button v-on:click.stop="copyText" :class="['button', copied ? 'is-static' : '']" data-clipboard-target="">
           <span v-if="!copied" class="icon is-small">
-            <i :class="['fa', button.icon]"></i>
+            <i :class="['fa', suggestion.icon]"></i>
           </span>
-          <span>&nbsp;{{ copied ? button.done : button.default }}</span>
+          <span>&nbsp;{{ copied ? suggestion.done : suggestion.label }}</span>
         </button>
       </section>
     </div>
-    <button class="modal-close is-large"></button>
+    <button @click="closeModal" class="modal-close is-large"></button>
   </div>
 </template>
 
@@ -24,9 +24,7 @@
 
 export default {
   props: [
-    'title',
-    'text',
-    'button',
+    'suggestion',
     'isActive'
   ],
   data() {

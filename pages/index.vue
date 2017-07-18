@@ -95,15 +95,16 @@ export default {
       this.uploadFile(file);
       this.$router.push('share');
     }
-  },
-  mounted: function () {
-    /* globals Modernizr */
-    if (Modernizr.filesystem) {
-      alert('Filesystem supported');
-    } else {
-      alert('Filesystem NOT supported');
-    }
   }
+  // ,
+  // mounted: function () {
+  //   /* globals Modernizr */
+  //   if (Modernizr.filesystem) {
+  //     alert('Filesystem supported');
+  //   } else {
+  //     alert('Filesystem NOT supported');
+  //   }
+  // }
 };
 </script>
 

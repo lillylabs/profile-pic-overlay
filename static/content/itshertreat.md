@@ -9,15 +9,34 @@ share:
   options: 
     facebook:
       label: Facebook
-      share: Share on Facebook
-      cancel: Cancel
+      title: Share on Facebook
       icon: fa-facebook
+    twitter:
+      label: Twitter
+      title: Share on Twitter
+      icon: fa-twitter
+      instructions: Upload the downloaded image and paste in the suggested text.
+      url: 
+        web: http://twitter.com 
+        app: twitter://
+    instagram:
+      label: Instagram
+      title: Share on Instagram
+      icon: fa-instagram
+      instructions: Upload the downloaded image and paste in the suggested text.
+      url:
+        web: http://instagram.com
+        app: instagram://
+  save: 
+    label: Download the image
+    title: Download image
+    instructions: Tap image and hold to save the image to your device.
+    icon: fa-download
+    fileName: ItsHerTreat
   suggestion: 
-    suggestion: 
-    title: 'Suggested text' 
+    label: Copy text
+    title: Copy suggested text
     text: 'Join me in addressing unconscious gender bias. Together we change mindsets. #ItsHerTreat. Get your photo on http://itshertreatfilter.com'
-  copy: 
-    default: 'Copy'
     done: 'Copied!'
     icon: 'fa-clone'
 buttons:
@@ -27,10 +46,6 @@ buttons:
     icon: 'fa-upload'
   profile:
     default: 'or use your Facebook profile picture'
-  download:
-    default: 'Download the image'
-    icon: 'fa-download'
-    fileName: 'ItsHerTreat'
 avatars: 
   man: '/images/man.jpg'
 filters:

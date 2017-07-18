@@ -9,21 +9,23 @@
     <div class="column">
       <h2 class="title is-5">{{ share.title}}</h2>
       <div>
-        <button class="button is-info" v-for="(option, key) in share.options" :key="key" @click="openModal(key)">
+        <button class="button" v-for="option in this.options" :key="option" @click="openModal(option)">
           <span class="icon is-small">
-            <i :class="[ 'fa', option.icon] "></i>
+            <i :class="[ 'fa', share.options[option].icon] "></i>
           </span>
-          <span>{{ option.label }}</span>
+          <span>{{ share.options[option].label }}</span>
         </button>
       </div>
       <div class="content">
         <button class="button is-small is-link" :class="{ 'is-static': downloading }" @click="downloadImage">
-          <span>{{ download.default }}</span>
+          <span>{{ share.save.label }}</span>
         </button>
       </div>
     </div>
-    <copy-modal :title="share.suggestion.title" :text="share.suggestion.text" :button="share.copy" :is-active.sync="modal.copy"></copy-modal>
-    <share-modal v-for="(option, key) in share.options" :key="key" :option="option" :image="filteredImage" :text="share.suggestion.text" :is-active.sync="modal.facebook" @share="console.log('test')"></share-modal>
+    <copy-modal :suggestion="share.suggestion" :is-active.sync="modal.copy"></copy-modal>
+    <facebook-modal :option="share.options['facebook']" :image="filteredImage" :text="share.suggestion.text" :is-active.sync="modal.facebook"></facebook-modal>
+    <share-modal :option="share.options['twitter']" :image="filteredImage" :suggestion="share.suggestion" :save="share.save" :isDesktop="isDesktop" :is-active.sync="modal.twitter"></share-modal>
+    <share-modal :option="share.options['instagram']" :image="filteredImage" :suggestion="share.suggestion" :save="share.save" :isDesktop="isDesktop" :is-active.sync="modal.instagram"></share-modal>
   </div>
 </template>
 
@@ -34,8 +36,9 @@ import { mapState } from 'vuex';
 import Photo from '~components/parts/Photo.vue';
 import Croppie from '~components/parts/Croppie.vue';
 import CopyModal from '~components/parts/CopyModal.vue';
-import ShareModal from '~components/parts/ShareModal.vue';
+import FacebookModal from '~components/parts/FacebookModal.vue';
 import Filter from '~assets/services/image.service';
+import ShareModal from '~components/parts/ShareModal.vue';
 
 const Download = require('downloadjs');
 
@@ -44,17 +47,21 @@ export default {
     Photo,
     Croppie,
     CopyModal,
+    FacebookModal,
     ShareModal
   },
   data() {
     return {
       modal: {
         copy: false,
-        facebook: false
+        facebook: false,
+        twitter: false,
+        instagram: false
       },
       filteredImage: null,
       copied: false,
-      downloading: false
+      downloading: false,
+      isDesktop: false
     };
   },
   computed: {
@@ -63,10 +70,16 @@ export default {
       orientation: state => state.orientation,
       overlay: state => state.overlay,
       uploading: state => state.uploading,
-      download: state => state.content.buttons.download,
       upload: state => state.content.buttons.upload,
       share: state => state.content.share
-    })
+    }),
+    options() {
+      var options = ['facebook', 'twitter'];
+      if (!this.isDesktop) {
+        options.push('instagram');
+      }
+      return options;
+    }
   },
   methods: {
     filterCroppedImage() {
@@ -83,26 +96,27 @@ export default {
       this.modal.copy = true;
       this.downloading = true;
       this.filterCroppedImage().then(image => {
-        Download(image, this.download.fileName + '.jpeg', 'image/jpeg');
+        Download(image, this.share.save.fileName + '.jpeg', 'image/jpeg');
         this.downloading = false;
       });
     },
     openModal(key) {
+      console.log(key);
       this.filterCroppedImage();
       this.modal[key] = true;
-    }
-  },
-  watch: {
-    image: function (val) {
-      console.log('mage', val);
-    },
-    orientation: function (val) {
-      console.log('orientation', val);
     }
   },
   fetch({ store, redirect }) {
     if (!store.state.image && !store.state.uploading) {
       return redirect('/');
+    }
+  },
+  mounted: function () {
+    /* globals Modernizr */
+    if (Modernizr.filesystem) {
+      this.isDesktop = true;
+    } else {
+      this.isDesktop = false;
     }
   }
 };
@@ -119,7 +133,11 @@ export default {
 }
 
 .content {
-  margin-top: 1em;
+  margin-top: 0.5em;
+}
+
+.button {
+  margin: 0.25rem;
 }
 
 @media screen and (min-width: 769px) {
