@@ -13,7 +13,7 @@
                 </span>
                 <span>&nbsp;{{ save.title }}</span>
               </button>
-              <span v-show="downloaded" class="button is-static is-small">
+              <span v-show="status.downloaded" class="button is-static is-small">
                 <span class="icon is-small">
                   <i class="fa fa-check"></i>
                 </span>
@@ -23,14 +23,14 @@
           <li v-if="!hasFilesystem">
             <h2>
               {{ save.title }}
-              <span v-show="downloaded" class="button is-static is-small">
+              <span v-show="status.downloaded" class="button is-static is-small">
                 <span class="icon is-small">
                   <i class="fa fa-check"></i>
                 </span>
               </span>
             </h2>
             <p>{{ save.instructions }}</p>
-            <p class="image is-128x128" v-on:mouseup="downloaded = true" v-on:touchend="downloaded = true">
+            <p class="image is-128x128" v-on:mouseup="status.downloaded = true" v-on:touchend="status.downloaded = true">
               <img :src="image"></img>
             </p>
           </li>
@@ -42,11 +42,12 @@
                 </span>
                 <span>&nbsp;{{ suggestion.title }}</span>
               </button>
-              <span v-show="copied" class="button is-static is-small">
+              <span v-show="status.copied" class="button is-static is-small">
                 <span class="icon is-small">
                   <i class="fa fa-check"></i>
                 </span>
               </span>
+              <small v-if="message.copy">{{ message.copy }}</small>
             </h2>
             <p class="text">{{ suggestion.text }}</p>
           </li>
@@ -58,7 +59,7 @@
                 </span>
                 <span>&nbsp;{{ option.title }}</span>
               </a>
-              <span v-show="shared" class="button is-static is-small">
+              <span v-show="status.shared" class="button is-static is-small">
                 <span class="icon is-small">
                   <i class="fa fa-check"></i>
                 </span>
@@ -89,25 +90,20 @@ export default {
   ],
   data() {
     return {
-      message: {
-        copy: null
-      },
-      copied: false,
-      shared: false,
-      downloaded: false
+      message: {},
+      status: {}
     };
   },
   methods: {
     closeModal() {
       this.$emit('update:isActive', false);
-      this.copied = false;
-      this.shared = false;
-      this.downloaded = false;
+      this.status = {};
+      this.message = {};
     },
     downloadImage(e) {
       console.log(e);
       Download(this.image, this.save.fileName + '.jpeg', 'image/jpeg');
-      this.downloaded = true;
+      this.$set(this.status, 'downloaded', true);
     },
     shareImage(e) {
       console.log(this.option.url);
@@ -115,19 +111,19 @@ export default {
         window.open(this.option.url.web, '_blank');
       }, 25);
       window.open(this.option.url.app, '_self');
-      this.shared = true;
+      this.$set(this.status, 'shared', true);
     }
   },
   mounted() {
     const clipboard = new Clipboard(this.$refs.copyButton);
 
     clipboard.on('success', e => {
-      this.copied = true;
+      this.$set(this.status, 'copied', true);
       e.clearSelection();
     });
 
     clipboard.on('error', e => {
-      this.message.copy = 'Please manually copy selected text';
+      this.$set(this.message, 'copy', 'Please manually copy selected text');
       console.log('Clipboard unsucessful', e);
     });
   }
