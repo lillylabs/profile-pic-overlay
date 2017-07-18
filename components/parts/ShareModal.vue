@@ -7,7 +7,7 @@
         <ol>
           <li v-if="hasFilesystem">
             <h2>
-              <button v-on:click.stop="downloadImage " class="button is-small">
+              <button @click="downloadImage " class="button is-small">
                 <span class="icon is-small">
                   <i :class="[ 'fa', save.icon] "></i>
                 </span>
@@ -36,7 +36,7 @@
           </li>
           <li>
             <h2>
-              <button ref="copyButton" class="button is-small" :data-clipboard-text="suggestion.text">
+              <button ref="copyButton" class="button is-small" data-clipboard-target=".text">
                 <span class="icon is-small">
                   <i :class="[ 'fa', suggestion.icon] "></i>
                 </span>
@@ -48,7 +48,7 @@
                 </span>
               </span>
             </h2>
-            <p>{{ suggestion.text }}</p>
+            <p class="text">{{ suggestion.text }}</p>
           </li>
           <li>
             <h2>
@@ -89,35 +89,27 @@ export default {
   ],
   data() {
     return {
+      message: {
+        copy: null
+      },
       copied: false,
       shared: false,
       downloaded: false
     };
   },
   methods: {
-    closeModal: function () {
+    closeModal() {
       this.$emit('update:isActive', false);
       this.copied = false;
       this.shared = false;
       this.downloaded = false;
     },
-    downloadImage() {
+    downloadImage(e) {
+      console.log(e);
       Download(this.image, this.save.fileName + '.jpeg', 'image/jpeg');
       this.downloaded = true;
     },
-    copyText: function () {
-      console.log(this.$refs.textarea);
-      this.$refs.textarea.select();
-      try {
-        this.copied = document.execCommand('copy');
-        var msg = this.copied ? 'successful' : 'unsuccessful';
-        console.log('Copying text command was ' + msg);
-      } catch (error) {
-        console.log('Oops, unable to copy', error);
-      }
-      this.$refs.textarea.blur();
-    },
-    shareImage: function () {
+    shareImage(e) {
       console.log(this.option.url);
       setTimeout(() => {
         window.open(this.option.url.web, '_blank');
@@ -126,14 +118,16 @@ export default {
       this.shared = true;
     }
   },
-  mounted: function () {
+  mounted() {
     const clipboard = new Clipboard(this.$refs.copyButton);
+
     clipboard.on('success', e => {
       this.copied = true;
       e.clearSelection();
     });
 
     clipboard.on('error', e => {
+      this.message.copy = 'Please manually copy selected text';
       console.log('Clipboard unsucessful', e);
     });
   }
