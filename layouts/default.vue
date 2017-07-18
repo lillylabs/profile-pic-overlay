@@ -3,8 +3,8 @@
     <div class="hero is-fullheight">
   
       <main class="hero-body">
-        <div class="container has-text-centered">
-          <heading></heading>
+        <div class="container">
+          <heading class="has-text-centered"></heading>
           <nuxt></nuxt>
         </div>
       </main>

@@ -1,7 +1,7 @@
 <template>
   <div class="columns">
     <input type="file" accept="image/*" name="file" id="file" @change="filesChange($event.target.files)"></input>
-    <div class="column" v-for="(avatar, key) in avatars" :key="key">
+    <div class="column has-text-centered" v-for="(avatar, key) in avatars" :key="key">
       <label for="file" v-on:click="selectOverlay(key)">
         <photo :image="avatars[key]" :overlay="overlays[key]"></photo>
         <div class="button">
@@ -96,15 +96,6 @@ export default {
       this.$router.push('share');
     }
   }
-  // ,
-  // mounted: function () {
-  //   /* globals Modernizr */
-  //   if (Modernizr.filesystem) {
-  //     alert('Filesystem supported');
-  //   } else {
-  //     alert('Filesystem NOT supported');
-  //   }
-  // }
 };
 </script>
 

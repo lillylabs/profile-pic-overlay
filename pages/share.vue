@@ -6,11 +6,11 @@
         {{ upload.new }}
       </nuxt-link>
     </div>
-    <div class="column">
+    <div class="column has-text-centered">
       <h2 class="title is-5">{{ share.title}}</h2>
       <div>
         <button class="button" v-for="option in this.options" :key="option" @click="openModal(option)">
-          <span class="icon is-small">
+          <span v-if="share.options[option].icon" class="icon is-small">
             <i :class="[ 'fa', share.options[option].icon] "></i>
           </span>
           <span>{{ share.options[option].label }}</span>
@@ -22,10 +22,10 @@
         </button>
       </div>
     </div>
-    <copy-modal :suggestion="share.suggestion" :is-active.sync="modal.copy"></copy-modal>
+    <download-modal :suggestion="share.suggestion" :image="filteredImage" :is-active.sync="modal.copy"></download-modal>
     <facebook-modal :option="share.options['facebook']" :image="filteredImage" :text="share.suggestion.text" :is-active.sync="modal.facebook"></facebook-modal>
     <share-modal :option="share.options['twitter']" :image="filteredImage" :suggestion="share.suggestion" :save="share.save" :is-active.sync="modal.twitter"></share-modal>
-    <share-modal :option="share.options['instagram']" :image="filteredImage" :suggestion="share.suggestion" :save="share.save" :is-active.sync="modal.instagram"></share-modal>
+    <share-modal :option="share.options['custom']" :image="filteredImage" :suggestion="share.suggestion" :save="share.save" :is-active.sync="modal.custom"></share-modal>
   </div>
 </template>
 
@@ -35,7 +35,7 @@ import { mapState } from 'vuex';
 
 import Photo from '~components/parts/Photo.vue';
 import Croppie from '~components/parts/Croppie.vue';
-import CopyModal from '~components/parts/CopyModal.vue';
+import DownloadModal from '~components/parts/DownloadModal.vue';
 import FacebookModal from '~components/parts/FacebookModal.vue';
 import Filter from '~assets/services/image.service';
 import ShareModal from '~components/parts/ShareModal.vue';
@@ -56,12 +56,10 @@ export default {
         copy: false,
         facebook: false,
         twitter: false,
-        instagram: false
+        custom: false
       },
+      options: ['facebook', 'twitter', 'custom'],
       filteredImage: null,
-      copied: false,
-      downloading: false,
-      hasFilesystem: false
     };
   },
   computed: {
@@ -72,10 +70,7 @@ export default {
       uploading: state => state.uploading,
       upload: state => state.content.buttons.upload,
       share: state => state.content.share
-    }),
-    options: function () {
-      return this.hasFilesystem ? ['facebook', 'twitter'] : ['facebook', 'twitter', 'instagram'];
-    }
+    })
   },
   methods: {
     filterCroppedImage() {
@@ -89,17 +84,19 @@ export default {
       });
     },
     downloadImage() {
-      this.modal.copy = true;
-      this.downloading = true;
-      this.filterCroppedImage().then(image => {
-        Download(image, this.share.save.fileName + '.jpeg', 'image/jpeg');
-        this.downloading = false;
-      });
+      /* global */
+      this.$set(this.modal, 'download', true);
+      if (Modernizr.filesystem) {
+        this.filterCroppedImage().then(image => {
+          Download(image, this.share.save.fileName + '.jpeg', 'image/jpeg');
+        });
+      }
+
     },
     openModal(key) {
       console.log(key);
       this.filterCroppedImage();
-      this.modal[key] = true;
+      this.$set(this.modal, key, true);
     }
   },
   fetch({ store, redirect }) {

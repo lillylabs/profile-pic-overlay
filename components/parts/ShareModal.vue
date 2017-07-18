@@ -2,7 +2,7 @@
   <div :class="['modal', isActive ? 'is-active': '']">
     <div @click="closeModal" class="modal-background"></div>
     <div class="modal-content">
-      <div class="box has-text-left">
+      <div class="box">
         <h1 class="title is-5">{{ option.title }}</h1>
         <ol>
           <li v-if="supported.filesystem">
@@ -13,11 +13,11 @@
                 </span>
                 <span>&nbsp;{{ save.title }}</span>
               </button>
-              <span v-show="status.downloaded" class="button is-static is-small">
+              <div v-if="status.downloaded" class="button is-small is-static">
                 <span class="icon is-small">
                   <i class="fa fa-check"></i>
                 </span>
-              </span>
+              </div>
             </h2>
           </li>
           <li v-if="!supported.filesystem">
@@ -30,7 +30,7 @@
               </span>
             </h2>
             <p>{{ save.instructions }}</p>
-            <p class="image is-128x128" v-on:mouseup="status.downloaded = true" v-on:touchend="status.downloaded = true">
+            <p class="image is-128x128">
               <img :src="image"></img>
             </p>
           </li>
@@ -42,39 +42,43 @@
                 </span>
                 <span>&nbsp;{{ suggestion.title }}</span>
               </button>
-              <span v-show="status.copied" class="button is-static is-small">
+              <div v-if="status.copied" class="button is-small is-static">
                 <span class="icon is-small">
                   <i class="fa fa-check"></i>
                 </span>
-              </span>
+              </div>
             </h2>
             <h2 v-if="!supported.clipboard">
               {{ suggestion.title }}
-              <span v-show="status.copied" class="button is-static is-small">
-                <span class="icon is-small">
-                  <i class="fa fa-check"></i>
-                </span>
-              </span>
             </h2>
             <p class="text">{{ suggestion.text }}</p>
           </li>
           <li>
-            <h2>
-              <a @click="shareImage" class="button is-small">
+            <h2 v-if="option.url">
+              <button @click="shareImage" class="button is-small">
                 <span class="icon is-small">
                   <i :class="[ 'fa', option.icon]"></i>
                 </span>
                 <span>&nbsp;{{ option.title }}</span>
-              </a>
-              <span v-show="status.shared" class="button is-static is-small">
+              </button>
+              <div v-if="status.shared" class="button is-small is-static">
                 <span class="icon is-small">
                   <i class="fa fa-check"></i>
                 </span>
-              </span>
+              </div>
+            </h2>
+            <h2 v-if="!option.url">
+              {{ option.title }}
             </h2>
             <p>{{ option.instructions }}</p>
           </li>
         </ol>
+        <hr/>
+        <div class="has-text-centered">
+          <button @click="closeModal" class="button">
+            <span>Done</span>
+          </button>
+        </div>
       </div>
     </div>
     <button @click="closeModal" class="modal-close is-large"></button>
@@ -110,7 +114,10 @@ export default {
     downloadImage(e) {
       console.log(e);
       Download(this.image, this.save.fileName + '.jpeg', 'image/jpeg');
-      this.$set(this.status, 'downloaded', true);
+      this.setStatus('downloaded');
+    },
+    setStatus(key) {
+      this.$set(this.status, key, true);
     },
     shareImage(e) {
       console.log(this.option.url);
@@ -118,12 +125,12 @@ export default {
         window.open(this.option.url.web, '_blank');
       }, 25);
       window.open(this.option.url.app, '_self');
-      this.$set(this.status, 'shared', true);
+      this.setStatus('shared');
     },
     initClipboard() {
       this.clipboard = new Clipboard(this.$refs.copyButton);
       this.clipboard.on('success', e => {
-        this.$set(this.status, 'copied', true);
+        this.setStatus('copied');
         e.clearSelection();
       });
     }
@@ -154,7 +161,7 @@ textarea {
 }
 
 ol {
-  margin-left: 2rem;
+  margin-left: 1rem;
 }
 
 p {

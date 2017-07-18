@@ -3,13 +3,15 @@ title:
   text: '#ItsHerTreat'
   image: '/images/itshertreat/itshertreat.png'
 subtitle: 'A campaign against gender discrimination.'
-prompt: 'Share your photo with #ItsHerTreat-filter on social media.'
+prompt: 'Create and share your photo with the #ItsHerTreat-filter on social media.'
 share:
-  title: 'Share your photo with your friends!'
+  title: 'Share the photo with your friends!'
   options: 
     facebook:
       label: Facebook
       title: Share on Facebook
+      submit: Post
+      cancel: Cancel
       icon: fa-facebook
     twitter:
       label: Twitter
@@ -19,16 +21,12 @@ share:
       url: 
         web: http://twitter.com 
         app: twitter://
-    instagram:
-      label: Instagram
-      title: Share on Instagram
-      icon: fa-instagram
-      instructions: Upload the downloaded image and paste in the suggested text.
-      url:
-        web: http://instagram.com
-        app: instagram://
+    custom:
+      label: Some other app
+      title: Manually share
+      instructions: Open the app, upload the downloaded image and paste in the suggested text.
   save: 
-    label: Download the image
+    label: or download the image
     title: Download image
     instructions: Tap image and hold to save the image to your device.
     icon: fa-download

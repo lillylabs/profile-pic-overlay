@@ -3,6 +3,7 @@
     <div class="modal-background" @click="closeModal"></div>
     <div class="modal-content">
       <div class="box">
+        <h1 class="title is-5">{{ option.title }}</h1>
         <article class="media">
           <figure class="media-left">
             <p class="image is-128x128">
@@ -19,10 +20,15 @@
               <div class="level-left">
                 <div class="level-item">
                   <button class="button is-info" @click="share" :class="{ 'is-loading': disabled }">
-                    <span class="icon is-small">
+                    <span v-if="option.icon" class="icon is-small">
                       <i :class="[ 'fa', option.icon] "></i>
                     </span>
-                    <span>{{ option.title }}</span>
+                    <span>{{ option.submit }}</span>
+                  </button>
+                </div>
+                <div class="level-item">
+                  <button class="button" @click="closeModal" :class="{ 'is-static': disabled }">
+                    <span>{{ option.cancel }}</span>
                   </button>
                 </div>
               </div>
