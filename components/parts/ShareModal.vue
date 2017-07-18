@@ -36,7 +36,7 @@
           </li>
           <li>
             <h2>
-              <button v-on:click.stop="copyText" class="button is-small">
+              <button ref="copyButton" class="button is-small" :data-clipboard-text="suggestion.text">
                 <span class="icon is-small">
                   <i :class="[ 'fa', suggestion.icon] "></i>
                 </span>
@@ -67,7 +67,6 @@
             <p>{{ option.instructions }}</p>
           </li>
         </ol>
-        <textarea ref="textarea" v-model="suggestion.text"></textarea>
       </div>
     </div>
     <button @click="closeModal" class="modal-close is-large"></button>
@@ -76,6 +75,7 @@
 
 <script>
 
+const Clipboard = require('clipboard');
 const Download = require('downloadjs');
 
 export default {
@@ -125,6 +125,17 @@ export default {
       window.open(this.option.url.app, '_self');
       this.shared = true;
     }
+  },
+  mounted: function () {
+    const clipboard = new Clipboard(this.$refs.copyButton);
+    clipboard.on('success', e => {
+      this.copied = true;
+      e.clearSelection();
+    });
+
+    clipboard.on('error', e => {
+      console.log("Clipboard unsucessful", e);
+    });
   }
 };
 </script>

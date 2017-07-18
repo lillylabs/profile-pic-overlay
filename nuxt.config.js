@@ -42,6 +42,7 @@ module.exports = {
     vendor: [
       'marked',
       'croppie',
+      'clipboard',
       'exif-js',
       'downloadjs',
       'axios'
