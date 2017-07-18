@@ -24,8 +24,8 @@
     </div>
     <copy-modal :suggestion="share.suggestion" :is-active.sync="modal.copy"></copy-modal>
     <facebook-modal :option="share.options['facebook']" :image="filteredImage" :text="share.suggestion.text" :is-active.sync="modal.facebook"></facebook-modal>
-    <share-modal :option="share.options['twitter']" :image="filteredImage" :suggestion="share.suggestion" :save="share.save" :hasFilesystem="hasFilesystem" :is-active.sync="modal.twitter"></share-modal>
-    <share-modal :option="share.options['instagram']" :image="filteredImage" :suggestion="share.suggestion" :save="share.save" :hasFilesystem="hasFilesystem" :is-active.sync="modal.instagram"></share-modal>
+    <share-modal :option="share.options['twitter']" :image="filteredImage" :suggestion="share.suggestion" :save="share.save" :is-active.sync="modal.twitter"></share-modal>
+    <share-modal :option="share.options['instagram']" :image="filteredImage" :suggestion="share.suggestion" :save="share.save" :is-active.sync="modal.instagram"></share-modal>
   </div>
 </template>
 
@@ -105,14 +105,6 @@ export default {
   fetch({ store, redirect }) {
     if (!store.state.image && !store.state.uploading) {
       return redirect('/');
-    }
-  },
-  mounted: function () {
-    /* globals Modernizr */
-    if (Modernizr.filesystem) {
-      this.hasFilesystem = true;
-    } else {
-      this.hasFilesystem = false;
     }
   }
 };

@@ -5,7 +5,7 @@
       <div class="box has-text-left">
         <h1 class="title is-5">{{ option.title }}</h1>
         <ol>
-          <li v-if="hasFilesystem">
+          <li v-if="supported.filesystem">
             <h2>
               <button @click="downloadImage " class="button is-small">
                 <span class="icon is-small">
@@ -20,7 +20,7 @@
               </span>
             </h2>
           </li>
-          <li v-if="!hasFilesystem">
+          <li v-if="!supported.filesystem">
             <h2>
               {{ save.title }}
               <span v-show="status.downloaded" class="button is-static is-small">
@@ -35,8 +35,8 @@
             </p>
           </li>
           <li>
-            <h2>
-              <button ref="copyButton" class="button is-small" data-clipboard-target=".text">
+            <h2 v-if="supported.clipboard">
+              <button ref="copyButton" class="button is-small" :data-clipboard-text="suggestion.text">
                 <span class="icon is-small">
                   <i :class="[ 'fa', suggestion.icon] "></i>
                 </span>
@@ -47,7 +47,14 @@
                   <i class="fa fa-check"></i>
                 </span>
               </span>
-              <small v-if="message.copy">{{ message.copy }}</small>
+            </h2>
+            <h2 v-if="!supported.clipboard">
+              {{ suggestion.title }}
+              <span v-show="status.copied" class="button is-static is-small">
+                <span class="icon is-small">
+                  <i class="fa fa-check"></i>
+                </span>
+              </span>
             </h2>
             <p class="text">{{ suggestion.text }}</p>
           </li>
@@ -85,20 +92,20 @@ export default {
     'image',
     'save',
     'suggestion',
-    'isActive',
-    'hasFilesystem'
+    'isActive'
   ],
   data() {
     return {
-      message: {},
-      status: {}
+      status: {},
+      supported: {
+        clipboard: true
+      }
     };
   },
   methods: {
     closeModal() {
       this.$emit('update:isActive', false);
       this.status = {};
-      this.message = {};
     },
     downloadImage(e) {
       console.log(e);
@@ -112,20 +119,28 @@ export default {
       }, 25);
       window.open(this.option.url.app, '_self');
       this.$set(this.status, 'shared', true);
+    },
+    initClipboard() {
+      this.clipboard = new Clipboard(this.$refs.copyButton);
+      this.clipboard.on('success', e => {
+        this.$set(this.status, 'copied', true);
+        e.clearSelection();
+      });
     }
   },
   mounted() {
-    const clipboard = new Clipboard(this.$refs.copyButton);
-
-    clipboard.on('success', e => {
-      this.$set(this.status, 'copied', true);
-      e.clearSelection();
-    });
-
-    clipboard.on('error', e => {
-      this.$set(this.message, 'copy', 'Please manually copy selected text');
-      console.log('Clipboard unsucessful', e);
-    });
+    /* globals Modernizr */
+    if (Clipboard.isSupported()) {
+      this.$set(this.supported, 'clipboard', true);
+      this.initClipboard();
+    } else {
+      this.$set(this.supported, 'clipboard', false);
+    }
+    if (Modernizr.filesystem) {
+      this.$set(this.supported, 'filesystem', true);
+    } else {
+      this.$set(this.supported, 'filesystem', false);
+    }
   }
 };
 </script>
