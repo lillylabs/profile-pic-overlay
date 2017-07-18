@@ -134,7 +134,7 @@ export default {
     });
 
     clipboard.on('error', e => {
-      console.log("Clipboard unsucessful", e);
+      console.log('Clipboard unsucessful', e);
     });
   }
 };
