@@ -32,6 +32,7 @@ module.exports = {
     { src: 'font-awesome/scss/font-awesome.scss', lang: 'sass' },
   ],
   plugins: [
+    { src: '~plugins/modernizr.js', ssr: false },
     { src: '~plugins/facebook.js', ssr: false }
   ],
   /*
