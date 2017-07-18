@@ -112,8 +112,8 @@ export default {
         this.copied = document.execCommand('copy');
         var msg = this.copied ? 'successful' : 'unsuccessful';
         console.log('Copying text command was ' + msg);
-      } catch (err) {
-        console.log('Oops, unable to copy');
+      } catch (error) {
+        console.log('Oops, unable to copy', error);
       }
       this.$refs.textarea.blur();
     },
