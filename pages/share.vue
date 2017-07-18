@@ -1,6 +1,6 @@
 <template>
   <div class="columns">
-    <div class="column">
+    <div class="column has-text-centered">
       <croppie ref="croppie" v-if="image" :image="image" :overlay="overlay" :orientation="orientation"></croppie>
       <nuxt-link class="button is-small is-link" to="/">
         {{ upload.new }}
@@ -17,12 +17,12 @@
         </button>
       </div>
       <div class="content">
-        <button class="button is-small is-link" :class="{ 'is-static': downloading }" @click="downloadImage">
+        <button class="button is-small is-link" @click="openModal('save')">
           <span>{{ share.save.label }}</span>
         </button>
       </div>
     </div>
-    <download-modal :suggestion="share.suggestion" :image="filteredImage" :is-active.sync="modal.copy"></download-modal>
+    <share-modal :image="filteredImage" :suggestion="share.suggestion" :save="share.save" :is-active.sync="modal.save"></share-modal>
     <facebook-modal :option="share.options['facebook']" :image="filteredImage" :text="share.suggestion.text" :is-active.sync="modal.facebook"></facebook-modal>
     <share-modal :option="share.options['twitter']" :image="filteredImage" :suggestion="share.suggestion" :save="share.save" :is-active.sync="modal.twitter"></share-modal>
     <share-modal :option="share.options['custom']" :image="filteredImage" :suggestion="share.suggestion" :save="share.save" :is-active.sync="modal.custom"></share-modal>
@@ -35,18 +35,16 @@ import { mapState } from 'vuex';
 
 import Photo from '~components/parts/Photo.vue';
 import Croppie from '~components/parts/Croppie.vue';
-import DownloadModal from '~components/parts/DownloadModal.vue';
 import FacebookModal from '~components/parts/FacebookModal.vue';
 import Filter from '~assets/services/image.service';
 import ShareModal from '~components/parts/ShareModal.vue';
 
-const Download = require('downloadjs');
+// const Download = require('downloadjs');
 
 export default {
   components: {
     Photo,
     Croppie,
-    CopyModal,
     FacebookModal,
     ShareModal
   },
@@ -59,7 +57,7 @@ export default {
         custom: false
       },
       options: ['facebook', 'twitter', 'custom'],
-      filteredImage: null,
+      filteredImage: null
     };
   },
   computed: {
@@ -82,16 +80,6 @@ export default {
           });
         });
       });
-    },
-    downloadImage() {
-      /* global */
-      this.$set(this.modal, 'download', true);
-      if (Modernizr.filesystem) {
-        this.filterCroppedImage().then(image => {
-          Download(image, this.share.save.fileName + '.jpeg', 'image/jpeg');
-        });
-      }
-
     },
     openModal(key) {
       console.log(key);

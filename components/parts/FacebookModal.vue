@@ -20,9 +20,6 @@
               <div class="level-left">
                 <div class="level-item">
                   <button class="button is-info" @click="share" :class="{ 'is-loading': disabled }">
-                    <span v-if="option.icon" class="icon is-small">
-                      <i :class="[ 'fa', option.icon] "></i>
-                    </span>
                     <span>{{ option.submit }}</span>
                   </button>
                 </div>

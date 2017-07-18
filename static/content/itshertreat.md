@@ -34,6 +34,7 @@ share:
   suggestion: 
     label: Copy text
     title: Copy suggested text
+    postfix: (Optional)
     text: 'Join me in addressing unconscious gender bias. Together we change mindsets. #ItsHerTreat. Get your photo on http://itshertreatfilter.com'
     done: 'Copied!'
     icon: 'fa-clone'

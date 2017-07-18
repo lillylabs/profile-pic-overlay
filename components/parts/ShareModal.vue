@@ -3,7 +3,7 @@
     <div @click="closeModal" class="modal-background"></div>
     <div class="modal-content">
       <div class="box">
-        <h1 class="title is-5">{{ option.title }}</h1>
+        <h1 class="title is-5">{{ title }}</h1>
         <ol>
           <li v-if="supported.filesystem">
             <h2>
@@ -23,11 +23,6 @@
           <li v-if="!supported.filesystem">
             <h2>
               {{ save.title }}
-              <span v-show="status.downloaded" class="button is-static is-small">
-                <span class="icon is-small">
-                  <i class="fa fa-check"></i>
-                </span>
-              </span>
             </h2>
             <p>{{ save.instructions }}</p>
             <p class="image is-128x128">
@@ -53,7 +48,7 @@
             </h2>
             <p class="text">{{ suggestion.text }}</p>
           </li>
-          <li>
+          <li v-if="option">
             <h2 v-if="option.url">
               <button @click="shareImage" class="button is-small">
                 <span class="icon is-small">
@@ -105,6 +100,11 @@ export default {
         clipboard: true
       }
     };
+  },
+  computed: {
+    title() {
+      return this.option ? this.option.title : this.save.title;
+    }
   },
   methods: {
     closeModal() {
