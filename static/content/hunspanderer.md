@@ -9,20 +9,32 @@ share:
   options: 
     facebook:
       label: Facebook
-      share: Del på Facebook
+      title: Del på Facebook
+      submit: Post
       cancel: Avbryt
       icon: fa-facebook
     twitter:
       label: Twitter
-      share: Del på Twitter
-      cancel: Avbryt
+      title: Del på Twitter
       icon: fa-twitter
+      instructions: Last opp det nedlastede bildet og lim inn kopiert tekst.
+      url: 
+        web: http://twitter.com 
+        app: twitter://
+    custom:
+      label: Andre apps
+      title: Del manuelt
+      instructions: Åpne appen, last opp det nedlastede bildet og lim inn kopiert tekst.
+  save:
+    label: eller last ned
+    title: Last ned bildet
+    instructions: Trykk på bildet for å lagre det til din enhet.
+    icon: fa-download
+    fileName: 'HunSpanderer'
   suggestion: 
-    title: 'Forslag til deletekst' 
+    label: Kopier text
+    title: Kopier vårt forslag til tekst
     text: 'Jeg er med på praten om ubevisste kjønnsstereotypier - sammen endrer vi holdninger. Last opp og del ditt bilde du også på http://hunspandererfilter.no. #HunSpanderer'
-  copy: 
-    default: 'Kopier'
-    done: 'Kopiert!'
     icon: 'fa-clone'
 buttons:
   upload:
@@ -31,16 +43,12 @@ buttons:
     icon: 'fa-upload'
   profile:
     default: 'eller bruk profilbilde fra Facebook'
-  download:
-    default: 'eller last ned bildet'
-    icon: 'fa-download'
-    fileName: 'HunSpanderer'
 avatars: 
   man: '/images/man.jpg'
   woman: '/images/woman.jpg'
 filters:
   man: '/images/hunspanderer/filter-man.png'
-  woman: '/images/hunspanderer/filter-woman.png'
+  woman: '/images/hunspanderer/filter-man.png'
 nav:
   left:
     - label: 'Om kampanjen'

@@ -22,21 +22,19 @@ share:
         web: http://twitter.com 
         app: twitter://
     custom:
-      label: Some other app
+      label: Other apps
       title: Manually share
-      instructions: Open the app, upload the downloaded image and paste in the suggested text.
+      instructions: Open the app, upload the downloaded photo and paste in the suggested text.
   save: 
-    label: or download the image
-    title: Download image
-    instructions: Tap image and hold to save the image to your device.
+    label: or download
+    title: Download photo
+    instructions: Tap image and hold to save the photo to your device.
     icon: fa-download
     fileName: ItsHerTreat
   suggestion: 
     label: Copy text
     title: Copy suggested text
-    postfix: (Optional)
     text: 'Join me in addressing unconscious gender bias. Together we change mindsets. #ItsHerTreat. Get your photo on http://itshertreatfilter.com'
-    done: 'Copied!'
     icon: 'fa-clone'
 buttons:
   upload:
