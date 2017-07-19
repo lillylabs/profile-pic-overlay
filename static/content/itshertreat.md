@@ -55,7 +55,7 @@ steps:
 nav:
   about:
     - label: 'About'
-      href: '#about'
+      href: '/about'
       icon: 'fa-info-circle'
       iconOnly: true
   some:

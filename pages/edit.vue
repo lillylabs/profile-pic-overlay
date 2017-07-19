@@ -9,10 +9,10 @@
         <div v-html="content"></div>
       </div>
       <div class="actions">
-        <button @click="onContinue" class="button is-primary">
+        <button @click="onContinue" class="button is-primary" :class="{ 'is-loading': filtering }">
           <span>Continue</span>
         </button>
-        <nuxt-link to="/" class="button is-link is-small">
+        <nuxt-link to="/" class="button is-link is-small" :class="{ 'is-static': filtering }">
           <span>or change image</span>
         </nuxt-link>
       </div>
@@ -24,7 +24,7 @@
 
 var marked = require('marked');
 import { mapState, mapMutations, mapActions } from 'vuex';
-import Croppie from '~components/parts/Croppie.vue';
+import Croppie from '~components/Croppie.vue';
 
 // const Download = require('downloadjs');
 
@@ -34,7 +34,7 @@ export default {
   },
   data() {
     return {
-
+      filtering: false
     };
   },
   computed: {
@@ -58,6 +58,7 @@ export default {
       'filterImage'
     ]),
     onContinue() {
+      this.filtering = true;
       this.startFiltering();
       this.$refs.croppie.getCroppedImage().then(base64 => {
         this.filterImage(base64);

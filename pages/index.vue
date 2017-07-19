@@ -31,7 +31,7 @@
 <script>
 
 import { mapState, mapActions, mapMutations } from 'vuex';
-import Photo from '~components/parts/Photo.vue';
+import Photo from '~components/Photo.vue';
 
 export default {
   components: {
@@ -39,7 +39,7 @@ export default {
   },
   data() {
     return {
-
+      uploading: false
     };
   },
   computed: {
@@ -49,8 +49,7 @@ export default {
       prompt: state => state.content.steps.index.prompt,
       avatars: state => state.content.avatars,
       overlay: state => state.content.overlay,
-      buttons: state => state.content.steps.index.buttons,
-      uploading: state => state.uploading
+      buttons: state => state.content.steps.index.buttons
     })
   },
   methods: {
@@ -69,7 +68,7 @@ export default {
       });
     },
     useProfilePic() {
-      console.log('FB');
+      this.uploading = true;
       /* globals FB */
       FB.getLoginStatus((response) => {
         if (response.status === 'connected') {
@@ -82,6 +81,7 @@ export default {
       });
     },
     filesChange: function (files) {
+      this.uploading = true;
       // handle file changes
       var file = files ? files[0] : null;
 

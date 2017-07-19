@@ -33,16 +33,10 @@
 </template>
 
 <script>
-import About from '~components/About.vue';
-import Heading from '~components/Heading.vue';
-import Navigation from '~components/Navigation.vue';
-import NavItem from '~components/parts/NavItem.vue';
+import NavItem from '~components/NavItem.vue';
 
 export default {
   components: {
-    About,
-    Heading,
-    Navigation,
     NavItem
   }
 };
@@ -67,6 +61,10 @@ export default {
   box-shadow: 0 -1px 2px rgba(10, 10, 10, 0.1);
   padding: 0.5rem 0;
   z-index: 1000;
+}
+
+.is-active {
+  font-weight: bold;
 }
 
 .hero {
