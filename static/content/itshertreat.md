@@ -20,6 +20,11 @@ steps:
     label: Edit
     title: Edit your photo
     content: Drag the image around to reposition. Pinch to zoom.
+    options: 
+      continue: 
+        label: Continue
+      back: 
+        label: or change image
   share:
     label: Share
     title: Share the photo with your friends!

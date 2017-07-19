@@ -10,10 +10,10 @@
       </div>
       <div class="actions">
         <button @click="onContinue" class="button is-primary" :class="{ 'is-loading': filtering }">
-          <span>Continue</span>
+          <span>{{ options.continue.label }}</span>
         </button>
         <nuxt-link to="/" class="button is-link is-small" :class="{ 'is-static': filtering }">
-          <span>or change image</span>
+          <span>{{ options.back.label }}</span>
         </nuxt-link>
       </div>
     </div>
@@ -43,7 +43,8 @@ export default {
       filteredImage: state => state.filteredImage,
       title: state => state.content.steps.edit.title,
       orientation: state => state.orientation,
-      overlay: state => state.content.overlay
+      overlay: state => state.content.overlay,
+      options: state => state.content.steps.edit.options
     }),
     content: function () {
       return marked(this.$store.state.content.steps.edit.content);
