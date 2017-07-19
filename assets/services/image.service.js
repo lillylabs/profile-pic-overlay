@@ -18,8 +18,11 @@ function grayscalePixels(pixels) {
 };
 
 function loadImage(src) {
+  var image = new Image();
+  image.src = src;
+  image.removeAttribute('crossOrigin');
+  image.setAttribute('crossOrigin', 'anonymous');
   return new Promise(resolve => {
-    const image = document.createElement('img');
     image.onload = () => {
       resolve(image);
     };
@@ -46,12 +49,12 @@ function overlay(orginalImage, overlayImage) {
   });
 }
 
-function grayscale(image) {
+function grayscale(src) {
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
 
   return new Promise(resolve => {
-    loadImage(image)
+    loadImage(src)
       .then(image => {
         canvas.width = image.width;
         canvas.height = image.height;

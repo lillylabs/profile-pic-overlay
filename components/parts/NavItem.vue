@@ -1,9 +1,9 @@
 <template>
   <a class="nav-item" :href="item.href" :title="item.label">
-    <span v-if="!item.iconOnly">{{ item.label }}&nbsp;</span>
-    <span :class="['icon', item.iconOnly ? '' : 'is-small']">
+    <span class="icon">
       <i :class="['fa', item.icon]"></i>
     </span>
+    <span v-if="!item.iconOnly">{{ item.label }}&nbsp;</span>
   </a>
 </template>
 

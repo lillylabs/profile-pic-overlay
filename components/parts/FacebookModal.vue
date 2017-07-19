@@ -1,41 +1,23 @@
 <template>
-  <div :class="['modal', isActive ? 'is-active': '']">
-    <div class="modal-background" @click="closeModal"></div>
-    <div class="modal-content">
-      <div class="box">
-        <h1 class="title is-5">{{ option.title }}</h1>
-        <article class="media">
-          <figure class="media-left">
-            <p class="image is-128x128">
-              <img :src="image">
-            </p>
-          </figure>
-          <div class="media-content">
-            <div class="field">
-              <p class="control">
-                <textarea class="textarea" v-model="userText" :disabled="disabled"></textarea>
-              </p>
-            </div>
-            <nav class="level">
-              <div class="level-left">
-                <div class="level-item">
-                  <button class="button is-info" @click="share" :class="{ 'is-loading': disabled }">
-                    <span>{{ option.submit }}</span>
-                  </button>
-                </div>
-                <div class="level-item">
-                  <button class="button" @click="closeModal" :class="{ 'is-static': disabled }">
-                    <span>{{ option.cancel }}</span>
-                  </button>
-                </div>
-              </div>
-            </nav>
-          </div>
-        </article>
+  <article class="media">
+    <figure class="media-left">
+      <p class="image is-128x128">
+        <img :src="image">
+      </p>
+    </figure>
+    <div class="media-content">
+      <div class="field">
+        <p class="control">
+          <textarea class="textarea" v-model="userText" :disabled="disabled"></textarea>
+        </p>
+        <p class="control">
+          <button class="button is-info" @click="share" :class="{ 'is-loading': disabled }">
+            <span>{{ option.submit }}</span>
+          </button>
+        </p>
       </div>
     </div>
-    <button class="modal-close is-large" @click="closeModal"></button>
-  </div>
+  </article>
 </template>
 
 <script>
@@ -48,7 +30,6 @@ export default {
   props: [
     'option',
     'text',
-    'isActive',
     'image'
   ],
   data() {
@@ -63,10 +44,6 @@ export default {
     }
   },
   methods: {
-    closeModal: function () {
-      this.$emit('update:isActive', false);
-      this.sharing = false;
-    },
     share: function () {
       this.sharing = true;
       this.facebookAauthResponse()
@@ -166,6 +143,10 @@ export default {
 
 textarea {
   min-height: 128px;
+}
+
+.button {
+  margin-top: 0.5rem;
 }
 </style>
 

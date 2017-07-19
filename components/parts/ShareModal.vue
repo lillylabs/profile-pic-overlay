@@ -1,82 +1,69 @@
 <template>
-  <div :class="['modal', isActive ? 'is-active': '']">
-    <div @click="closeModal" class="modal-background"></div>
-    <div class="modal-content">
-      <div class="box">
-        <h1 class="title is-5">{{ title }}</h1>
-        <ol>
-          <li v-if="supported.filesystem">
-            <h2>
-              <button @click="downloadImage " class="button is-small">
-                <span class="icon is-small">
-                  <i :class="[ 'fa', save.icon] "></i>
-                </span>
-                <span>&nbsp;{{ save.title }}</span>
-              </button>
-              <div v-if="status.downloaded" class="button is-small is-static">
-                <span class="icon is-small">
-                  <i class="fa fa-check"></i>
-                </span>
-              </div>
-            </h2>
-          </li>
-          <li v-if="!supported.filesystem">
-            <h2>
-              {{ save.title }}
-            </h2>
-            <p>{{ save.instructions }}</p>
-            <p class="image is-128x128">
-              <img :src="image"></img>
-            </p>
-          </li>
-          <li>
-            <h2 v-if="supported.clipboard">
-              <button ref="copyButton" class="button is-small" :data-clipboard-text="suggestion.text">
-                <span class="icon is-small">
-                  <i :class="[ 'fa', suggestion.icon] "></i>
-                </span>
-                <span>&nbsp;{{ suggestion.title }}</span>
-              </button>
-              <div v-if="status.copied" class="button is-small is-static">
-                <span class="icon is-small">
-                  <i class="fa fa-check"></i>
-                </span>
-              </div>
-            </h2>
-            <h2 v-if="!supported.clipboard">
-              {{ suggestion.title }}
-            </h2>
-            <p class="text">{{ suggestion.text }}</p>
-          </li>
-          <li v-if="option">
-            <h2 v-if="option.url">
-              <button @click="shareImage" class="button is-small">
-                <span class="icon is-small">
-                  <i :class="[ 'fa', option.icon]"></i>
-                </span>
-                <span>&nbsp;{{ option.title }}</span>
-              </button>
-              <div v-if="status.shared" class="button is-small is-static">
-                <span class="icon is-small">
-                  <i class="fa fa-check"></i>
-                </span>
-              </div>
-            </h2>
-            <h2 v-if="!option.url">
-              {{ option.title }}
-            </h2>
-            <p>{{ option.instructions }}</p>
-          </li>
-        </ol>
-        <hr/>
-        <div class="has-text-centered">
-          <button @click="closeModal" class="button">
-            <span>Done</span>
+  <div class="has-text-centered">
+    <ol>
+      <li v-if="supported.filesystem">
+        <h2>
+          <button @click="downloadImage " class="button is-small">
+            <span class="icon is-small">
+              <i :class="[ 'fa', save.icon] "></i>
+            </span>
+            <span>&nbsp;{{ save.title }}</span>
           </button>
-        </div>
-      </div>
-    </div>
-    <button @click="closeModal" class="modal-close is-large"></button>
+          <div v-if="status.downloaded" class="button is-small is-static">
+            <span class="icon is-small">
+              <i class="fa fa-check"></i>
+            </span>
+          </div>
+        </h2>
+      </li>
+      <li v-if="!supported.filesystem">
+        <h2>
+          {{ save.title }}
+        </h2>
+        <p>{{ save.instructions }}</p>
+        <p class="image is-128x128">
+          <img :src="image"></img>
+        </p>
+      </li>
+      <li>
+        <h2 v-if="supported.clipboard">
+          <button ref="copyButton" class="button is-small" :data-clipboard-text="suggestion.text">
+            <span class="icon is-small">
+              <i :class="[ 'fa', suggestion.icon] "></i>
+            </span>
+            <span>&nbsp;{{ suggestion.title }}</span>
+          </button>
+          <div v-if="status.copied" class="button is-small is-static">
+            <span class="icon is-small">
+              <i class="fa fa-check"></i>
+            </span>
+          </div>
+        </h2>
+        <h2 v-if="!supported.clipboard">
+          {{ suggestion.title }}
+        </h2>
+        <p class="text">{{ suggestion.text }}</p>
+      </li>
+      <li v-if="option">
+        <h2 v-if="option.url">
+          <button @click="shareImage" class="button is-small">
+            <span class="icon is-small">
+              <i :class="[ 'fa', option.icon]"></i>
+            </span>
+            <span>&nbsp;{{ option.title }}</span>
+          </button>
+          <div v-if="status.shared" class="button is-small is-static">
+            <span class="icon is-small">
+              <i class="fa fa-check"></i>
+            </span>
+          </div>
+        </h2>
+        <h2 v-if="!option.url">
+          {{ option.title }}
+        </h2>
+        <p>{{ option.instructions }}</p>
+      </li>
+    </ol>
   </div>
 </template>
 
@@ -90,8 +77,7 @@ export default {
     'option',
     'image',
     'save',
-    'suggestion',
-    'isActive'
+    'suggestion'
   ],
   data() {
     return {
@@ -135,6 +121,11 @@ export default {
       });
     }
   },
+  watch: {
+    '$refs.copyButton'() {
+      console.log('ready');
+    }
+  },
   mounted() {
     /* globals Modernizr */
     if (Clipboard.isSupported()) {
@@ -143,7 +134,7 @@ export default {
     } else {
       this.$set(this.supported, 'clipboard', false);
     }
-    if (Modernizr.filesystem) {
+    if (Modernizr.adownload) {
       this.$set(this.supported, 'filesystem', true);
     } else {
       this.$set(this.supported, 'filesystem', false);
@@ -162,11 +153,13 @@ textarea {
 
 ol {
   margin-left: 1rem;
+  list-style: none;
 }
 
 p {
   font-size: 0.8rem;
-  margin: 0.5rem 0;
+  margin: 0.5rem auto;
+  max-width: 19rem;
 }
 
 li:not(:last-child) {

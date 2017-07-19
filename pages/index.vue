@@ -1,18 +1,30 @@
 <template>
   <div class="columns">
-    <input type="file" accept="image/*" name="file" id="file" @change="filesChange($event.target.files)"></input>
-    <div class="column has-text-centered" v-for="(avatar, key) in avatars" :key="key">
-      <label for="file" v-on:click="selectOverlay(key)">
-        <photo :image="avatars[key]" :overlay="overlays[key]"></photo>
-        <div class="button">
-          <span>{{ button.default }}&nbsp;</span>
-          <span class=" icon ">
-            <i :class="[ 'fa', button.icon] "></i>
-          </span>
-        </div>
+    <div class="column ">
+      <label for="file">
+        <photo :image="avatars[0]" :overlay="overlay" :class="{ 'is-static': uploading }"></photo>
       </label>
-      <button @click="useProfilePic(key)" class="button is-link is-small">{{ facebook.default }}</button>
     </div>
+    <div class="column">
+      <header>
+        <h1 class="title">
+          {{ title }}
+        </h1>
+        <p>
+          {{ prompt }}
+        </p>
+      </header>
+      <div class="actions has-text-centered">
+        <label for="file" class="button is-primary" :class="{ 'is-loading': uploading }">
+          <span>{{ buttons.default.label }}&nbsp;</span>
+          <span class=" icon ">
+            <i :class="[ 'fa', buttons.default.icon] "></i>
+          </span>
+        </label>
+        <button @click="useProfilePic" class="button is-link is-small" :class="{ 'is-static': uploading }">{{ buttons.facebook.label }}</button>
+      </div>
+    </div>
+    <input type="file" accept="image/*" name="file" id="file" @change="filesChange($event.target.files)"></input>
   </div>
 </template>
 
@@ -32,35 +44,32 @@ export default {
   },
   computed: {
     ...mapState({
+      image: state => state.image,
+      title: state => state.content.steps.index.title,
+      prompt: state => state.content.steps.index.prompt,
       avatars: state => state.content.avatars,
-      overlays: state => state.content.filters,
-      button: state => state.content.buttons.upload,
-      facebook: state => state.content.buttons.profile
+      overlay: state => state.content.overlay,
+      buttons: state => state.content.steps.index.buttons,
+      uploading: state => state.uploading
     })
   },
   methods: {
     ...mapActions([
-      'uploadFile'
+      'uploadFile',
+      'useImage'
     ]),
     ...mapMutations([
       'addError',
-      'setOverlay',
       'setOrientation',
-      'setImage'
+      'setSelectedStep'
     ]),
-    selectOverlay: function (selectedKey) {
-      console.log('select overlay');
-      this.fileDialogOpen = true;
-      this.setOverlay(this.overlays[selectedKey]);
-    },
     getProfilePicture() {
       FB.api('me/picture', 'get', { type: 'large' }, (result) => {
-        this.setImage(result.data.url);
-        this.$router.push('share');
+        this.useImage(result.data.url);
       });
     },
-    useProfilePic: function (selectedKey) {
-      this.setOverlay(this.overlays[selectedKey]);
+    useProfilePic() {
+      console.log('FB');
       /* globals FB */
       FB.getLoginStatus((response) => {
         if (response.status === 'connected') {
@@ -93,17 +102,22 @@ export default {
       });
 
       this.uploadFile(file);
-      this.$router.push('share');
     }
+  },
+  watch: {
+    image(newValue, oldValue) {
+      if (newValue) {
+        this.$router.push('edit');
+      }
+    }
+  },
+  mounted() {
+    this.setSelectedStep('index');
   }
 };
 </script>
 
 <style scoped>
-.columns {
-  justify-content: center;
-}
-
 input {
   opacity: 0;
   position: absolute;
@@ -113,18 +127,5 @@ input {
 
 button {
   margin-top: 0.25rem;
-}
-
-.column:not(.is-narrow) {
-  max-width: 20rem;
-  margin: 0 auto;
-}
-
-@media screen and (min-width: 769px) {
-  .column:not(.is-narrow) {
-    max-width: 45vh;
-    min-width: 20rem;
-    margin: 0 1rem;
-  }
 }
 </style>

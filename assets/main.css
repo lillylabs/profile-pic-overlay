@@ -1,3 +1,4 @@
+/* TRANSITIONS  */
 .page-enter-active, .page-leave-active {
   transition: opacity .5s;
 }
@@ -5,24 +6,77 @@
   opacity: 0;
 }
 
-.hero-body {
-  padding: 1.5rem !important;
+/* HERO */
+
+.hero.is-share .tabs ul {
+    border-bottom: 1px solid #dbdbdb;
 }
 
-.image {
-  margin-bottom: 1rem;
+@media screen and (max-width: 768px) {
+  .hero-body {
+    align-items: flex-start !important;
+  }
+}
+
+/* COLUMNS  */
+
+.columns {
+  justify-content: center;
+}
+
+.column {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.column {
+  max-width: 20rem;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 769px) {
+
+  .column {
+    max-width: 45vh;
+    min-width: 20rem;
+    margin: 0 1rem;
+  }
+}
+
+/* BUTTONS */
+
+.actions {
+  margin-top: 2rem;
+}
+
+.button + .button.is-link {
+  margin-top: 0.25rem;
 }
 
 button.button {
-  line-height: 1.5;
+  display: inline-block;
 }
 
-.button + .button {
-  margin-left: 0.25rem;
-}
+/* IMAGE */
 
 .image {
   background: lightgray;
+}
+
+/* CROPPIE */
+
+.croppie-container {
+  position: relative;
+}
+
+.croppie-container .cr-slider-wrap {
+  position: absolute;
+  width: auto;
+}
+
+.croppie-container .cr-slider-wrap .cr-slider {
+  max-width: 75%;
 }
 
 .croppie-container .cr-viewport {
