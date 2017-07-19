@@ -127,18 +127,13 @@ export default {
 </script>
 
 <style scoped>
-.level-left {
-  display: flex !important;
-  flex-wrap: wrap;
-}
-
-.level-item {
-  margin-bottom: 0 !important;
-}
-
 .media {
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.image {
+  margin-bottom: 1rem;
 }
 
 textarea {

@@ -63,7 +63,7 @@ export default {
 
 <style scoped>
 div {
-  max-width: 70vh;
+  max-width: 32rem;
   margin: 0 auto;
 }
 </style>
