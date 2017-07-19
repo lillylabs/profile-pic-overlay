@@ -45,10 +45,8 @@ buttons:
     default: 'eller bruk profilbilde fra Facebook'
 avatars: 
   man: '/images/man.jpg'
-  woman: '/images/woman.jpg'
 filters:
   man: '/images/hunspanderer/filter-man.png'
-  woman: '/images/hunspanderer/filter-man.png'
 nav:
   left:
     - label: 'Om kampanjen'
