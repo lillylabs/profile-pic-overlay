@@ -27,9 +27,10 @@
     <div class="footer ">
       <nav class="breadcrumb has-arrow-separator is-centered">
         <ul>
-          <li v-for="(key, index) in $store.state.steps.keys" :key="key" :class="{ 'is-active': ($store.state.steps.selected === key) }">
+          <li v-for="(key, index) in $store.state.steps.keys" :key="key" :class="{ 'is-active': $store.state.steps.selected === key, 'is-static': isStatic(key) }">
             <nuxt-link :to="key === 'index' ? '/' : key">
-              <span>{{ index+1 }}. {{ $store.state.content.steps[key].label }}</span>
+              {{ index+1 }}.&nbsp;
+              <span>{{ $store.state.content.steps[key].label }}</span>
             </nuxt-link>
           </li>
         </ul>
@@ -44,6 +45,11 @@ import NavItem from '~components/NavItem.vue';
 export default {
   components: {
     NavItem
+  },
+  methods: {
+    isStatic(key) {
+      return (key === 'edit' && !this.$store.state.image) || (key === 'share' && !this.$store.state.filteredImage);
+    }
   }
 };
 
@@ -71,6 +77,10 @@ export default {
 
 .is-active {
   font-weight: bold;
+}
+
+.is-static {
+  pointer-events: none;
 }
 
 .hero {
