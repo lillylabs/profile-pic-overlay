@@ -53,7 +53,7 @@ steps:
       text: 'Join me in addressing unconscious gender bias. Together we change mindsets. #ItsHerTreat. Get your photo on http://itshertreatfilter.com'
       icon: 'fa-clone'
 nav:
-  about:
+  internal:
     - label: 'About'
       href: '/about'
       icon: 'fa-info-circle'

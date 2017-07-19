@@ -8,6 +8,12 @@
           </nuxt-link>
           <nav-item v-for="(item, key) in $store.state.content.nav.some " :key="key" :item="item"></nav-item>
           <nav-item v-for="(item, key) in $store.state.content.nav.about " :key="key" :item="item"></nav-item>
+          <nuxt-link class="nav-item" :to="item.href" v-for="(item, key) in $store.state.content.nav.internal " :key="key" :item="item">
+            <span v-if="item.icon" class="icon">
+              <i :class="['fa', item.icon]"></i>
+            </span>
+            <span v-if="!item.iconOnly">{{ item.label }}&nbsp;</span>
+          </nuxt-link>
         </div>
       </div>
     </header>

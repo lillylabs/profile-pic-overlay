@@ -1,5 +1,5 @@
 <template>
-  <a class="nav-item" :href="item.href" :title="item.label">
+  <a class="nav-item" :href="item.href" :title="item.label" target="_blank">
     <span v-if="item.icon" class="icon">
       <i :class="['fa', item.icon]"></i>
     </span>
