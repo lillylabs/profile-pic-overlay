@@ -3,22 +3,38 @@ title:
   text: '#ItsHerTreat'
   image: '/images/itshertreat/itshertreat.png'
 subtitle: 'A campaign against gender discrimination.'
-prompt: 'Share your photo with #ItsHerTreat-filter on social media.'
+prompt: 'Create and share your photo with the #ItsHerTreat-filter on social media.'
 share:
-  title: 'Share your photo with your friends!'
+  title: 'Share the photo with your friends!'
   options: 
     facebook:
       label: Facebook
-      share: Share on Facebook
+      title: Share on Facebook
+      submit: Post
       cancel: Cancel
       icon: fa-facebook
+    twitter:
+      label: Twitter
+      title: Share on Twitter
+      icon: fa-twitter
+      instructions: Upload the downloaded image and paste in the suggested text.
+      url: 
+        web: http://twitter.com 
+        app: twitter://
+    custom:
+      label: Other apps
+      title: Manually share
+      instructions: Open the app, upload the downloaded photo and paste in the suggested text.
+  save: 
+    label: or download
+    title: Download photo
+    instructions: Tap image and hold to save the photo to your device.
+    icon: fa-download
+    fileName: ItsHerTreat
   suggestion: 
-    suggestion: 
-    title: 'Suggested text' 
+    label: Copy text
+    title: Copy suggested text
     text: 'Join me in addressing unconscious gender bias. Together we change mindsets. #ItsHerTreat. Get your photo on http://itshertreatfilter.com'
-  copy: 
-    default: 'Copy'
-    done: 'Copied!'
     icon: 'fa-clone'
 buttons:
   upload:
@@ -27,10 +43,6 @@ buttons:
     icon: 'fa-upload'
   profile:
     default: 'or use your Facebook profile picture'
-  download:
-    default: 'Download the image'
-    icon: 'fa-download'
-    fileName: 'ItsHerTreat'
 avatars: 
   man: '/images/man.jpg'
 filters:

@@ -1,162 +1,176 @@
 <template>
   <div :class="['modal', isActive ? 'is-active': '']">
-    <div class="modal-background" @click="closeModal"></div>
+    <div @click="closeModal" class="modal-background"></div>
     <div class="modal-content">
       <div class="box">
-        <article class="media">
-          <figure class="media-left">
-            <p class="image is-128x128">
-              <img :src="image">
-            </p>
-          </figure>
-          <div class="media-content">
-            <div class="field">
-              <p class="control">
-                <textarea class="textarea" v-model="userText" :disabled="disabled"></textarea>
-              </p>
-            </div>
-            <nav class="level">
-              <div class="level-left">
-                <div class="level-item">
-                  <button class="button is-info" @click="share" :class="{ 'is-loading': disabled }">
-                    <span class="icon is-small">
-                      <i :class="[ 'fa', option.icon] "></i>
-                    </span>
-                    <span>{{ option.share }}</span>
-                  </button>
-                </div>
-                <div class="level-item">
-                  <button class="button" @click="closeModal" :disabled="disabled">{{ option.cancel }}</button>
-                </div>
+        <h1 class="title is-5">{{ title }}</h1>
+        <ol>
+          <li v-if="supported.filesystem">
+            <h2>
+              <button @click="downloadImage " class="button is-small">
+                <span class="icon is-small">
+                  <i :class="[ 'fa', save.icon] "></i>
+                </span>
+                <span>&nbsp;{{ save.title }}</span>
+              </button>
+              <div v-if="status.downloaded" class="button is-small is-static">
+                <span class="icon is-small">
+                  <i class="fa fa-check"></i>
+                </span>
               </div>
-            </nav>
-          </div>
-        </article>
+            </h2>
+          </li>
+          <li v-if="!supported.filesystem">
+            <h2>
+              {{ save.title }}
+            </h2>
+            <p>{{ save.instructions }}</p>
+            <p class="image is-128x128">
+              <img :src="image"></img>
+            </p>
+          </li>
+          <li>
+            <h2 v-if="supported.clipboard">
+              <button ref="copyButton" class="button is-small" :data-clipboard-text="suggestion.text">
+                <span class="icon is-small">
+                  <i :class="[ 'fa', suggestion.icon] "></i>
+                </span>
+                <span>&nbsp;{{ suggestion.title }}</span>
+              </button>
+              <div v-if="status.copied" class="button is-small is-static">
+                <span class="icon is-small">
+                  <i class="fa fa-check"></i>
+                </span>
+              </div>
+            </h2>
+            <h2 v-if="!supported.clipboard">
+              {{ suggestion.title }}
+            </h2>
+            <p class="text">{{ suggestion.text }}</p>
+          </li>
+          <li v-if="option">
+            <h2 v-if="option.url">
+              <button @click="shareImage" class="button is-small">
+                <span class="icon is-small">
+                  <i :class="[ 'fa', option.icon]"></i>
+                </span>
+                <span>&nbsp;{{ option.title }}</span>
+              </button>
+              <div v-if="status.shared" class="button is-small is-static">
+                <span class="icon is-small">
+                  <i class="fa fa-check"></i>
+                </span>
+              </div>
+            </h2>
+            <h2 v-if="!option.url">
+              {{ option.title }}
+            </h2>
+            <p>{{ option.instructions }}</p>
+          </li>
+        </ol>
+        <hr/>
+        <div class="has-text-centered">
+          <button @click="closeModal" class="button">
+            <span>Done</span>
+          </button>
+        </div>
       </div>
     </div>
-    <button class="modal-close is-large" @click="closeModal"></button>
+    <button @click="closeModal" class="modal-close is-large"></button>
   </div>
 </template>
 
 <script>
-/* global FB */
 
-import axios from 'axios';
-import Filter from '~assets/services/image.service';
+const Clipboard = require('clipboard');
+const Download = require('downloadjs');
 
 export default {
   props: [
     'option',
-    'text',
-    'isActive',
-    'image'
+    'image',
+    'save',
+    'suggestion',
+    'isActive'
   ],
   data() {
     return {
-      sharing: false,
-      userText: null
+      status: {},
+      supported: {
+        clipboard: true
+      }
     };
   },
   computed: {
-    disabled() {
-      return this.sharing || !this.image;
+    title() {
+      return this.option ? this.option.title : this.save.title;
     }
   },
   methods: {
-    closeModal: function () {
+    closeModal() {
       this.$emit('update:isActive', false);
-      this.sharing = false;
+      this.status = {};
     },
-    share: function () {
-      this.sharing = true;
-      this.facebookAauthResponse()
-        .then(authResponse => {
-          return this.uploadToFacebook(authResponse.accessToken);
-        })
-        .then(response => {
-          this.sharing = false;
-          this.closeModal();
-        })
-        .catch(error => {
-          this.sharing = false;
-          console.log(error);
-        });
+    downloadImage(e) {
+      console.log(e);
+      Download(this.image, this.save.fileName + '.jpeg', 'image/jpeg');
+      this.setStatus('downloaded');
     },
-    uploadToFacebook(accessToken) {
-      const blob = Filter.dataURItoBlob(this.image);
-      var fd = new FormData();
-      fd.append('access_token', accessToken);
-      fd.append('filename', 'test.jpeg');
-      fd.append('source', blob);
-      fd.append('message', this.userText);
-      return axios.post('https://graph.facebook.com/me/photos', fd);
+    setStatus(key) {
+      this.$set(this.status, key, true);
     },
-    facebookPermissionsGranted(scope, authResponse) {
-      var fd = new FormData();
-      fd.append('access_token', authResponse.accessToken);
-      return axios.get('https://graph.facebook.com/me/permissions', {
-        params: {
-          access_token: authResponse.accessToken
-        }
-      })
-        .then(response => {
-          for (var entry of response.data.data) {
-            if (entry.permission === scope && entry.status === 'granted') {
-              return true;
-            }
-          }
-          return false;
-        })
-        .catch(error => {
-          console.log(error);
-          return false;
-        });
+    shareImage(e) {
+      console.log(this.option.url);
+      setTimeout(() => {
+        window.open(this.option.url.web, '_blank');
+      }, 25);
+      window.open(this.option.url.app, '_self');
+      this.setStatus('shared');
     },
-    facebookLoginStatus() {
-      return new Promise(resolve => {
-        FB.getLoginStatus((response) => {
-          resolve(response);
-        });
-      });
-    },
-    facebookLogin() {
-      return new Promise(resolve => {
-        FB.login((response) => {
-          resolve(response.authResponse);
-        }, { scope: 'publish_actions' });
-      });
-    },
-    facebookAauthResponse() {
-      return this.facebookLoginStatus().then(response => {
-        if (response.status === 'connected') {
-          return this.facebookPermissionsGranted('publish_actions', response.authResponse)
-            .then(granted => {
-              if (granted) {
-                return response.authResponse;
-              } else {
-                return this.facebookLogin();
-              }
-            });
-        } else {
-          return this.facebookLogin();
-        }
+    initClipboard() {
+      this.clipboard = new Clipboard(this.$refs.copyButton);
+      this.clipboard.on('success', e => {
+        this.setStatus('copied');
+        e.clearSelection();
       });
     }
   },
   mounted() {
-    this.userText = this.text;
+    /* globals Modernizr */
+    if (Clipboard.isSupported()) {
+      this.$set(this.supported, 'clipboard', true);
+      this.initClipboard();
+    } else {
+      this.$set(this.supported, 'clipboard', false);
+    }
+    if (Modernizr.filesystem) {
+      this.$set(this.supported, 'filesystem', true);
+    } else {
+      this.$set(this.supported, 'filesystem', false);
+    }
   }
 };
 </script>
 
 <style scoped>
-.media {
-  flex-wrap: wrap;
-  justify-content: center;
+textarea {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
 }
 
-textarea {
-  min-height: 128px;
+ol {
+  margin-left: 1rem;
+}
+
+p {
+  font-size: 0.8rem;
+  margin: 0.5rem 0;
+}
+
+li:not(:last-child) {
+  margin-bottom: 1.5rem;
 }
 </style>
 

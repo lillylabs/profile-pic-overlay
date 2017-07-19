@@ -1,29 +1,31 @@
 <template>
   <div class="columns">
-    <div class="column">
+    <div class="column has-text-centered">
       <croppie ref="croppie" v-if="image" :image="image" :overlay="overlay" :orientation="orientation"></croppie>
       <nuxt-link class="button is-small is-link" to="/">
         {{ upload.new }}
       </nuxt-link>
     </div>
-    <div class="column">
+    <div class="column has-text-centered">
       <h2 class="title is-5">{{ share.title}}</h2>
       <div>
-        <button class="button is-info" v-for="(option, key) in share.options" :key="key" @click="openModal(key)">
-          <span class="icon is-small">
-            <i :class="[ 'fa', option.icon] "></i>
+        <button class="button" v-for="option in this.options" :key="option" @click="openModal(option)">
+          <span v-if="share.options[option].icon" class="icon is-small">
+            <i :class="[ 'fa', share.options[option].icon] "></i>
           </span>
-          <span>{{ option.label }}</span>
+          <span>{{ share.options[option].label }}</span>
         </button>
       </div>
       <div class="content">
-        <button class="button is-small is-link" :class="{ 'is-static': downloading }" @click="downloadImage">
-          <span>{{ download.default }}</span>
+        <button class="button is-small is-link" @click="openModal('save')">
+          <span>{{ share.save.label }}</span>
         </button>
       </div>
     </div>
-    <copy-modal :title="share.suggestion.title" :text="share.suggestion.text" :button="share.copy" :is-active.sync="modal.copy"></copy-modal>
-    <share-modal v-for="(option, key) in share.options" :key="key" :option="option" :image="filteredImage" :text="share.suggestion.text" :is-active.sync="modal.facebook" @share="console.log('test')"></share-modal>
+    <share-modal :image="filteredImage" :suggestion="share.suggestion" :save="share.save" :is-active.sync="modal.save"></share-modal>
+    <facebook-modal :option="share.options['facebook']" :image="filteredImage" :text="share.suggestion.text" :is-active.sync="modal.facebook"></facebook-modal>
+    <share-modal :option="share.options['twitter']" :image="filteredImage" :suggestion="share.suggestion" :save="share.save" :is-active.sync="modal.twitter"></share-modal>
+    <share-modal :option="share.options['custom']" :image="filteredImage" :suggestion="share.suggestion" :save="share.save" :is-active.sync="modal.custom"></share-modal>
   </div>
 </template>
 
@@ -33,28 +35,29 @@ import { mapState } from 'vuex';
 
 import Photo from '~components/parts/Photo.vue';
 import Croppie from '~components/parts/Croppie.vue';
-import CopyModal from '~components/parts/CopyModal.vue';
-import ShareModal from '~components/parts/ShareModal.vue';
+import FacebookModal from '~components/parts/FacebookModal.vue';
 import Filter from '~assets/services/image.service';
+import ShareModal from '~components/parts/ShareModal.vue';
 
-const Download = require('downloadjs');
+// const Download = require('downloadjs');
 
 export default {
   components: {
     Photo,
     Croppie,
-    CopyModal,
+    FacebookModal,
     ShareModal
   },
   data() {
     return {
       modal: {
         copy: false,
-        facebook: false
+        facebook: false,
+        twitter: false,
+        custom: false
       },
-      filteredImage: null,
-      copied: false,
-      downloading: false
+      options: ['facebook', 'twitter', 'custom'],
+      filteredImage: null
     };
   },
   computed: {
@@ -63,7 +66,6 @@ export default {
       orientation: state => state.orientation,
       overlay: state => state.overlay,
       uploading: state => state.uploading,
-      download: state => state.content.buttons.download,
       upload: state => state.content.buttons.upload,
       share: state => state.content.share
     })
@@ -79,25 +81,9 @@ export default {
         });
       });
     },
-    downloadImage() {
-      this.modal.copy = true;
-      this.downloading = true;
-      this.filterCroppedImage().then(image => {
-        Download(image, this.download.fileName + '.jpeg', 'image/jpeg');
-        this.downloading = false;
-      });
-    },
     openModal(key) {
       this.filterCroppedImage();
-      this.modal[key] = true;
-    }
-  },
-  watch: {
-    image: function (val) {
-      console.log('mage', val);
-    },
-    orientation: function (val) {
-      console.log('orientation', val);
+      this.$set(this.modal, key, true);
     }
   },
   fetch({ store, redirect }) {
@@ -119,7 +105,11 @@ export default {
 }
 
 .content {
-  margin-top: 1em;
+  margin-top: 0.5em;
+}
+
+.button {
+  margin: 0.25rem;
 }
 
 @media screen and (min-width: 769px) {
