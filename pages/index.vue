@@ -21,7 +21,7 @@
             <i :class="[ 'fa', buttons.default.icon] "></i>
           </span>
         </label>
-        <button @click="useProfilePic" class="button is-link is-small" :class="{ 'is-static': uploading }">{{ buttons.facebook.label }}</button>
+        <button @click="useProfilePic" class="button is-link is-small" :class="{ 'is-static': uploading || !facebook.initialized }">{{ buttons.facebook.label }}</button>
       </div>
     </div>
     <input type="file" accept="image/*" name="file" id="file" @change="filesChange($event.target.files)"></input>
@@ -32,6 +32,7 @@
 
 import { mapState, mapActions, mapMutations } from 'vuex';
 import Photo from '~components/Photo.vue';
+import Facebook from '../services/facebook.service';
 
 export default {
   components: {
@@ -49,7 +50,8 @@ export default {
       prompt: state => state.content.steps.index.prompt,
       avatars: state => state.content.avatars,
       overlay: state => state.content.overlay,
-      buttons: state => state.content.steps.index.buttons
+      buttons: state => state.content.steps.index.buttons,
+      facebook: state => state.facebook
     })
   },
   methods: {
@@ -57,30 +59,30 @@ export default {
       'uploadFile',
       'useImage'
     ]),
-    ...mapMutations([
-      'addError',
-      'setOrientation',
-      'setSelectedStep'
-    ]),
-    getProfilePicture() {
+    ...mapMutations({
+      addError: 'addError',
+      setOrientation: 'setOrientation',
+      setSelectedStep: 'setSelectedStep',
+      facebookResponse: 'facebook/response'
+    }),
+    getProfilePic() {
       this.uploading = true;
-      FB.api('me/picture', 'get', { type: 'large' }, (result) => {
-        this.useImage(result.data.url);
+      Facebook.getProfilePicture(this.facebook.authResponse).then(image => {
+        this.useImage(image);
       });
     },
     useProfilePic() {
-      /* globals FB */
-      FB.getLoginStatus((response) => {
-        if (response.status === 'connected') {
-          this.getProfilePicture();
-        } else {
-          FB.login((response) => {
-            if (response.status === 'connected') {
-              this.getProfilePicture();
-            }
+      if (this.facebook.connected) {
+        this.getProfilePic();
+      } else {
+        Facebook.login()
+          .then(response => {
+            this.getProfilePic();
+          })
+          .catch(error => {
+            console.log(error);
           });
-        }
-      });
+      }
     },
     filesChange: function (files) {
       this.uploading = true;

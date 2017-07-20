@@ -1,3 +1,4 @@
+import createLogger from 'vuex/dist/logger';
 import Filter from '../services/image.service';
 // Switch on env variable
 const content = JSON.parse(require('../static/content/' + process.env.contentFile));
@@ -80,3 +81,13 @@ export const actions = {
     });
   }
 };
+
+const facebookAvailable = store => {
+  store.subscribe(mutation => {
+    if (mutation.type === 'facebook/available') {
+      store.dispatch('facebook/connect');
+    }
+  });
+};
+
+export const plugins = process.env.NODE_ENV !== 'production' ? [createLogger(), facebookAvailable] : [facebookAvailable];
