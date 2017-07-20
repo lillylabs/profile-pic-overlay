@@ -1,4 +1,4 @@
-import Filter from '~assets/services/image.service';
+import Filter from '../services/image.service';
 // Switch on env variable
 const content = JSON.parse(require('../static/content/' + process.env.contentFile));
 // console.log(content);
