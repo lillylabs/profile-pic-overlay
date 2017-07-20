@@ -63,19 +63,21 @@ export default {
       'setSelectedStep'
     ]),
     getProfilePicture() {
+      this.uploading = true;
       FB.api('me/picture', 'get', { type: 'large' }, (result) => {
         this.useImage(result.data.url);
       });
     },
     useProfilePic() {
-      this.uploading = true;
       /* globals FB */
       FB.getLoginStatus((response) => {
         if (response.status === 'connected') {
           this.getProfilePicture();
         } else {
-          FB.login(() => {
-            this.getProfilePicture();
+          FB.login((response) => {
+            if (response.status === 'connected') {
+              this.getProfilePicture();
+            }
           });
         }
       });
