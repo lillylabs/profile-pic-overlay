@@ -1,6 +1,18 @@
 /* global FB */
 
 import axios from 'axios';
+import Filter from '../services/image.service';
+
+function post(accessToken, image, text) {
+  console.log(accessToken);
+  const blob = Filter.dataURItoBlob(image);
+  var fd = new FormData();
+  fd.append('access_token', accessToken);
+  fd.append('filename', 'test.jpeg');
+  fd.append('source', blob);
+  fd.append('message', text);
+  return axios.post('https://graph.facebook.com/me/photos', fd);
+}
 
 function login(permission) {
   return new Promise((resolve, reject) => {
@@ -70,4 +82,4 @@ function connect() {
     });
 }
 
-export default { connect, getProfilePicture, login };
+export default { connect, getProfilePicture, login, post };

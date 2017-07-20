@@ -9,7 +9,7 @@
       </ul>
     </div>
     <div v-for="(option, key) in options" :key="key" v-show="key === selectedOption">
-      <facebook-modal v-if="key === 'facebook'" :image="image" :text="suggestion.text" :option="option"></facebook-modal>
+      <facebook-modal v-if="key === 'facebook'" :image="image" :text="suggestion.text" :option="option" :facebook="facebook"></facebook-modal>
       <share-modal v-else :image="image" :suggestion="suggestion" :option="option" :save="download"></share-modal>
     </div>
   </div>
@@ -42,7 +42,8 @@ export default {
       title: state => state.content.steps.share.title,
       options: state => state.content.steps.share.options,
       suggestion: state => state.content.steps.share.suggestion,
-      download: state => state.content.steps.share.download
+      download: state => state.content.steps.share.download,
+      facebook: state => state.facebook
     })
   },
   methods: {

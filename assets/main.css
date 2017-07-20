@@ -58,6 +58,11 @@ button.button {
   display: inline-block;
 }
 
+.button.is-static.is-link {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
 /* IMAGE */
 
 .image {

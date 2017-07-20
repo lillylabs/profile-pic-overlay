@@ -22,7 +22,7 @@ export const mutations = {
   permissions(state, permissions) {
     for (var entry of permissions) {
       console.log('Permission', entry.permission);
-      if (entry.permission === 'publish_action' && entry.status === 'granted') {
+      if (entry.permission === 'publish_actions' && entry.status === 'granted') {
         state.publishActions = true;
       }
     }

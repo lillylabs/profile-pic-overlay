@@ -27,16 +27,15 @@
 </template>
 
 <script>
-/* global FB */
 
-import axios from 'axios';
-import Filter from '../services/image.service';
+import Facebook from '../services/facebook.service';
 
 export default {
   props: [
     'option',
     'text',
-    'image'
+    'image',
+    'facebook'
   ],
   data() {
     return {
@@ -49,80 +48,33 @@ export default {
 
   },
   methods: {
-    share: function () {
+    uploadImage(authResponse) {
       this.sharing = true;
-      this.facebookAauthResponse()
-        .then(authResponse => {
-          return this.uploadToFacebook(authResponse.accessToken);
-        })
+      console.log('response', authResponse);
+      console.log('facebook', this.facebook);
+      const accessToken = authResponse ? authResponse.accessToken : this.facebook.authResponse.accessToken;
+      Facebook.post(accessToken, this.image, this.userText)
         .then(response => {
           this.shared = true;
-          this.sharing = false;
+          console.log(response);
         })
         .catch(error => {
           this.sharing = false;
           console.log(error);
         });
     },
-    uploadToFacebook(accessToken) {
-      const blob = Filter.dataURItoBlob(this.image);
-      var fd = new FormData();
-      fd.append('access_token', accessToken);
-      fd.append('filename', 'test.jpeg');
-      fd.append('source', blob);
-      fd.append('message', this.userText);
-      return axios.post('https://graph.facebook.com/me/photos', fd);
-    },
-    facebookPermissionsGranted(scope, authResponse) {
-      var fd = new FormData();
-      fd.append('access_token', authResponse.accessToken);
-      return axios.get('https://graph.facebook.com/me/permissions', {
-        params: {
-          access_token: authResponse.accessToken
-        }
-      })
-        .then(response => {
-          for (var entry of response.data.data) {
-            if (entry.permission === scope && entry.status === 'granted') {
-              return true;
-            }
-          }
-          return false;
-        })
-        .catch(error => {
-          console.log(error);
-          return false;
-        });
-    },
-    facebookLoginStatus() {
-      return new Promise(resolve => {
-        FB.getLoginStatus((response) => {
-          resolve(response);
-        });
-      });
-    },
-    facebookLogin() {
-      return new Promise(resolve => {
-        FB.login((response) => {
-          resolve(response.authResponse);
-        }, { scope: 'publish_actions' });
-      });
-    },
-    facebookAauthResponse() {
-      return this.facebookLoginStatus().then(response => {
-        if (response.status === 'connected') {
-          return this.facebookPermissionsGranted('publish_actions', response.authResponse)
-            .then(granted => {
-              if (granted) {
-                return response.authResponse;
-              } else {
-                return this.facebookLogin();
-              }
-            });
-        } else {
-          return this.facebookLogin();
-        }
-      });
+    share() {
+      if (this.facebook.connected && this.facebook.publishActions) {
+        this.uploadImage();
+      } else {
+        Facebook.login('publish_actions')
+          .then(response => {
+            this.uploadImage(response);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      };
     }
   },
   mounted() {

@@ -67,9 +67,14 @@ export default {
     }),
     getProfilePic() {
       this.uploading = true;
-      Facebook.getProfilePicture(this.facebook.authResponse).then(image => {
-        this.useImage(image);
-      });
+      Facebook.getProfilePicture(this.facebook.authResponse)
+        .then(image => {
+          this.useImage(image);
+        })
+        .catch(error => {
+          this.uploading = false;
+          console.log(error);
+        });
     },
     useProfilePic() {
       if (this.facebook.connected) {
