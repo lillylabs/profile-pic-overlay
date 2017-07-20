@@ -11,7 +11,7 @@
           <textarea class="textarea" v-model="userText" :disabled="sharing || shared"></textarea>
         </p>
         <div class="actions">
-          <button v-if="!shared" class="button is-info" @click="share" :class="{ 'is-loading': sharing }">
+          <button v-if="!shared" class="button is-info" @click="share" :class="{ 'is-loading': sharing, 'is-static': !facebook.initialized }">
             <span>{{ option.submit }}</span>
           </button>
           <button v-if="shared" class="button is-static" @click="share">
@@ -28,14 +28,14 @@
 
 <script>
 
+import { mapState, mapMutations } from 'vuex';
 import Facebook from '../services/facebook.service';
 
 export default {
   props: [
     'option',
     'text',
-    'image',
-    'facebook'
+    'image'
   ],
   data() {
     return {
@@ -45,18 +45,20 @@ export default {
     };
   },
   computed: {
-
+    ...mapState({
+      facebook: state => state.facebook
+    })
   },
   methods: {
-    uploadImage(authResponse) {
+    ...mapMutations({
+      facebookResponse: 'facebook/response',
+      facebookPermissions: 'facebook/permissions'
+    }),
+    uploadImage() {
       this.sharing = true;
-      console.log('response', authResponse);
-      console.log('facebook', this.facebook);
-      const accessToken = authResponse ? authResponse.accessToken : this.facebook.authResponse.accessToken;
-      Facebook.post(accessToken, this.image, this.userText)
+      Facebook.post(this.facebook.authResponse.accessToken, this.image, this.userText)
         .then(response => {
           this.shared = true;
-          console.log(response);
         })
         .catch(error => {
           this.sharing = false;
@@ -68,8 +70,10 @@ export default {
         this.uploadImage();
       } else {
         Facebook.login('publish_actions')
-          .then(response => {
-            this.uploadImage(response);
+          .then(result => {
+            this.facebookResponse(result.response);
+            this.facebookPermissions(result.permissions);
+            this.uploadImage();
           })
           .catch(error => {
             console.log(error);

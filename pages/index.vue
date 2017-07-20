@@ -63,7 +63,8 @@ export default {
       addError: 'addError',
       setOrientation: 'setOrientation',
       setSelectedStep: 'setSelectedStep',
-      facebookResponse: 'facebook/response'
+      facebookResponse: 'facebook/response',
+      facebookPermissions: 'facebook/permissions'
     }),
     getProfilePic() {
       this.uploading = true;
@@ -81,7 +82,9 @@ export default {
         this.getProfilePic();
       } else {
         Facebook.login()
-          .then(response => {
+          .then(result => {
+            this.facebookResponse(result.response);
+            this.facebookPermissions(result.permissions);
             this.getProfilePic();
           })
           .catch(error => {

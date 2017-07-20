@@ -9,7 +9,7 @@
       </ul>
     </div>
     <div v-for="(option, key) in options" :key="key" v-show="key === selectedOption">
-      <facebook-modal v-if="key === 'facebook'" :image="image" :text="suggestion.text" :option="option" :facebook="facebook"></facebook-modal>
+      <facebook-modal v-if="key === 'facebook'" :image="image" :text="suggestion.text" :option="option"></facebook-modal>
       <share-modal v-else :image="image" :suggestion="suggestion" :option="option" :save="download"></share-modal>
     </div>
   </div>

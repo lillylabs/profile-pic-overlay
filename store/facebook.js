@@ -21,7 +21,6 @@ export const mutations = {
   },
   permissions(state, permissions) {
     for (var entry of permissions) {
-      console.log('Permission', entry.permission);
       if (entry.permission === 'publish_actions' && entry.status === 'granted') {
         state.publishActions = true;
       }
@@ -30,8 +29,8 @@ export const mutations = {
 };
 
 export const actions = {
-  connect({ commit }) {
-    Facebook.connect().then(result => {
+  loginStatus({ commit }) {
+    Facebook.loginStatus().then(result => {
       commit('response', result.response);
       commit('permissions', result.permissions);
       commit('initialized');
