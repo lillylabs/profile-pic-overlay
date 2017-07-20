@@ -34,6 +34,7 @@ steps:
         title: Share on Facebook
         submit: Post to Facebook
         icon: fa-facebook
+        done: Posted
       twitter:
         label: Twitter
         title: Share on Twitter

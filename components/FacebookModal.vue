@@ -8,13 +8,19 @@
     <div class="media-content">
       <div class="field">
         <p class="control">
-          <textarea class="textarea" v-model="userText" :disabled="disabled"></textarea>
+          <textarea class="textarea" v-model="userText" :disabled="sharing || shared"></textarea>
         </p>
-        <p class="control">
-          <button class="button is-info" @click="share" :class="{ 'is-loading': disabled }">
+        <div class="actions">
+          <button v-if="!shared" class="button is-fullwidth is-info" @click="share" :class="{ 'is-loading': sharing }">
             <span>{{ option.submit }}</span>
           </button>
-        </p>
+          <button v-if="shared" class="button is-fullwidth is-static" @click="share">
+            <span class="icon is-small" v-if="shared">
+              <i class="fa fa-check"></i>
+            </span>
+            <span>{{ option.done }}</span>
+          </button>
+        </div>
       </div>
     </div>
   </article>
@@ -24,7 +30,7 @@
 /* global FB */
 
 import axios from 'axios';
-import Filter from '~assets/services/image.service';
+import Filter from '../services/image.service';
 
 export default {
   props: [
@@ -34,14 +40,13 @@ export default {
   ],
   data() {
     return {
+      shared: false,
       sharing: false,
       userText: null
     };
   },
   computed: {
-    disabled() {
-      return this.sharing || !this.image;
-    }
+
   },
   methods: {
     share: function () {
@@ -51,8 +56,8 @@ export default {
           return this.uploadToFacebook(authResponse.accessToken);
         })
         .then(response => {
+          this.shared = true;
           this.sharing = false;
-          this.closeModal();
         })
         .catch(error => {
           this.sharing = false;
@@ -140,8 +145,12 @@ textarea {
   min-height: 128px;
 }
 
-.button {
+.actions {
   margin-top: 0.5rem;
+}
+
+.field {
+  position: relative;
 }
 </style>
 
