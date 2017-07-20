@@ -12,11 +12,11 @@
     border-bottom: 1px solid #dbdbdb;
 }
 
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
   .hero-body {
     align-items: flex-start !important;
   }
-}
+} */
 
 /* COLUMNS  */
 
