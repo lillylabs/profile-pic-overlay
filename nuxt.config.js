@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    contentFile: process.env.CONTENT_FILE || 'itshertreat.md',
+    contentFile: process.env.CONTENT_FILE || 'hunspanderer.md',
     facebookAppId: process.env.FACEBOOK_APP_ID || '154425301784525'
   },
   /*
@@ -79,6 +79,12 @@ module.exports = {
         }
       }
     ],
+    generate: {
+      routes: [
+        'about',
+        'privacy'
+      ]
+    },
     /*
     ** Run ESLINT on save
     */

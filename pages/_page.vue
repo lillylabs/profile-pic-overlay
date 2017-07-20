@@ -21,11 +21,14 @@ export default {
   },
   computed: {
     content: function () {
-      return marked(this.$store.state.content.about);
+      const markdown = this.$store.state.content[this.$route.params.page];
+      return markdown ? marked(markdown) : '';
     }
   },
   mounted() {
-    this.setSelectedStep('about');
+    console.log('KEY', this.contentKey);
+    console.log(this);
+    this.setSelectedStep(this.$route.params.page);
   }
 };
 </script>
