@@ -9,14 +9,12 @@
 /* HERO */
 
 .hero.is-share .tabs ul {
-    border-bottom: 1px solid #dbdbdb;
+  border-bottom: 1px solid #dbdbdb;
 }
 
-/* @media screen and (max-width: 768px) {
-  .hero-body {
-    align-items: flex-start !important;
-  }
-} */
+.title {
+  font-size: 1.5rem !important;
+}
 
 /* COLUMNS  */
 
