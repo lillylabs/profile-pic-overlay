@@ -21,7 +21,6 @@ export const state = () => ({
 
 export const mutations = {
   setSelectedStep(state, key) {
-    console.log(key);
     state.steps = {
       keys: state.steps.keys,
       selected: key
@@ -85,7 +84,7 @@ export const actions = {
 const facebookAvailable = store => {
   store.subscribe(mutation => {
     if (mutation.type === 'facebook/available') {
-      store.dispatch('facebook/connect');
+      store.dispatch('facebook/loginStatus');
     }
   });
 };
