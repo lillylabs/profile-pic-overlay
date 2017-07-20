@@ -35,6 +35,12 @@ module.exports = {
     { src: '~plugins/modernizr.js', ssr: false },
     { src: '~plugins/facebook.js', ssr: false }
   ],
+  generate: {
+    routes: [
+      '/about',
+      '/privacy'
+    ]
+  },
   /*
   ** Build configuration
   */
@@ -79,12 +85,6 @@ module.exports = {
         }
       }
     ],
-    generate: {
-      routes: [
-        'about',
-        'privacy'
-      ]
-    },
     /*
     ** Run ESLINT on save
     */
