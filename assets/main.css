@@ -24,7 +24,7 @@
   justify-content: center;
 }
 
-.column {
+.column:not(:first-child) {
   display: flex !important;
   flex-direction: column;
   justify-content: center;
