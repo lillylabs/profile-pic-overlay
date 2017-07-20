@@ -21,7 +21,9 @@ function loadImage(src) {
   var image = new Image();
   image.src = src;
   image.removeAttribute('crossOrigin');
-  image.setAttribute('crossOrigin', 'anonymous');
+  if (src.match(/^https?:\/\/|^\/\//)) {
+    image.setAttribute('crossOrigin', 'anonymous');
+  }
   return new Promise(resolve => {
     image.onload = () => {
       resolve(image);
