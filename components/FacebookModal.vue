@@ -11,10 +11,10 @@
           <textarea class="textarea" v-model="userText" :disabled="sharing || shared"></textarea>
         </p>
         <div class="actions">
-          <button v-if="!shared" class="button is-fullwidth is-info" @click="share" :class="{ 'is-loading': sharing }">
+          <button v-if="!shared" class="button is-info" @click="share" :class="{ 'is-loading': sharing }">
             <span>{{ option.submit }}</span>
           </button>
-          <button v-if="shared" class="button is-fullwidth is-static" @click="share">
+          <button v-if="shared" class="button is-static" @click="share">
             <span class="icon is-small" v-if="shared">
               <i class="fa fa-check"></i>
             </span>
