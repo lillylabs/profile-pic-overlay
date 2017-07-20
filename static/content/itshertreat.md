@@ -8,8 +8,8 @@ overlay: '/images/itshertreat/filter.png'
 steps: 
   index: 
     label: Upload
-    title: 'A campaign against gender discrimination.'
-    prompt: 'Support the campain. Share your photo with the #ItsHerTreat-filter on social media.'
+    title: 'A campaign against gender discrimination'
+    prompt: 'Support the campaign. Share your photo with the #ItsHerTreat-filter on social media.'
     buttons:
       default: 
         label: 'Upload your photo'
@@ -48,7 +48,7 @@ steps:
         title: Manually share
         instructions: Open the app, upload the downloaded photo and paste in the suggested text.
     download: 
-      label: or download
+      label: Download
       title: Download photo
       instructions: Tap image and hold (or right click) to save the photo to your device.
       icon: fa-download
@@ -73,7 +73,10 @@ nav:
       icon: 'fa-instagram'
       href: 'http://instagram.com/itshertreat'
       iconOnly: true
+privacy: '**ItsHerTreat**-filter-app only sends back usage statistics through Google Analytics. No images or personal information is stored by us.'
 ---
+
+# About the campaign
 
 **It’s her treat** - and he joins the conversation about the subtle discrimination that still exist, but is hard to identify
 Are you gender biased? [Take the test](#) and find out.  

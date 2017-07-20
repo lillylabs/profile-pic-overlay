@@ -2,68 +2,81 @@
 title:
   text: '#HunSpanderer'
   image: '/images/hunspanderer/hunspanderer.png'
-subtitle: 'En kampanje mot subtil kjønnsdiskriminering.'
-prompt: 'Del ditt bilde med #HunSpanderer-filter på sosiale medier.'
-share:
-  title: 'Del bildet med dine venner!'
-  options: 
-    facebook:
-      label: Facebook
-      title: Del på Facebook
-      submit: Post
-      cancel: Avbryt
-      icon: fa-facebook
-    twitter:
-      label: Twitter
-      title: Del på Twitter
-      icon: fa-twitter
-      instructions: Last opp det nedlastede bildet og lim inn kopiert tekst.
-      url: 
-        web: http://twitter.com 
-        app: twitter://
-    custom:
-      label: Andre apps
-      title: Del manuelt
-      instructions: Åpne appen, last opp det nedlastede bildet og lim inn kopiert tekst.
-  save:
-    label: eller last ned
-    title: Last ned bildet
-    instructions: Trykk på bildet for å lagre det til din enhet.
-    icon: fa-download
-    fileName: 'HunSpanderer'
-  suggestion: 
-    label: Kopier text
-    title: Kopier vårt forslag til tekst
-    text: 'Jeg er med på praten om ubevisste kjønnsstereotypier - sammen endrer vi holdninger. Last opp og del ditt bilde du også på http://hunspandererfilter.no. #HunSpanderer'
-    icon: 'fa-clone'
-buttons:
-  upload:
-    default: 'Last opp bilde'
-    new: 'Bytt bilde'
-    icon: 'fa-upload'
-  profile:
-    default: 'eller bruk profilbilde fra Facebook'
 avatars: 
-  man: '/images/man.jpg'
-filters:
-  man: '/images/hunspanderer/filter-man.png'
+  - '/images/man.jpg'
+overlay: '/images/hunspanderer/filter-man.png'
+steps: 
+  index: 
+    label: Last opp
+    title: 'En kampanje mot subtil kjønnsdiskriminering'
+    prompt: 'Del ditt bilde med #HunSpanderer-filter på sosiale medier.'
+    buttons:
+      default: 
+        label: 'Last opp bilde'
+        icon: 'fa-upload'
+      facebook:
+        label: 'eller bruk profilbilde fra Facebook'
+  edit: 
+    label: Rediger
+    title: Rediger bildet
+    content: Posisjoner bildet ved å dra det rundt. Klyp (pinch) for å zoome.
+    options: 
+      continue: 
+        label: Fortsett
+      back: 
+        label: eller bytt bilde
+  share:
+    label: Del
+    title: Del bildet med dine venner!
+    options: 
+      facebook:
+        label: Facebook
+        title: Del på Facebook
+        submit: Post til Facebook
+        icon: fa-facebook
+        done: Postet
+      twitter:
+        label: Twitter
+        title: Del på Twitter
+        icon: fa-twitter
+        instructions: Last opp det nedlastede bildet og lim inn kopiert tekst.
+        url: 
+          web: http://twitter.com 
+          app: twitter://
+      custom:
+        label: Andre apper
+        title: Del manuelt
+        instructions: Åpne appen, last opp det nedlastede bildet og lim inn kopiert tekst.
+    download: 
+      label: Last ned
+      title: Last ned bildet
+      instructions: Trykk på bildet for å lagre det til din enhet.
+      icon: fa-download
+      fileName: HunSpanderer
+    suggestion: 
+      label: Kopier text
+      title: Kopier vårt forslag til tekst
+      text: 'Jeg er med på praten om ubevisste kjønnsstereotypier - sammen endrer vi holdninger. Last opp og del ditt bilde du også på http://hunspandererfilter.no. #HunSpanderer'
+      icon: 'fa-clone'
 nav:
-  left:
+  internal:
     - label: 'Om kampanjen'
-      href: '#about'
-      icon: 'fa-chevron-down'
-      iconOnly: false
-  center:
-  right:
+      href: '/about'
+      icon: 'fa-info-circle'
+      iconOnly: true
+  some:
     - label: 'Facebook'
       icon: 'fa-facebook-square'
-      href: 'http://facebook.com/hunspanderer'
+      href: 'http://facebook.com/itshertreat'
       iconOnly: true
     - label: 'Instagram'
       icon: 'fa-instagram'
-      href: 'http://instagram.com/hunspanderer'
+      href: 'http://instagram.com/itshertreat'
       iconOnly: true
+privacy: '**HunSpanderer**-filter-appen sender kun bruksstatestikk gjennom Google Analytics. Ingen bilder eller personlig data blir lagret av oss.'
 ---
+
+# Om kampanjen
 
 22\. – 26. august tar jentene regningen – og gutta blir med og tar praten om de forskjellene som fortsatt finnes, men som ikke er så enkle å se. 
 
