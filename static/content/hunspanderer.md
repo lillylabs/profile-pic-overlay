@@ -73,7 +73,9 @@ nav:
       icon: 'fa-instagram'
       href: 'http://instagram.com/itshertreat'
       iconOnly: true
-privacy: '**HunSpanderer**-filter-appen sender kun bruksstatestikk gjennom Google Analytics. Ingen bilder eller personlig data blir lagret av oss.'
+privacy: '# Personvernmerknad
+
+**HunSpanderer**filter.no samler kun bruksstatestikk gjennom Google Analytics. Ingen bilder eller personlig data blir lagret av oss.'
 ---
 
 # Om kampanjen
