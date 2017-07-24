@@ -33,7 +33,8 @@ module.exports = {
   ],
   plugins: [
     { src: '~plugins/modernizr.js', ssr: false },
-    { src: '~plugins/facebook.js', ssr: false }
+    { src: '~plugins/facebook.js', ssr: false },
+    { src: '~plugins/ga.js', ssr: false }
   ],
   generate: {
     routes: [
