@@ -1,7 +1,7 @@
 module.exports = {
   env: {
-    contentFile: process.env.CONTENT_FILE || 'itshertreat.md',
-    facebookAppId: process.env.FACEBOOK_APP_ID || '154425301784525'
+    contentFile: process.env.CONTENT_FILE || 'hunspanderer.md',
+    facebookAppId: process.env.FACEBOOK_APP_ID || '104733703535495'
   },
   /*
   ** Headers of the page
@@ -35,6 +35,12 @@ module.exports = {
     { src: '~plugins/modernizr.js', ssr: false },
     { src: '~plugins/facebook.js', ssr: false }
   ],
+  generate: {
+    routes: [
+      '/about',
+      '/privacy'
+    ]
+  },
   /*
   ** Build configuration
   */

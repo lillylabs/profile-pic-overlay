@@ -1,7 +1,7 @@
 <template>
   <div class="image is-square">
-    <img :v-show="image" class="grayscale" :src="image"></img>
-    <img :v-show="image" :src="overlay"></img>
+    <img :class="{ 'grayscale': overlay }" :src="image"></img>
+    <img :v-show="overlay" :src="overlay"></img>
   </div>
 </template>
 
