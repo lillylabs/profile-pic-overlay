@@ -1,8 +1,6 @@
 /* eslint-disable */
 
-import store from '~store';
-
-export default ({ store }) => {
+export default ({ app: { store } }) => {
 
   window.fbAsyncInit = function () {
     FB.init({
