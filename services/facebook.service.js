@@ -9,7 +9,9 @@ function post(accessToken, image, text) {
   fd.append('access_token', accessToken);
   fd.append('filename', 'test.jpeg');
   fd.append('source', blob);
-  fd.append('message', text);
+  if (text) {
+    fd.append('message', text);
+  }
   return axios.post('https://graph.facebook.com/me/photos', fd);
 }
 

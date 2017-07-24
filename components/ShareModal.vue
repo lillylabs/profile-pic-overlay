@@ -1,7 +1,7 @@
 <template>
   <div class="has-text-centered">
     <ol>
-      <li v-if="supported.filesystem">
+      <li v-show="supported.filesystem">
         <h2>
           <button @click="downloadImage " class="button is-small">
             <span class="icon is-small">
@@ -9,14 +9,14 @@
             </span>
             <span>&nbsp;{{ save.title }}</span>
           </button>
-          <div v-if="status.downloaded" class="button is-small is-static">
+          <div v-show="status.downloaded" class="button is-small is-static">
             <span class="icon is-small">
               <i class="fa fa-check"></i>
             </span>
           </div>
         </h2>
       </li>
-      <li v-if="!supported.filesystem">
+      <li v-show="!supported.filesystem">
         <h2>
           {{ save.title }}
         </h2>
@@ -26,39 +26,39 @@
         </p>
       </li>
       <li>
-        <h2 v-if="supported.clipboard">
+        <h2 v-show="supported.clipboard">
           <button ref="copyButton" class="button is-small" :data-clipboard-text="suggestion.text">
             <span class="icon is-small">
               <i :class="[ 'fa', suggestion.icon] "></i>
             </span>
             <span>&nbsp;{{ suggestion.title }}</span>
           </button>
-          <div v-if="status.copied" class="button is-small is-static">
+          <div v-show="status.copied" class="button is-small is-static">
             <span class="icon is-small">
               <i class="fa fa-check"></i>
             </span>
           </div>
         </h2>
-        <h2 v-if="!supported.clipboard">
+        <h2 v-show="!supported.clipboard">
           {{ suggestion.title }}
         </h2>
         <p class="text">{{ suggestion.text }}</p>
       </li>
-      <li v-if="option">
-        <h2 v-if="option.url">
+      <li v-show="option">
+        <h2 v-show="option.url">
           <button @click="shareImage" class="button is-small">
             <span class="icon is-small">
               <i :class="[ 'fa', option.icon]"></i>
             </span>
             <span>&nbsp;{{ option.title }}</span>
           </button>
-          <div v-if="status.shared" class="button is-small is-static">
+          <div v-show="status.shared" class="button is-small is-static">
             <span class="icon is-small">
               <i class="fa fa-check"></i>
             </span>
           </div>
         </h2>
-        <h2 v-if="!option.url">
+        <h2 v-show="!option.url">
           {{ option.title }}
         </h2>
         <p>{{ option.instructions }}</p>
