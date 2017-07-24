@@ -12,8 +12,7 @@
             <span v-if="item.icon" class="icon">
               <i :class="['fa', item.icon]"></i>
             </span>
-            <span v-if="!item.iconOnly">{{ item.label }}&nbsp;</span>
-          </nuxt-link>
+            <span vs </nuxt-link>
         </div>
       </div>
     </header>

@@ -67,11 +67,11 @@ nav:
   some:
     - label: 'Facebook'
       icon: 'fa-facebook-square'
-      href: 'http://facebook.com/itshertreat'
+      href: 'http://facebook.com/hunspanderer'
       iconOnly: true
     - label: 'Instagram'
       icon: 'fa-instagram'
-      href: 'http://instagram.com/itshertreat'
+      href: 'http://instagram.com/hunspanderer'
       iconOnly: true
 privacy: '# Personvernmerknad
 
