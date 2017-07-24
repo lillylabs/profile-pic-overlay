@@ -23,8 +23,6 @@ import Photo from '~components/Photo.vue';
 import FacebookModal from '~components/FacebookModal.vue';
 import ShareModal from '~components/ShareModal.vue';
 
-// const Download = require('downloadjs');
-
 export default {
   components: {
     Photo,

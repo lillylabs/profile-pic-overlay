@@ -38,7 +38,6 @@ export default {
         height: this.$el.offsetWidth
       }
     });
-    // setTimeout(this.croppie.setZoom(10), 250);
     this.updateImage();
     el.querySelector('.cr-viewport').style.backgroundImage = `url(${this.overlay})`;
   }

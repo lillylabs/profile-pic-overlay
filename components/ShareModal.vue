@@ -68,6 +68,7 @@
 </template>
 
 <script>
+/* globals Modernizr */
 
 const Clipboard = require('clipboard');
 const Download = require('downloadjs');
@@ -97,8 +98,8 @@ export default {
       this.$emit('update:isActive', false);
       this.status = {};
     },
-    downloadImage(e) {
-      console.log(e);
+    downloadImage(error) {
+      console.log(error);
       Download(this.image, this.save.fileName + '.jpeg', 'image/jpeg');
       this.setStatus('downloaded');
     },
@@ -106,7 +107,6 @@ export default {
       this.$set(this.status, key, true);
     },
     shareImage(e) {
-      console.log(this.option.url);
       setTimeout(() => {
         window.open(this.option.url.web, '_blank');
       }, 25);
@@ -121,13 +121,7 @@ export default {
       });
     }
   },
-  watch: {
-    '$refs.copyButton'() {
-      console.log('ready');
-    }
-  },
   mounted() {
-    /* globals Modernizr */
     if (Clipboard.isSupported()) {
       this.$set(this.supported, 'clipboard', true);
       this.initClipboard();

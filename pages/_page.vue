@@ -26,8 +26,6 @@ export default {
     }
   },
   mounted() {
-    console.log('KEY', this.contentKey);
-    console.log(this);
     this.setSelectedStep(this.$route.params.page);
   }
 };

@@ -2,7 +2,6 @@ import createLogger from 'vuex/dist/logger';
 import Filter from '../services/image.service';
 // Switch on env variable
 const content = JSON.parse(require('../static/content/' + process.env.contentFile));
-// console.log(content);
 
 export const state = () => ({
   steps: {
