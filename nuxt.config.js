@@ -7,11 +7,16 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: process.env.TITLE || 'HunSpanderer',
+    title: process.env.TITLE || 'HunSpanderer | Filter',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.DESCRIPTION || '' }
+      { hid: 'description', name: 'description', content: process.env.DESCRIPTION },
+      { property: 'og:title', content: process.env.OG_TITLE },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: process.env.OG_URL },
+      { property: 'og:image', content: process.env.OG_IMAGE },
+      { property: 'og:description', content: process.env.OG_DESCRIPTION }
     ],
     link: [
       { rel: 'apple-touch-icon-precomposed', sizes: '152x152', href: '/apple-icon-152x152.png' },
