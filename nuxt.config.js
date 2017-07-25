@@ -16,7 +16,8 @@ module.exports = {
       { property: 'og:type', content: 'website' },
       { property: 'og:url', content: process.env.OG_URL },
       { property: 'og:image', content: process.env.OG_IMAGE },
-      { property: 'og:description', content: process.env.OG_DESCRIPTION }
+      { property: 'og:description', content: process.env.OG_DESCRIPTION },
+      { property: 'fb:app_id', content: process.env.FACEBOOK_APP_ID }
     ],
     link: [
       { rel: 'apple-touch-icon-precomposed', sizes: '152x152', href: '/apple-icon-152x152.png' },
