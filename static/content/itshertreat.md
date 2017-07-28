@@ -67,11 +67,11 @@ nav:
   some:
     - label: 'Facebook'
       icon: 'fa-facebook-square'
-      href: 'http://facebook.com/itshertreat'
+      href: 'http://facebook.com/itshertreatglobal'
       iconOnly: true
     - label: 'Instagram'
       icon: 'fa-instagram'
-      href: 'http://instagram.com/itshertreat'
+      href: 'http://instagram.com/itshertreatglobal'
       iconOnly: true
 privacy: '**ItsHerTreat**-filter-app only sends back usage statistics through Google Analytics. No images or personal information is stored by us.'
 ---
