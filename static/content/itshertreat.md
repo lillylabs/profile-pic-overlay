@@ -33,6 +33,7 @@ steps:
         label: Facebook
         title: Share on Facebook
         submit: Post to Facebook
+        cancel: Cancel
         icon: fa-facebook
         done: Posted
       twitter:
@@ -55,7 +56,13 @@ steps:
       fileName: ItsHerTreat
     suggestion: 
       label: Copy text
-      title: Copy suggested text
+      instructions: 
+        default: 'Paste in the text you copied, or write your own. Remember #ItsHerTreat'
+        copied: 'Paste in the text you copied.'
+        custom: 'Write your own text. Remember #ItsHerTreat!'
+      title: Copy the suggested text
+      alternative: or write your own
+      continue: Continue
       text: 'Join me in addressing unconscious gender bias. Together we change mindsets. #ItsHerTreat. Get your photo on http://itshertreatfilter.com'
       icon: 'fa-clone'
 nav:

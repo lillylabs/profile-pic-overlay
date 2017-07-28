@@ -22,7 +22,7 @@ steps:
     content: Posisjoner bildet ved å dra det rundt. Klyp (pinch) for å zoome.
     options: 
       continue: 
-        label: Fortsett
+        label: Gå videre
       back: 
         label: eller bytt bilde
   share:
@@ -33,6 +33,7 @@ steps:
         label: Facebook
         title: Del på Facebook
         submit: Post til Facebook
+        cancel: Avbryt
         icon: fa-facebook
         done: Postet
       twitter:
@@ -54,8 +55,14 @@ steps:
       icon: fa-download
       fileName: HunSpanderer
     suggestion: 
-      label: Kopier text
+      label: Forslag til tekst
+      instructions: 
+        default: 'Lim inn teksten du kopierte i forrige steg, eller skriv egen. Husk #HunSpanderer'
+        copied: 'Lim inn teksten du kopierte i forrige steg.'
+        custom: 'Skriv inn din egen tekst. Husk #HunSpanderer!'
       title: Kopier vårt forslag til tekst
+      alternative: eller skriv din egen
+      continue: Gå videre
       text: 'Jeg er med på praten om ubevisste kjønnsstereotypier - sammen endrer vi holdninger. Last opp og del ditt bilde du også på http://hunspandererfilter.no. #HunSpanderer'
       icon: 'fa-clone'
 nav:
