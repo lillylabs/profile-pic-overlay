@@ -7,9 +7,9 @@
     </figure>
     <div class="media-content">
       <div class="field">
-        <p class="control">
+        <div class="control">
           <textarea class="textarea" v-model="userText" :disabled="sharing || shared"></textarea>
-        </p>
+        </div>
         <div class="actions">
           <button v-if="!shared" class="button is-info" @click="share" :class="{ 'is-loading': sharing, 'is-static': !facebook.initialized }">
             <span>{{ option.submit }}</span>
