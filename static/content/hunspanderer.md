@@ -4,7 +4,7 @@ title:
   image: '/images/hunspanderer/hunspanderer.png'
 avatars: 
   - '/images/man.jpg'
-overlay: '/images/hunspanderer/filter-man.png'
+overlay: '/images/hunspanderer/filter.png'
 steps: 
   index: 
     label: Last opp
