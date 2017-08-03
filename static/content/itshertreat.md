@@ -15,7 +15,7 @@ steps:
         label: 'Upload your photo'
         icon: 'fa-upload'
       facebook:
-        label: 'or use your Facebook profile picture'
+        label: 'Use your Facebook profile picture'
   edit: 
     label: Edit
     title: Edit your photo
@@ -43,7 +43,7 @@ steps:
         instructions: Upload the downloaded image and paste in the suggested text.
         url: 
           web: http://twitter.com 
-          app: twitter://
+          app: twitter://post?message=hello%20world
       custom:
         label: Other apps
         title: Manually share

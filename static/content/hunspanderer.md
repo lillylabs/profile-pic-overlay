@@ -15,7 +15,7 @@ steps:
         label: 'Last opp bilde'
         icon: 'fa-upload'
       facebook:
-        label: 'eller bruk profilbilde fra Facebook'
+        label: 'Bruk profilbilde fra Facebook'
   edit: 
     label: Rediger
     title: Rediger bildet
