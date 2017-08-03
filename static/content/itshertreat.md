@@ -15,16 +15,16 @@ steps:
         label: 'Upload your photo'
         icon: 'fa-upload'
       facebook:
-        label: 'or use your Facebook profile picture'
+        label: 'Use your Facebook profile picture'
   edit: 
     label: Edit
-    title: Edit your photo
+    title: Adjust photo
     content: Drag the image around to reposition. Pinch to zoom.
     options: 
       continue: 
         label: Continue
       back: 
-        label: or change image
+        label: Change image
   share:
     label: Share
     title: Share the photo with your friends!
@@ -38,32 +38,32 @@ steps:
         done: Posted
       twitter:
         label: Twitter
-        title: Share on Twitter
+        title: Open Twitter
         icon: fa-twitter
-        instructions: Upload the downloaded image and paste in the suggested text.
+        instructions: Post the saved photo and paste in the suggested text.
         url: 
           web: http://twitter.com 
           app: twitter://
       custom:
-        label: Other apps
-        title: Manually share
-        instructions: Open the app, upload the downloaded photo and paste in the suggested text.
+        label: Instagram
+        title: Open Instagram
+        instructions: Save the photo, paste the suggested text and upload in the app.
     download: 
-      label: Download
-      title: Download photo
-      instructions: Tap image and hold (or right click) to save the photo to your device.
+      label: Save 
+      title: Save photo
+      instructions: Press the photo to save to your cameraroll
       icon: fa-download
       fileName: ItsHerTreat
     suggestion: 
       label: Copy text
       instructions: 
-        default: 'Paste in the text you copied, or write your own. Remember #ItsHerTreat'
-        copied: 'Paste in the text you copied.'
-        custom: 'Write your own text. Remember #ItsHerTreat!'
-      title: Copy the suggested text
-      alternative: or write your own
+        default: 'Paste the copied text or write your own. Remember #ItsHerTreat'
+        copied: 'Paste the copied text or write your own. Remember #ItsHerTreat'
+        custom: 'Paste the copied text or write your own. Remember #ItsHerTreat'
+      title: Copy text
+      alternative: Share
       continue: Continue
-      text: 'Join me in addressing unconscious gender bias. Together we change mindsets. #ItsHerTreat. Get your photo on http://itshertreatfilter.com'
+      text: 'Join me in addressing unconscious gender bias. Together we change mindsets. Get your photo with the #ItsHerTreat-filter  http://itshertreatfilter.com'
       icon: 'fa-clone'
 nav:
   internal:
@@ -88,4 +88,4 @@ privacy: '**ItsHerTreat**-filter-app only sends back usage statistics through Go
 **It’s her treat** - and he joins the conversation about the subtle discrimination that still exist, but is hard to identify
 Are you gender biased? [Take the test](#) and find out.  
 
-Les mer på [itshertreat.com](http://www.itshertreat.com)
+Read more at [itshertreat.com](http://www.itshertreat.com)
