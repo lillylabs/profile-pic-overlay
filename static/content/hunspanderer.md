@@ -35,7 +35,7 @@ steps:
         title: Del på Facebook
         submit: Post til Facebook
         cancel: Avbryt
-        icon: fa-facebook
+        icon: fa-facebook-square
         done: Postet
       twitter:
         label: Twitter
@@ -49,6 +49,7 @@ steps:
       custom:
         label: Del på Instagram
         class: is-default
+        icon: fa-instagram
         title: Åpne Instagram
         instructions: Lagre bilde til kamerarullen og lim inn den kopierte teksten.
     download: 
@@ -59,10 +60,7 @@ steps:
       fileName: HunSpanderer
     suggestion: 
       label: Forslag til tekst
-      instructions: 
-        default: 'Lim inn teksten du kopierte eller skriv egen. Husk å bruke #HunSpanderer'
-        copied: 'Lim inn teksten du kopierte eller skriv egen. Husk å bruke #HunSpanderer'
-        custom: 'Lim inn teksten du kopierte eller skriv egen. Husk å bruke #HunSpanderer'
+      instruction: 'Lim inn teksten du kopierte eller skriv egen. Husk å bruke #HunSpanderer'
       title: Kopier tekst
       alternative: Del på Facebook
       continue: Gå videre
