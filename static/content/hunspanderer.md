@@ -9,7 +9,7 @@ steps:
   index: 
     label: Last opp
     title: 'En kampanje mot subtil kjønnsdiskriminering'
-    prompt: 'Del ditt bilde med #HunSpanderer-filter på sosiale medier.'
+    prompt: 'Støtt kampanjen. Lag ditt eget #HunSpanderer-bilde og del med dine venner.'
     buttons:
       default: 
         label: 'Last opp bilde'
@@ -27,17 +27,19 @@ steps:
         label: Bytt bilde
   share:
     label: Del
-    title: Del bildet med dine venner!
+    title: 'Del #HunSpanderer bildet med dine venner!'
     options: 
       facebook:
         label: Facebook
+        class: is-info
         title: Del på Facebook
         submit: Post til Facebook
         cancel: Avbryt
-        icon: fa-facebook
+        icon: fa-facebook-square
         done: Postet
       twitter:
         label: Twitter
+        class: is-default
         title: Åpne Twitter
         icon: fa-twitter
         instructions: Last opp bilde du lagret og lim inn den kopierte teksten.
@@ -46,6 +48,8 @@ steps:
           app: twitter://
       custom:
         label: Instagram
+        class: is-default
+        icon: fa-instagram
         title: Åpne Instagram
         instructions: Lagre bilde til kamerarullen og lim inn den kopierte teksten.
     download: 
@@ -56,10 +60,7 @@ steps:
       fileName: HunSpanderer
     suggestion: 
       label: Forslag til tekst
-      instructions: 
-        default: 'Lim inn teksten du kopierte eller skriv egen. Husk å bruke #HunSpanderer'
-        copied: 'Lim inn teksten du kopierte eller skriv egen. Husk å bruke #HunSpanderer'
-        custom: 'Lim inn teksten du kopierte eller skriv egen. Husk å bruke #HunSpanderer'
+      instruction: 'Lim inn teksten du kopierte eller skriv egen. Husk å bruke #HunSpanderer'
       title: Kopier tekst
       alternative: Del på Facebook
       continue: Gå videre

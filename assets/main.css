@@ -18,24 +18,24 @@
 
 /* COLUMNS  */
 
-.columns {
+.container > .columns {
   justify-content: center;
 }
 
-.column:not(:first-child) {
+.container > .columns > .column:not(:first-child) {
   display: flex !important;
   flex-direction: column;
   justify-content: center;
 }
 
-.column {
+.container > .columns > .column {
   max-width: 20rem;
   margin: 0 auto;
 }
 
 @media screen and (min-width: 769px) {
 
-  .column {
+  .container > .columns > .column {
     max-width: 45vh;
     min-width: 20rem;
     margin: 0 1rem;
@@ -50,8 +50,8 @@
   flex-direction: column;
 }
 
-.button.is-primary,
-.button.is-info {
+.button.is-primary:not(.is-static),
+.button.is-info:not(.is-static) {
   text-shadow: 0 0.5px 1px rgba(0,0,0,0.2);
 }
 
@@ -104,4 +104,16 @@ button.button {
   border: none !important;
   background-size: contain;
   background-repeat: no-repeat; 
+}
+
+/* MODALS */
+
+.modal {
+  z-index: 10000 !important;
+}
+
+.modal-content {
+  padding: 2rem;
+  background: white;
+  border-radius: 2px;
 }
