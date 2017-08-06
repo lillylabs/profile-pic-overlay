@@ -86,6 +86,6 @@ privacy: '**ItsHerTreat**-filter-app only sends back usage statistics through Go
 # About the campaign
 
 **It’s her treat** - and he joins the conversation about the subtle discrimination that still exist, but is hard to identify
-Are you gender biased? [Take the test](#) and find out.  
+Are you gender biased? [Take the test](https://implicit.harvard.edu/implicit/user/agg/blindspot/indexgc.htm) and find out.  
 
 Read more at [itshertreat.com](http://www.itshertreat.com)
