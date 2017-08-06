@@ -9,7 +9,7 @@ steps:
   index: 
     label: Last opp
     title: 'En kampanje mot subtil kjønnsdiskriminering'
-    prompt: 'Støtt kampanjen. Del ditt #HunSpanderer-bilde på sosiale medier.'
+    prompt: 'Støtt kampanjen. Lag ditt eget #HunSpanderer-bilde og del med dine venner'
     buttons:
       default: 
         label: 'Last opp bilde'
