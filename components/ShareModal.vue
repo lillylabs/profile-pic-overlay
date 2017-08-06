@@ -92,9 +92,7 @@ export default {
   data() {
     return {
       status: {},
-      supported: {
-        clipboard: true
-      }
+      supported: {}
     };
   },
   computed: {
