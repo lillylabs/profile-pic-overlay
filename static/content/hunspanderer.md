@@ -27,7 +27,7 @@ steps:
         label: Bytt bilde
   share:
     label: Del
-    title: 'Del #hunspanderer bildet med dine venner!'
+    title: 'Del #HunSpanderer bildet med dine venner!'
     options: 
       facebook:
         label: Facebook

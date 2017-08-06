@@ -9,7 +9,7 @@ steps:
   index: 
     label: Upload
     title: 'A campaign against gender discrimination'
-    prompt: 'Support the campaign. Create your own #itshertreat photo and share with your friends'
+    prompt: 'Support the campaign. Create your own #ItsHerTreat photo and share with your friends'
     buttons:
       default: 
         label: 'Upload your photo'
@@ -27,7 +27,7 @@ steps:
         label: Change image
   share:
     label: Share
-    title: 'Share the #itshertreat photo with your friends!'
+    title: 'Share the #ItsHerTreat photo with your friends!'
     options: 
       facebook:
         label: Facebook
