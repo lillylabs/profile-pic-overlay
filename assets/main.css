@@ -50,8 +50,8 @@
   flex-direction: column;
 }
 
-.button.is-primary,
-.button.is-info {
+.button.is-primary:not(.is-static),
+.button.is-info:not(.is-static) {
   text-shadow: 0 0.5px 1px rgba(0,0,0,0.2);
 }
 
