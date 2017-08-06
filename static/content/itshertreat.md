@@ -9,7 +9,7 @@ steps:
   index: 
     label: Upload
     title: 'A campaign against gender discrimination'
-    prompt: 'Support the campaign. Create your own #ItsHerTreat photo and share with your friends'
+    prompt: 'Support the campaign. Create your own #ItsHerTreat photo and share with your friends.'
     buttons:
       default: 
         label: 'Upload your photo'
