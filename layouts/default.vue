@@ -80,6 +80,7 @@ export default {
 
 .is-static {
   pointer-events: none;
+  opacity: 0.5;
 }
 
 .hero {
