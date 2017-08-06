@@ -1,7 +1,7 @@
 ---
 title:
   text: '#HunSpanderer'
-  image: '/images/hunspanderer/hunspanderer.png'
+  image: '/images/hunspanderer/logo.png'
 avatars: 
   - '/images/man.jpg'
 overlay: '/images/hunspanderer/filter.png'

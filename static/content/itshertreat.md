@@ -1,7 +1,7 @@
 ---
 title:
   text: '#ItsHerTreat'
-  image: '/images/itshertreat/itshertreat.png'
+  image: '/images/itshertreat/logo.png'
 avatars: 
   - '/images/man.jpg'
 overlay: '/images/itshertreat/filter.png'
