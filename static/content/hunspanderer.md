@@ -9,7 +9,7 @@ steps:
   index: 
     label: Last opp
     title: 'En kampanje mot subtil kjønnsdiskriminering'
-    prompt: 'Del ditt bilde med #HunSpanderer-filter på sosiale medier.'
+    prompt: 'Støtt kampanjen. Del ditt #HunSpanderer-bilde på sosiale medier.'
     buttons:
       default: 
         label: 'Last opp bilde'
@@ -27,7 +27,7 @@ steps:
         label: Bytt bilde
   share:
     label: Del
-    title: Del bildet med dine venner!
+    title: 'Del #hunspanderer bildet med dine venner!'
     options: 
       facebook:
         label: Facebook

@@ -27,7 +27,7 @@ steps:
         label: Change image
   share:
     label: Share
-    title: Share the photo with your friends!
+    title: 'Share the #itshertreat photo with your friends!'
     options: 
       facebook:
         label: Facebook
