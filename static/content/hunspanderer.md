@@ -47,7 +47,7 @@ steps:
           web: http://twitter.com 
           app: twitter://
       custom:
-        label: Del på Instagram
+        label: Instagram
         class: is-default
         icon: fa-instagram
         title: Åpne Instagram
