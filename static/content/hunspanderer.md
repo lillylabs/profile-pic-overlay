@@ -1,10 +1,10 @@
 ---
 title:
   text: '#HunSpanderer'
-  image: '/images/hunspanderer/hunspanderer.png'
+  image: '/images/hunspanderer/logo.png'
 avatars: 
   - '/images/man.jpg'
-overlay: '/images/hunspanderer/filter-man.png'
+overlay: '/images/hunspanderer/filter.png'
 steps: 
   index: 
     label: Last opp
@@ -19,12 +19,12 @@ steps:
   edit: 
     label: Rediger
     title: Rediger bildet
-    content: Posisjoner bildet ved å dra det rundt. Klyp (pinch) for å zoome.
+    content: Posisjoner bildet ved å dra det rundt. Klyp for å zoome.
     options: 
       continue: 
         label: Gå videre
       back: 
-        label: eller bytt bilde
+        label: Bytt bilde
   share:
     label: Del
     title: Del bildet med dine venner!
@@ -38,32 +38,32 @@ steps:
         done: Postet
       twitter:
         label: Twitter
-        title: Del på Twitter
+        title: Åpne Twitter
         icon: fa-twitter
-        instructions: Last opp det nedlastede bildet og lim inn kopiert tekst.
+        instructions: Last opp bilde du lagret og lim inn den kopierte teksten.
         url: 
           web: http://twitter.com 
           app: twitter://
       custom:
-        label: Andre apper
-        title: Del manuelt
-        instructions: Åpne appen, last opp det nedlastede bildet og lim inn kopiert tekst.
+        label: Instagram
+        title: Åpne Instagram
+        instructions: Lagre bilde til kamerarullen og lim inn den kopierte teksten.
     download: 
-      label: Last ned
-      title: Last ned bildet
-      instructions: Trykk på bildet for å lagre det til din enhet.
+      label: Lagre
+      title: Lagre bilde
+      instructions: Trykk på bildet for å lagre
       icon: fa-download
       fileName: HunSpanderer
     suggestion: 
       label: Forslag til tekst
       instructions: 
-        default: 'Lim inn teksten du kopierte i forrige steg, eller skriv egen. Husk #HunSpanderer'
-        copied: 'Lim inn teksten du kopierte i forrige steg.'
-        custom: 'Skriv inn din egen tekst. Husk #HunSpanderer!'
-      title: Kopier vårt forslag til tekst
-      alternative: eller skriv din egen
+        default: 'Lim inn teksten du kopierte eller skriv egen. Husk å bruke #HunSpanderer'
+        copied: 'Lim inn teksten du kopierte eller skriv egen. Husk å bruke #HunSpanderer'
+        custom: 'Lim inn teksten du kopierte eller skriv egen. Husk å bruke #HunSpanderer'
+      title: Kopier tekst
+      alternative: Del på Facebook
       continue: Gå videre
-      text: 'Jeg er med på praten om ubevisste kjønnsstereotypier - sammen endrer vi holdninger. Last opp og del ditt bilde du også på http://hunspandererfilter.no. #HunSpanderer'
+      text: 'Jeg er med på praten om ubevisste kjønnsstereotypier - sammen endrer vi holdninger. Last opp og del ditt bilde på http://hunspandererfilter.no. #HunSpanderer'
       icon: 'fa-clone'
 nav:
   internal:
@@ -87,7 +87,7 @@ privacy: '# Personvernmerknad
 
 # Om kampanjen
 
-22\. – 26. august tar jentene regningen – og gutta blir med og tar praten om de forskjellene som fortsatt finnes, men som ikke er så enkle å se. 
+22\. – 25. august tar jentene regningen – og gutta blir med og tar praten om de forskjellene som fortsatt finnes, men som ikke er så enkle å se. 
 
 Er du kjønnsnøytral? [Ta testen som avslører](http://tatesten.no/) fordommer du ikke vet at du har. 
 
