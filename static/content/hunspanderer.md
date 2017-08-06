@@ -31,6 +31,7 @@ steps:
     options: 
       facebook:
         label: Facebook
+        class: is-info
         title: Del på Facebook
         submit: Post til Facebook
         cancel: Avbryt
@@ -38,6 +39,7 @@ steps:
         done: Postet
       twitter:
         label: Twitter
+        class: is-default
         title: Åpne Twitter
         icon: fa-twitter
         instructions: Last opp bilde du lagret og lim inn den kopierte teksten.
@@ -45,7 +47,8 @@ steps:
           web: http://twitter.com 
           app: twitter://
       custom:
-        label: Instagram
+        label: Del på Instagram
+        class: is-default
         title: Åpne Instagram
         instructions: Lagre bilde til kamerarullen og lim inn den kopierte teksten.
     download: 

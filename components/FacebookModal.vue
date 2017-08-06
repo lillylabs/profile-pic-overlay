@@ -1,55 +1,52 @@
 <template>
-  <article class="media">
-    <figure class="media-left">
-      <p class="image is-square">
-        <img :src="image">
-      </p>
-    </figure>
-    <div class="media-content">
-      <div v-show="!status.entry && supported.clipboard">
-        <h3>{{ suggestion.label }}</h3>
-        <p>{{ suggestion.text }}</p>
-        <div class="actions">
-          <button ref="copyButton" @click="setStatus('entry')" class="button is-info" :data-clipboard-text="suggestion.text">
-            <span class="icon is-small">
-              <i :class="[ 'fa', suggestion.icon] "></i>
-            </span>
-            <span>&nbsp;{{ suggestion.title }}</span>
-          </button>
-          <button @click="setStatus('entry')" class="button is-small is-link" :data-clipboard-text="suggestion.text">
-            <span>{{ suggestion.alternative }}</span>
-          </button>
-        </div>
-      </div>
-      <div v-show="!status.entry && !supported.clipboard">
-        <h3>{{ suggestion.title }}</h3>
-        <p>{{ suggestion.text }}</p>
-        <div class="actions">
-          <button @click="setStatus('entry')" class="button is-info">
-            <span>{{ suggestion.continue }}</span>
-          </button>
-        </div>
-      </div>
-      <div v-show="status.entry">
-        <p>{{ this.instructions }}</p>
-        <textarea class="textarea" v-model="text" :disabled="status.sharing || status.shared"></textarea>
-        <div class="actions">
+  <div :class="['modal', isActive ? 'is-active': '']">
+    <div class="modal-background" @click="close"></div>
+    <div class="modal-content has-text-centered">
+      <h1 class="title">{{ option.label }}</h1>
+      <ol>
+        <li>
+          <p class="image is-128x128">
+            <img :src="image"></img>
+          </p>
+        </li>
+        <li>
+          <h2 v-show="supported.clipboard">
+            <button ref="copyButton" class="button is-small" :data-clipboard-text="suggestion.text">
+              <span class="icon is-small">
+                <i :class="[ 'fa', suggestion.icon] "></i>
+              </span>
+              <span>&nbsp;{{ suggestion.title }}</span>
+            </button>
+            <div v-show="status.copied" class="button is-small is-static">
+              <span class="icon is-small">
+                <i class="fa fa-check"></i>
+              </span>
+            </div>
+          </h2>
+          <h2 v-show="!supported.clipboard">
+            {{ suggestion.title }}
+          </h2>
+          <p class="text">{{ suggestion.text }}</p>
+        </li>
+        <li>
+          <hr/>
+          <p class="text">{{ suggestion.instruction }}</p>
+          <textarea class="textarea" v-model="text" :disabled="status.sharing || status.shared"></textarea>
           <button v-show="!status.shared" class="button is-info" @click="share" :class="{ 'is-loading': status.sharing, 'is-static': !facebook.initialized }">
             <span>{{ option.submit }}</span>
           </button>
-          <button v-show="!status.shared && !status.sharing" class="button is-small is-link" @click="reset">
-            <span>{{ option.cancel }}</span>
-          </button>
           <button v-show="status.shared" class="button is-static" @click="share">
+            <span>{{ option.done }}</span>
             <span class="icon is-small" v-show="status.shared">
               <i class="fa fa-check"></i>
             </span>
-            <span>{{ option.done }}</span>
           </button>
-        </div>
-      </div>
+        </li>
+      </ol>
+  
+      <button @click="close" class="modal-close is-large"></button>
     </div>
-  </article>
+  </div>
 </template>
 
 <script>
@@ -63,7 +60,8 @@ export default {
   props: [
     'option',
     'suggestion',
-    'image'
+    'image',
+    'isActive'
   ],
   data() {
     return {
@@ -94,6 +92,10 @@ export default {
       facebookResponse: 'facebook/response',
       facebookPermissions: 'facebook/permissions'
     }),
+    close() {
+      this.$emit('close');
+      this.status = {};
+    },
     uploadImage() {
       this.setStatus('sharing', true);
       Facebook.post(this.facebook.authResponse.accessToken, this.image, this.text)
@@ -149,29 +151,38 @@ export default {
 </script>
 
 <style scoped>
-@media screen and (max-width: 768px) {
-  .media {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-}
-
-.media-left {
-  flex-basis: 30%;
-}
-
 p {
   font-size: 0.8rem;
-  margin: 0.5rem;
-  max-width: 19rem;
+  margin: 0.5rem auto;
 }
 
-.image {
+ol {
+  list-style: none;
+}
+
+hr {
+  margin: 0 auto;
   margin-bottom: 1rem;
+  max-width: 4rem;
 }
 
-.actions {
-  margin-top: 1rem;
+li:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
+li:not(:last-child) p {
+  max-width: 19rem;
+  margin-bottom: 0.75rem;
+}
+
+.columns {
+  margin-bottom: 0;
+}
+
+textarea {
+  height: 100%;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 .block {
@@ -187,12 +198,6 @@ p {
 
 .field {
   position: relative;
-}
-
-textarea+button {
-  position: absolute;
-  right: 0;
-  bottom: 0;
 }
 </style>
 
