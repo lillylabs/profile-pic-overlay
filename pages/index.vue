@@ -111,6 +111,7 @@ export default {
       const that = this;
       EXIF.getData(file, function () {
         that.setOrientation(EXIF.getTag(this, 'Orientation'));
+        console.log('orientation', EXIF.getTag(this, 'Orientation'));
       });
 
       this.uploadFile(file);

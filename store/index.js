@@ -3,6 +3,8 @@ import Filter from '../services/image.service';
 // Switch on env variable
 const content = JSON.parse(require('../static/content/' + process.env.contentFile));
 
+const MAX_SIZE = 900;
+
 export const state = () => ({
   steps: {
     keys: ['index', 'edit', 'share'],
@@ -11,6 +13,7 @@ export const state = () => ({
   uploading: false,
   orientation: 1,
   image: null,
+  size: 900,
   filtering: false,
   filteredImage: null,
   overlay: content.attributes.overlay,
@@ -43,6 +46,9 @@ export const mutations = {
   setImage(state, image) {
     state.image = image;
   },
+  setSize(state, size) {
+    state.size = size;
+  },
   setFiltredImage(state, image) {
     state.filteredImage = image;
   },
@@ -52,11 +58,12 @@ export const mutations = {
 };
 
 export const actions = {
-  useImage({ commit }, image) {
+  useImage({ commit }, imageUrl) {
     commit('setImage', null);
     commit('startUpload');
-    Filter.grayscale(image).then(grayscale => {
-      commit('setImage', grayscale);
+    Filter.grayscaleAndSize(imageUrl).then(({ size, image }) => {
+      commit('setImage', image);
+      commit('setSize', Math.min(size, MAX_SIZE));
       commit('endUpload');
     });
   },

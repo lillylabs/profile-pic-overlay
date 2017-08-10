@@ -1,8 +1,3 @@
-const DIMENTIONS = {
-  HEIGHT: 900,
-  WIDTH: 900
-};
-
 function grayscalePixels(pixels) {
   var d = pixels.data;
   for (var i = 0; i < d.length; i += 4) {
@@ -34,14 +29,13 @@ function loadImage(src) {
 
 function overlay(orginalImage, overlayImage) {
   const canvas = document.createElement('canvas');
-  canvas.width = DIMENTIONS.WIDTH;
-  canvas.height = DIMENTIONS.HEIGHT;
-
   const context = canvas.getContext('2d');
 
   return new Promise(resolve => {
     loadImage(orginalImage)
       .then(image => {
+        canvas.width = image.width;
+        canvas.height = image.height;
         context.drawImage(image, 0, 0, canvas.width, canvas.height);
         loadImage(overlayImage).then(image => {
           context.drawImage(image, 0, 0, canvas.width, canvas.height);
@@ -51,7 +45,7 @@ function overlay(orginalImage, overlayImage) {
   });
 }
 
-function grayscale(src) {
+function grayscaleAndSize(src) {
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
 
@@ -64,7 +58,7 @@ function grayscale(src) {
         var coloredImage = context.getImageData(0, 0, canvas.width, canvas.height);
         var grayImage = grayscalePixels(coloredImage);
         context.putImageData(grayImage, 0, 0);
-        resolve(canvas.toDataURL('image/jpeg'));
+        resolve({ size: Math.min(image.width, image.height), image: canvas.toDataURL('image/jpeg') });
       });
   });
 }
@@ -79,4 +73,4 @@ function dataURItoBlob(dataURI) {
   return new Blob([ab], { type: 'image/jpeg' });
 }
 
-export default { overlay, grayscale, dataURItoBlob };
+export default { overlay, grayscaleAndSize, dataURItoBlob };

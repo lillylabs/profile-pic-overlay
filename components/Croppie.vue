@@ -9,10 +9,11 @@ if (process.BROWSER_BUILD) {
 }
 
 export default {
-  props: ['image', 'overlay', 'orientation'],
+  props: ['image', 'overlay', 'orientation', 'size'],
   methods: {
     getCroppedImage: function () {
-      return this.croppie.result('base64', { width: 900, height: 900 });
+      console.log(this.size);
+      return this.croppie.result('base64', { width: this.size, height: this.size });
     },
     updateImage: function () {
       this.croppie.bind({

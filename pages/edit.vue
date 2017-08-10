@@ -1,7 +1,7 @@
 <template>
   <div class="columns">
     <div class="column">
-      <croppie ref="croppie" v-if="image" :image="image" :overlay="overlay" :orientation="orientation"></croppie>
+      <croppie ref="croppie" v-if="image" :image="image" :overlay="overlay" :orientation="orientation" :size="size"></croppie>
     </div>
     <div class="column">
       <div>
@@ -41,6 +41,7 @@ export default {
     ...mapState({
       image: state => state.image,
       filteredImage: state => state.filteredImage,
+      size: state => state.size,
       title: state => state.content.steps.edit.title,
       orientation: state => state.orientation,
       overlay: state => state.content.overlay,
@@ -60,7 +61,6 @@ export default {
     ]),
     onContinue() {
       this.filtering = true;
-      this.startFiltering();
       this.$refs.croppie.getCroppedImage().then(base64 => {
         this.filterImage(base64);
       });
