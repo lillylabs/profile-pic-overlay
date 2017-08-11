@@ -27,18 +27,18 @@ function loadImage(src) {
   });
 }
 
-function overlay(orginalImage, overlayImage) {
+function overlay(imageUrl, overlayUrl) {
   const canvas = document.createElement('canvas');
   const context = canvas.getContext('2d');
 
   return new Promise(resolve => {
-    loadImage(orginalImage)
+    loadImage(imageUrl)
       .then(image => {
         canvas.width = image.width;
         canvas.height = image.height;
         context.drawImage(image, 0, 0, canvas.width, canvas.height);
-        loadImage(overlayImage).then(image => {
-          context.drawImage(image, 0, 0, canvas.width, canvas.height);
+        loadImage(overlayUrl).then(overlay => {
+          context.drawImage(overlay, 0, 0, canvas.width, canvas.height);
           resolve(canvas.toDataURL('image/jpeg'));
         });
       });
