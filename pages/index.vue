@@ -49,7 +49,7 @@ export default {
       title: state => state.content.steps.index.title,
       prompt: state => state.content.steps.index.prompt,
       avatars: state => state.content.avatars,
-      overlay: state => state.content.overlay,
+      overlay: state => state.content.overlay.lg,
       buttons: state => state.content.steps.index.buttons,
       facebook: state => state.facebook
     })

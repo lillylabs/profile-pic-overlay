@@ -44,7 +44,7 @@ export default {
       size: state => state.size,
       title: state => state.content.steps.edit.title,
       orientation: state => state.orientation,
-      overlay: state => state.content.overlay,
+      overlay: state => state.content.overlay.lg,
       options: state => state.content.steps.edit.options
     }),
     content: function () {

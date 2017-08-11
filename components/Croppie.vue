@@ -12,7 +12,7 @@ export default {
   props: ['image', 'overlay', 'orientation', 'size'],
   methods: {
     getCroppedImage: function () {
-      return this.croppie.result('base64', { width: this.size, height: this.size });
+      return this.croppie.result({ type: 'base64', size: { width: this.size, height: this.size } });
     },
     updateImage: function () {
       this.croppie.bind({
