@@ -3,6 +3,12 @@ import Filter from '../services/image.service';
 // Switch on env variable
 const content = JSON.parse(require('../static/content/' + process.env.contentFile));
 
+const SIZE = {
+  SM: 500,
+  MD: 750,
+  LG: 1000
+};
+
 export const state = () => ({
   steps: {
     keys: ['index', 'edit', 'share'],
@@ -11,9 +17,11 @@ export const state = () => ({
   uploading: false,
   orientation: 1,
   image: null,
+  croppedImage: null,
+  size: 900,
   filtering: false,
   filteredImage: null,
-  overlay: content.attributes.overlay,
+  overlay: null,
   error: [],
   content: { ...content.attributes, about: content.body }
 });
@@ -43,6 +51,21 @@ export const mutations = {
   setImage(state, image) {
     state.image = image;
   },
+  setCroppedImage(state, image) {
+    state.croppedImage = image;
+  },
+  setSize(state, size) {
+    if (size < SIZE.MD) {
+      state.size = SIZE.SM;
+      state.overlay = state.content.overlay.sm;
+    } else if (size < SIZE.LG) {
+      state.size = SIZE.MD;
+      state.overlay = state.content.overlay.md;
+    } else {
+      state.size = SIZE.LG;
+      state.overlay = state.content.overlay.lg;
+    }
+  },
   setFiltredImage(state, image) {
     state.filteredImage = image;
   },
@@ -52,11 +75,12 @@ export const mutations = {
 };
 
 export const actions = {
-  useImage({ commit }, image) {
+  useImage({ commit }, imageUrl) {
     commit('setImage', null);
     commit('startUpload');
-    Filter.grayscale(image).then(grayscale => {
-      commit('setImage', grayscale);
+    Filter.grayscaleAndSize(imageUrl).then(({ size, image }) => {
+      commit('setImage', image);
+      commit('setSize', size);
       commit('endUpload');
     });
   },

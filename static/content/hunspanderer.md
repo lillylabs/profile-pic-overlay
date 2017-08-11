@@ -4,7 +4,10 @@ title:
   image: '/images/hunspanderer/logo.png'
 avatars: 
   - '/images/man.jpg'
-overlay: '/images/hunspanderer/filter.png'
+overlay: 
+  sm: '/images/hunspanderer/filter-500.png'
+  md: '/images/hunspanderer/filter-750.png'
+  lg: '/images/hunspanderer/filter-1000.png'
 steps: 
   index: 
     label: Last opp

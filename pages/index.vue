@@ -49,7 +49,7 @@ export default {
       title: state => state.content.steps.index.title,
       prompt: state => state.content.steps.index.prompt,
       avatars: state => state.content.avatars,
-      overlay: state => state.content.overlay,
+      overlay: state => state.content.overlay.lg,
       buttons: state => state.content.steps.index.buttons,
       facebook: state => state.facebook
     })
@@ -111,6 +111,7 @@ export default {
       const that = this;
       EXIF.getData(file, function () {
         that.setOrientation(EXIF.getTag(this, 'Orientation'));
+        console.log('orientation', EXIF.getTag(this, 'Orientation'));
       });
 
       this.uploadFile(file);
