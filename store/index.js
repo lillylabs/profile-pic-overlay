@@ -18,7 +18,7 @@ export const state = () => ({
   orientation: 1,
   image: null,
   croppedImage: null,
-  size: 900,
+  size: SIZE.LG,
   filtering: false,
   filteredImage: null,
   overlay: null,
