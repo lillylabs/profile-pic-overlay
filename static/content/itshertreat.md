@@ -4,7 +4,10 @@ title:
   image: '/images/itshertreat/logo.png'
 avatars: 
   - '/images/man.jpg'
-overlay: '/images/itshertreat/filter.png'
+overlay: 
+  sm: '/images/itshertreat/filter-500.png'
+  md: '/images/itshertreat/filter-750.png'
+  lg: '/images/itshertreat/filter-1000.png'
 steps: 
   index: 
     label: Upload
