@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    contentFile: process.env.CONTENT_FILE || 'hunspanderer.md',
+    contentFile: process.env.CONTENT_FILE || 'itshertreat.md',
     facebookAppId: process.env.FACEBOOK_APP_ID || '104733703535495'
   },
   /*
