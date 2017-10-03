@@ -10,7 +10,7 @@
 export default {
   props: ['image', 'overlay'],
   mounted() {
-    console.log('Overlay', this.overlay);
+
   }
 };
 

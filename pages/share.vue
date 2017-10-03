@@ -76,7 +76,6 @@ export default {
       this.$set(this.modal, key, true);
     },
     closeModal(key) {
-      console.log('closeModal', key);
       this.$set(this.modal, key, false);
     },
     downloadImage() {

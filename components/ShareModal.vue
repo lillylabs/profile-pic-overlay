@@ -106,7 +106,7 @@ export default {
       this.status = {};
     },
     downloadImage(error) {
-      console.log(error);
+      console.error('Download', error);
       Download(this.image, this.save.fileName + '.jpeg', 'image/jpeg');
       this.setStatus('downloaded');
     },
