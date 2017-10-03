@@ -3,6 +3,8 @@
 export default ({ app: { router } }) => {
 
   console.log(process.env.NODE_ENV);
+  console.log(process.env.TITLE);
+  console.log(process.env.GA_CODE);
 
   if (process.env.NODE_ENV !== 'production') {
     return;
