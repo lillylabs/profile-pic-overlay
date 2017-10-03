@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import NavItem from '~components/NavItem.vue';
+import NavItem from '~/components/NavItem.vue';
 
 export default {
   components: {

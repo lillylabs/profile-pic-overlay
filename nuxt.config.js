@@ -22,7 +22,7 @@ module.exports = {
     link: [
       { rel: 'apple-touch-icon-precomposed', sizes: '152x152', href: '/apple-icon-152x152.png' },
       { rel: 'icon', sizes: '32x32', href: '/favicon-32x32.png' },
-      { rel: 'icon', sizes: '16x16', href: '/favicon-16x16.png' },
+      { rel: 'icon', sizes: '16x16', href: '/favicon-16x16.png' }
     ]
   },
   /*
@@ -37,7 +37,7 @@ module.exports = {
     { src: 'assets/main.css' },
     // node.js module but we specify the pre-processor
     { src: 'bulma/bulma.sass', lang: 'sass' },
-    { src: 'font-awesome/scss/font-awesome.scss', lang: 'sass' },
+    { src: 'font-awesome/scss/font-awesome.scss', lang: 'sass' }
   ],
   plugins: [
     { src: '~plugins/modernizr.js', ssr: false },
@@ -62,38 +62,6 @@ module.exports = {
       'downloadjs',
       'axios'
     ],
-    loaders: [
-      {
-        test: /\.(png|jpe?g|gif|svg)$/,
-        loader: 'url-loader',
-        query: {
-          limit: 1000, // 1KO
-          name: 'img/[name].[hash:7].[ext]'
-        }
-      },
-      {
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: 'url-loader',
-        query: {
-          limit: 1000, // 1 KO
-          name: 'fonts/[name].[hash:7].[ext]'
-        }
-      },
-      {
-        test: /\.md$/,
-        loader: 'raw-loader',
-        query: {
-
-        }
-      },
-      {
-        test: /\.md$/,
-        loader: 'front-matter-loader',
-        query: {
-
-        }
-      }
-    ],
     /*
     ** Run ESLINT on save
     */
@@ -104,8 +72,13 @@ module.exports = {
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
           exclude: /(node_modules)/
-        })
+        });
       }
+
+      config.module.rules.push({
+        test: /\.md$/,
+        loaders: ['raw-loader', 'front-matter-loader']
+      });
     }
   }
-}
+};
