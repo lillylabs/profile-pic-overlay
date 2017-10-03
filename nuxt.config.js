@@ -1,7 +1,9 @@
 module.exports = {
   env: {
     contentFile: process.env.CONTENT_FILE || 'itshertreat.md',
-    facebookAppId: process.env.FACEBOOK_APP_ID || '104733703535495'
+    facebookAppId: process.env.FACEBOOK_APP_ID || '104733703535495',
+    gaCode: process.env.GA_CODE || 'gaCode',
+    test: process.env.FACEBOOK_APP_ID || 'test'
   },
   /*
   ** Headers of the page
