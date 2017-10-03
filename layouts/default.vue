@@ -65,6 +65,10 @@ export default {
   z-index: 1000;
 }
 
+.navbar-brand {
+  width: 100%;
+}
+
 .footer {
   position: fixed;
   bottom: 0;
