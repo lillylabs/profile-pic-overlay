@@ -4,9 +4,6 @@
 </template>
 
 <script>
-if (process.BROWSER_BUILD) {
-  var Croppie = require('croppie');
-}
 
 export default {
   props: ['image', 'overlay', 'orientation', 'size'],
@@ -25,6 +22,7 @@ export default {
     }
   },
   mounted() {
+    var Croppie = require('croppie');
     var el = this.$el;
     this.croppie = new Croppie(el, {
       enableOrientation: true,

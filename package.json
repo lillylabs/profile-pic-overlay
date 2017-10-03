@@ -3,17 +3,17 @@
   "version": "1.0.0",
   "description": "Lets user add an overlay to a photo",
   "author": "Benedicte Raae <raae@bgraphic.no>",
-  "private": true,
+  "private": false,
   "dependencies": {
     "axios": "^0.16.2",
     "bulma": "^0.4.3",
     "clipboard": "^1.7.1",
-    "croppie": "^2.4.1",
+    "croppie": "^2.5.0",
     "downloadjs": "^1.4.7",
-    "exif-js": "^2.2.1",
+    "exif-js": "^2.3.0",
     "font-awesome": "^4.7.0",
     "marked": "^0.3.6",
-    "nuxt": "latest"
+    "nuxt": "^1.0.0-rc11"
   },
   "scripts": {
     "dev": "nuxt",
@@ -36,6 +36,7 @@
     "imports-loader": "^0.7.1",
     "node-sass": "^4.5.3",
     "raw-loader": "^0.5.1",
-    "sass-loader": "^6.0.6"
+    "sass-loader": "^6.0.6",
+    "webpack": "^3.6.0"
   }
 }

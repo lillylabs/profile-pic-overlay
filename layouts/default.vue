@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import NavItem from '~components/NavItem.vue';
+import NavItem from '~/components/NavItem.vue';
 
 export default {
   components: {
@@ -63,6 +63,10 @@ export default {
   padding: 0.5rem 0;
   height: auto;
   z-index: 1000;
+}
+
+.navbar-brand {
+  width: 100%;
 }
 
 .footer {

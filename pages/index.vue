@@ -31,7 +31,7 @@
 <script>
 
 import { mapState, mapActions, mapMutations } from 'vuex';
-import Photo from '~components/Photo.vue';
+import Photo from '~/components/Photo.vue';
 import Facebook from '../services/facebook.service';
 
 export default {

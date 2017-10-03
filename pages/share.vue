@@ -36,9 +36,9 @@
 
 import { mapState, mapMutations } from 'vuex';
 
-import Photo from '~components/Photo.vue';
-import FacebookModal from '~components/FacebookModal.vue';
-import ShareModal from '~components/ShareModal.vue';
+import Photo from '~/components/Photo.vue';
+import FacebookModal from '~/components/FacebookModal.vue';
+import ShareModal from '~/components/ShareModal.vue';
 
 const Download = require('downloadjs');
 

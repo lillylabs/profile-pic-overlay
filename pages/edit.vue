@@ -1,8 +1,8 @@
 <template>
   <div class="columns">
-    <div class="column">
+    <no-ssr class="column">
       <croppie ref="croppie" v-if="image" :image="image" :overlay="overlay" :orientation="orientation" :size="size"></croppie>
-    </div>
+    </no-ssr>
     <div class="column">
       <div>
         <h2 class="title">{{ title}}</h2>
@@ -24,7 +24,7 @@
 
 var marked = require('marked');
 import { mapState, mapMutations, mapActions } from 'vuex';
-import Croppie from '~components/Croppie.vue';
+import Croppie from '~/components/Croppie.vue';
 
 // const Download = require('downloadjs');
 
