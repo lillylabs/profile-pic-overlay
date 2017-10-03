@@ -57,7 +57,7 @@ function permissions(authResponse) {
       return response.data.data;
     })
     .catch(error => {
-      console.log(error);
+      console.error('Facebook persmission', error);
       return [];
     });
 }

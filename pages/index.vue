@@ -74,7 +74,7 @@ export default {
         })
         .catch(error => {
           this.uploading = false;
-          console.log(error);
+          console.error('Facebook profile pic', error);
         });
     },
     useProfilePic() {
@@ -88,7 +88,7 @@ export default {
             this.getProfilePic();
           })
           .catch(error => {
-            console.log(error);
+            console.error('Facebook login', error);
           });
       }
     },
@@ -111,7 +111,6 @@ export default {
       const that = this;
       EXIF.getData(file, function () {
         that.setOrientation(EXIF.getTag(this, 'Orientation'));
-        console.log('orientation', EXIF.getTag(this, 'Orientation'));
       });
 
       this.uploadFile(file);

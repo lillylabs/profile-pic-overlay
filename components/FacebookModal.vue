@@ -43,7 +43,7 @@
           </button>
         </li>
       </ol>
-  
+
       <button @click="close" class="modal-close is-large"></button>
     </div>
   </div>
@@ -105,7 +105,7 @@ export default {
         })
         .catch(error => {
           this.setStatus('sharing', false);
-          console.log(error);
+          console.error('Facebook post', error);
         });
     },
     share() {
@@ -119,7 +119,7 @@ export default {
             this.uploadImage();
           })
           .catch(error => {
-            console.log(error);
+            console.error('Facebook login', error);
           });
       };
     },
@@ -131,7 +131,6 @@ export default {
       this.$set(this.status, key, status);
     },
     initClipboard() {
-      console.log('clipboard', this.$refs.copyButton);
       this.clipboard = new Clipboard(this.$refs.copyButton);
       this.clipboard.on('success', e => {
         this.setStatus('copied');
