@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Lets user add an overlay to a photo",
   "author": "Benedicte Raae <raae@bgraphic.no>",
-  "private": true,
+  "private": false,
   "dependencies": {
     "axios": "^0.16.2",
     "bulma": "^0.5.3",
