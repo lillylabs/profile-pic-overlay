@@ -4,7 +4,7 @@ export default ({ app: { router } }) => {
 
   console.log(process.env.NODE_ENV);
   console.log(process.env.TITLE);
-  console.log(process.env.GA_CODE);
+  console.log(process.env.gaCode);
 
   if (process.env.NODE_ENV !== 'production') {
     return;
