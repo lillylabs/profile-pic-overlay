@@ -2,15 +2,11 @@
 
 export default ({ app: { router } }) => {
 
-  console.log(process.env.NODE_ENV);
-  console.log(process.env.TITLE);
-  console.log(process.env.gaCode);
-
   if (process.env.NODE_ENV !== 'production') {
     return;
   }
 
-  console.log('Init GA', process.env.GA_CODE);
+  console.log('Init GA', process.env.gaCode);
 
   (function (i, s, o, g, r, a, m) {
     i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
@@ -26,5 +22,5 @@ export default ({ app: { router } }) => {
   });
 
   // Set the current page
-  ga('create', process.env.GA_CODE, 'auto');
+  ga('create', process.env.gaCode, 'auto');
 }
