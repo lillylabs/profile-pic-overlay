@@ -6,7 +6,7 @@
   "private": false,
   "dependencies": {
     "axios": "^0.16.2",
-    "bulma": "^0.5.3",
+    "bulma": "^0.4.3",
     "clipboard": "^1.7.1",
     "croppie": "^2.5.0",
     "downloadjs": "^1.4.7",
