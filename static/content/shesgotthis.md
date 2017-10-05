@@ -91,4 +91,4 @@ privacy: '**ShesGotThis**-filter-app only sends back usage statistics through Go
 **She's Got This** - and he joins the conversation about the subtle discrimination that still exist, but is hard to identify
 Are you gender biased? [Take the test](https://implicit.harvard.edu/implicit/user/agg/blindspot/indexgc.htm) and find out.
 
-Read more at [shesgotthis.com](http://www.shesgotthis.com)
+Read more at [shesgotthis.com](http://www.shesgotthis.co)
