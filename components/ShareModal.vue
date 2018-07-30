@@ -18,7 +18,7 @@
               </span>
             </div>
             <p class="image is-128x128">
-              <img :src="image"></img>
+              <img :src="image" />
             </p>
           </h2>
         </li>
@@ -28,7 +28,7 @@
           </h2>
           <p>{{ save.instructions }}</p>
           <p class="image is-128x128">
-            <img :src="image"></img>
+            <img :src="image" />
           </p>
         </li>
         <li>
@@ -82,13 +82,7 @@ const Clipboard = require('clipboard');
 const Download = require('downloadjs');
 
 export default {
-  props: [
-    'option',
-    'image',
-    'save',
-    'suggestion',
-    'isActive'
-  ],
+  props: ['option', 'image', 'save', 'suggestion', 'isActive'],
   data() {
     return {
       status: {},

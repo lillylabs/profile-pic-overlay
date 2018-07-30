@@ -12,7 +12,7 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
-    'space-before-function-paren': ['error', { "anonymous": "always", "named": "never", "asyncArrow": "always" }],
+    "space-before-function-paren": 0,
     'semi': ['error', 'always']
   },
   globals: {}

@@ -25,8 +25,7 @@
       </div>
     </div>
     <div v-for="(option, key) in options" :key="key">
-      <facebook-modal v-if="key === 'facebook'" :image="image" :suggestion="suggestion" :option="option" :isActive="modal[key]" @close="closeModal(key)"></facebook-modal>
-      <share-modal v-else :image="image" :suggestion="suggestion" :option="option" :save="download" :isActive="modal[key]" @close="closeModal(key)"></share-modal>
+      <share-modal :image="image" :suggestion="suggestion" :option="option" :save="download" :isActive="modal[key]" @close="closeModal(key)"></share-modal>
     </div>
   </div>
 </template>
@@ -37,7 +36,6 @@
 import { mapState, mapMutations } from 'vuex';
 
 import Photo from '~/components/Photo.vue';
-import FacebookModal from '~/components/FacebookModal.vue';
 import ShareModal from '~/components/ShareModal.vue';
 
 const Download = require('downloadjs');
@@ -45,7 +43,6 @@ const Download = require('downloadjs');
 export default {
   components: {
     Photo,
-    FacebookModal,
     ShareModal
   },
   data() {
@@ -61,14 +58,11 @@ export default {
       title: state => state.content.steps.share.title,
       options: state => state.content.steps.share.options,
       suggestion: state => state.content.steps.share.suggestion,
-      download: state => state.content.steps.share.download,
-      facebook: state => state.facebook
+      download: state => state.content.steps.share.download
     })
   },
   methods: {
-    ...mapMutations([
-      'setSelectedStep'
-    ]),
+    ...mapMutations(['setSelectedStep']),
     setStatus(key, status = true) {
       this.$set(this.status, key, status);
     },
@@ -79,7 +73,11 @@ export default {
       this.$set(this.modal, key, false);
     },
     downloadImage() {
-      const status = Download(this.image, this.download.fileName + '.jpeg', 'image/jpeg');
+      const status = Download(
+        this.image,
+        this.download.fileName + '.jpeg',
+        'image/jpeg'
+      );
       this.setStatus('downloaded', status);
     }
   },
@@ -100,7 +98,7 @@ export default {
 </script>
 
 <style scoped>
-.actions .button+.button {
+.actions .button + .button {
   margin-top: 0.5rem;
 }
 
@@ -108,11 +106,11 @@ export default {
   margin-right: 0.25rem !important;
 }
 
-.image+.button {
+.image + .button {
   margin-top: 0.5rem;
 }
 
-.image+p {
+.image + p {
   font-size: 0.8rem;
   padding: 0.5rem;
   text-align: center;
