@@ -36,24 +36,25 @@ steps:
         label: Facebook
         class: is-info
         icon: fa-facebook-square
-        title: Share on Facebook
-        submit: Post to Facebook
-        cancel: Cancel
-        done: Posted
+        title: Open Facebook
+        instructions: Upload the saved photo and paste in the suggested text.
+        url:
+          web: http://facebook.com/profile
+          app: fb://profile
       twitter:
         label: Twitter
         class: is-default
         icon: fa-twitter
         title: Open Twitter
-        instructions: Then select the saved photo and paste in the suggested text.
+        instructions: Upload the saved photo and paste in the suggested text.
         url:
           web: http://twitter.com
-          app: twitter://post?message=hello%20world
+          app: twitter://
       custom:
         label: Instagram
         icon: fa-instagram
         title: Open Instagram
-        instructions: Then select the saved photo and paste in the suggested text.
+        instructions: Upload the saved photo and paste in the suggested text.
     download:
       label: Save
       title: Save photo
