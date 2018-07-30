@@ -64,8 +64,9 @@ function permissions(authResponse) {
 
 function getProfilePicture() {
   return new Promise((resolve, reject) => {
-    FB.api('me/picture', 'get', { type: 'large' }, (response) => {
+    FB.api('me/picture', 'get', { type: 'large', redirect: 0 }, (response) => {
       if (!response || response.error) {
+        console.log('Profile picture error', response);
         reject(new Error('Profile picture error'));
       } else {
         resolve(response.data.url);
