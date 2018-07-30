@@ -55,7 +55,7 @@ steps:
         class: is-default
         icon: fa-instagram
         title: Åpne Instagram
-        instructions: Lagre bilde til kamerarullen og lim inn den kopierte teksten.
+        instructions: Last opp bilde du lagret og lim inn den kopierte teksten.
     download:
       label: Lagre
       title: Lagre bilde
