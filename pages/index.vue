@@ -29,7 +29,6 @@
 </template>
 
 <script>
-
 import { mapState, mapActions, mapMutations } from 'vuex';
 import Photo from '~/components/Photo.vue';
 import Facebook from '../services/facebook.service';
@@ -55,16 +54,12 @@ export default {
     })
   },
   methods: {
-    ...mapActions([
-      'uploadFile',
-      'useImage'
-    ]),
+    ...mapActions(['uploadFile', 'useImage']),
     ...mapMutations({
       addError: 'addError',
       setOrientation: 'setOrientation',
       setSelectedStep: 'setSelectedStep',
-      facebookResponse: 'facebook/response',
-      facebookPermissions: 'facebook/permissions'
+      facebookResponse: 'facebook/response'
     }),
     getProfilePic() {
       this.uploading = true;
@@ -84,7 +79,6 @@ export default {
         Facebook.login()
           .then(result => {
             this.facebookResponse(result.response);
-            this.facebookPermissions(result.permissions);
             this.getProfilePic();
           })
           .catch(error => {
@@ -92,7 +86,7 @@ export default {
           });
       }
     },
-    filesChange: function (files) {
+    filesChange: function(files) {
       this.uploading = true;
       // handle file changes
       var file = files ? files[0] : null;
@@ -109,7 +103,7 @@ export default {
 
       const EXIF = require('exif-js');
       const that = this;
-      EXIF.getData(file, function () {
+      EXIF.getData(file, function() {
         that.setOrientation(EXIF.getTag(this, 'Orientation'));
       });
 
